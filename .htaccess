@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^$ public/paginas/ [L]
+    RewriteRule ^(firebase-messaging-sw\.js|otras_carpetas/necesarias/|otro_archivo.js)$ - [L]
+    RewriteRule (.*) public/paginas/$1 [L]
+</IfModule>

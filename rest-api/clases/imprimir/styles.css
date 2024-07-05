@@ -1,0 +1,42 @@
+
+
+table {                   
+ border-collapse: separate;
+ border-spacing: 0; 
+ border: 0px solid black;        
+ padding: 0px;
+ width: 100%;
+}
+    
+td {
+    font-family  : "Trebuchet MS", Arial, Verdana;
+    font-size    : 10px;
+    border       : solid black 1px;
+}    
+th {
+    font-family: "Trebuchet MS", Arial, Verdana;
+    font-size: 10px;
+    background-color: rgb(117, 117, 115);
+    border: none;
+}
+p {
+    color: black;
+    font-size: 9px;
+  }
+.parrafo_min {
+    font-family: "Trebuchet MS", Arial, Verdana;
+    font-size: 7px;
+  }
+
+  .parrafo_min_2 {
+    font-family: "Trebuchet MS", Arial, Verdana;
+    font-size: 5px;
+  }
+
+.round_table {                   
+    border-collapse: separate;
+    border-spacing: 0;
+    border: solid 1px rgb(107, 108, 109);
+    border-radius: 15px;
+    padding: 0px;
+}

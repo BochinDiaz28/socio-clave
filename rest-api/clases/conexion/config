@@ -1,0 +1,11 @@
+{
+    "conexion":{
+        "server"   : "185.28.21.60",
+        "user"     : "u250533375_gestor",
+        "password" : "31817361Ma+",
+        "database" : "u250533375_gestor",
+        "port"     : "3306",
+        "charset"  :"utf8mb4",
+        "time_zone":"America/Argentina/Buenos_Aires"
+    }
+}

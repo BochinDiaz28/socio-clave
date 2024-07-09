@@ -82,6 +82,7 @@
                 { "title": "Sucursal" },
                 { "title": "Agente" },
                 { "title": "Fecha" },
+                { "title": "Check-in" },
             ],
             columnDefs: [
                 {

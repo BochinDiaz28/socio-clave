@@ -442,7 +442,8 @@
     function FinalizarTareas(tareaID) {
         var userID    = <?php echo $userID; ?>;
         var empresaID = <?php echo $empresaID; ?>;
-        var agenteID  = $('#clienteID').val(); 
+        var agenteID  = $('#clienteID').val();
+        var exito     = 1; 
         var Accion    = 'Finalizar';  
         var rtaAccion = 'Finalizada!'; 
         var metodo    = 'PUT';
@@ -480,7 +481,8 @@
                     estado     : 4,
                     Archivo    : base64Image,
                     original   : original,
-                    comentario : comentario
+                    comentario : comentario,
+                    exito      : exito
                 } 
                 fetch(apiUrl,{ 
                     method : metodo,  

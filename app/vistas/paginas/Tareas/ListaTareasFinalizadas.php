@@ -134,6 +134,9 @@
                 { "title": "Sucursal" },
                 { "title": "Agente" },
                 { "title": "Fecha" },
+                { "title": "Check-in" },
+                { "title": "Check-out" },
+                { "title": "Confirmada" },
                 { "title": "Acciones" },
             ],
             columnDefs: [
@@ -143,12 +146,12 @@
                     "searchable": false
                 },
                 {
-                    targets: [ 6 ] ,
+                    targets: [ 9 ] ,
                     searchable: true,
                     orderable: false,
                     render: function(data, type, full, meta){
                         if(type === 'display'){
-                            data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Ver Resultados" type="button" onClick="FormFinal(' + data + ')"><span class="sr-only">Ver Resultados</span><i class="fa fa-eye"></i></button>';      
+                            data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Ver Resultados" type="button" onClick="FormFinal(' + data + ')"><span class="sr-only">Ver Resultados</span><i class="fa fa-eye"></i></button><button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Confirmar Cierre" type="button" onClick="confirmarCierre(' + data + ')"><span class="sr-only">Confirmar Cierre</span><i class="fa fa-check"></i></button>';      
                         }
                         return data;
                     }
@@ -257,6 +260,10 @@
 
     function CloseModalHab() {
         $('#modalHab').modal('hide');
+    }
+
+    function confirmarCierre(tareaID) {
+        alert(tareaID)
     }
 
 </script>

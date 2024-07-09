@@ -80,6 +80,7 @@
                 { "title": "Sucursal" },
                 { "title": "Agente" },
                 { "title": "Fecha" },
+                { "title": "Check-in" },
                 { "title": "Acciones" },
             ],
             columnDefs: [
@@ -89,7 +90,7 @@
                     "searchable": false
                 },
                 {
-                    targets: [ 6 ] ,
+                    targets: [ 7 ] ,
                     searchable: true,
                     orderable: false,
                     render: function(data, type, full, meta){

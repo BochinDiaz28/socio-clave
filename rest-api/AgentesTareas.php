@@ -186,8 +186,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 
             }
         }elseif($estadoT==4){
-            
-            $query2 = "UPDATE tareas SET estado='$estadoT', idagente='$agenteID' WHERE id=$tareaID"; 
+            $exito  = htmlspecialchars($datos['exito']);
+            $query2 = "UPDATE tareas SET estado='$estadoT', idagente='$agenteID', cerradaAgente='$exito' WHERE id=$tareaID"; 
             $resp2  = metodoPUT($query2);       
             #|-> MARCO CHECKOUT
             $queryCO = "UPDATE tareas SET checkout='$fecha' WHERE id=$tareaID"; 

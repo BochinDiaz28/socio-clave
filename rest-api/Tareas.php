@@ -204,6 +204,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $codigo = $resp[0]['cod_local'];
         $query  = "UPDATE tareas SET idreail='$Sucursal', tarea='$Nombre', sucursal='$codigo', ubicacion='$Direccion', lat='0', lon='0', nota='$Nota', fecha_sol='$Solicitud', hora_inicio='$HIngreso', hora_final='$HSalida', estado='$Estado' WHERE id=$tareaID"; 
         $resp   = metodoPUT($query);
+
         #|->ENVIO NOTIFICACION SI EL ESTADO ES 1 PARA EL CLIENTE
         /*
         if($Estado==1){

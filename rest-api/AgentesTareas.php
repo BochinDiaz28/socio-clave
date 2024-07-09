@@ -132,9 +132,13 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
             }
         }elseif($estadoT==3){
             
-            $query2     = "UPDATE tareas SET estado='$estadoT', idagente='$agenteID' WHERE id=$tareaID"; 
-            $resp2      = metodoPUT($query2);
+            $query2 = "UPDATE tareas SET estado='$estadoT', idagente='$agenteID' WHERE id=$tareaID"; 
+            $resp2  = metodoPUT($query2);
 
+            #|-> MARCO CHECKIN
+            $queryCI = "UPDATE tareas SET checkin='$fecha' WHERE id=$tareaID"; 
+            $respCI  = metodoPUT($queryCI);
+            #|-> Proceso imagen
             if (isBase64Image($base64Image)) {
                 $slug = str_replace(
                     array('Á', 'À', 'Â', 'Ä', 'á', 'à', 'ä', 'â', 'ª','É', 'È', 'Ê', 'Ë', 'é', 'è', 'ë', 'ê','Í', 'Ì', 'Ï', 'Î', 'í', 'ì', 'ï', 'î','Ó', 'Ò', 'Ö', 'Ô', 'ó', 'ò', 'ö', 'ô','Ú', 'Ù', 'Û', 'Ü', 'ú', 'ù', 'ü', 'û','Ñ', 'ñ', 'Ç', 'ç'),
@@ -183,9 +187,12 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
             }
         }elseif($estadoT==4){
             
-            $query2     = "UPDATE tareas SET estado='$estadoT', idagente='$agenteID' WHERE id=$tareaID"; 
-            $resp2      = metodoPUT($query2); 
- 
+            $query2 = "UPDATE tareas SET estado='$estadoT', idagente='$agenteID' WHERE id=$tareaID"; 
+            $resp2  = metodoPUT($query2);       
+            #|-> MARCO CHECKOUT
+            $queryCO = "UPDATE tareas SET checkout='$fecha' WHERE id=$tareaID"; 
+            $respCO  = metodoPUT($queryCO);
+            #|-> Proceso imagen
             if (isBase64Image($base64Image)) {
                 $slug = str_replace(
                     array('Á', 'À', 'Â', 'Ä', 'á', 'à', 'ä', 'â', 'ª','É', 'È', 'Ê', 'Ë', 'é', 'è', 'ë', 'ê','Í', 'Ì', 'Ï', 'Î', 'í', 'ì', 'ï', 'î','Ó', 'Ò', 'Ö', 'Ô', 'ó', 'ò', 'ö', 'ô','Ú', 'Ù', 'Û', 'Ü', 'ú', 'ù', 'ü', 'û','Ñ', 'ñ', 'Ç', 'ç'),

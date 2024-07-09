@@ -113,7 +113,7 @@
             ],
             columnDefs: [
                 {
-                    "targets"   : [ 0, 5 ],
+                    "targets"   : [ 0, 3, 5 ],
                     "visible"   : false,
                     "searchable": false
                 },

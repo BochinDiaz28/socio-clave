@@ -99,12 +99,13 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $query  = "SELECT * FROM retail WHERE id=$Sucursal";
         $resp   = metodoGET($query);
         $codigo = $resp[0]['cod_local'];
-       //`idempresa`, `idcliente`, `idreail`, `tarea`, `sucursal`, `ubicacion`, `lat`, `lon`, `nota`, `fecha_alta`, `fecha_sol`, `hora_inicio`, `hora_final`, `estado`, `idagente` FROM ``
+       
         $query2      = "INSERT INTO tareas (`idempresa`, `idcliente`, `idreail`, `tarea`, `sucursal`, `ubicacion`, `lat`, `lon`, `nota`, `fecha_alta`, `fecha_sol`, `hora_inicio`, `hora_final`, `estado`) 
                                VALUES ('$empresaID','$Cliente','$Sucursal','$Nombre','$codigo','$Direccion','0','0','$Nota', '$fecha', '$Solicitud', '$HIngreso', '$HSalida', '$Estado')"; 
         $resp2       = metodoPOST($query2);
 
         #|->ENVIO NOTIFICACION SI EL ESTADO ES 0 PARA EL ADMIN
+        /*
         if($Estado==0){
             require_once 'Notif/SendNotificacion.php';
             $message = "Tarea solicitada por cliente!";
@@ -131,8 +132,9 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
             }
         
         }
-
+        */
         #|->ENVIO NOTIFICACION SI EL ESTADO ES 1 PARA EL CLIENTE
+        /*
         if($Estado==1){
             require_once 'Notif/SendNotificacion.php';
             #|->DATOS A ENVIAR JSON (SON PARA EL ALTA NO AFECTARIAN EN EL ENVIO DE PUSH)
@@ -171,6 +173,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 
             }
         }
+        */
                    
     } 
     header('Content-Type: application/json');
@@ -202,6 +205,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $query  = "UPDATE tareas SET idreail='$Sucursal', tarea='$Nombre', sucursal='$codigo', ubicacion='$Direccion', lat='0', lon='0', nota='$Nota', fecha_sol='$Solicitud', hora_inicio='$HIngreso', hora_final='$HSalida', estado='$Estado' WHERE id=$tareaID"; 
         $resp   = metodoPUT($query);
         #|->ENVIO NOTIFICACION SI EL ESTADO ES 1 PARA EL CLIENTE
+        /*
         if($Estado==1){
             require_once 'Notif/SendNotificacion.php';           
             #|->DATOS A ENVIAR JSON (SON PARA EL ALTA NO AFECTARIAN EN EL ENVIO DE PUSH)
@@ -264,6 +268,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 
             }
         }
+            */
     } 
     header('Content-Type: application/json');
     echo json_encode($resp);

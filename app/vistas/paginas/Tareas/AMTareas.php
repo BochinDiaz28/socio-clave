@@ -70,7 +70,7 @@
                     <input type="date" class="form-control form-control-sm" id="fechaCheckin" 
                            value="<?php echo $fecha1;?>">
                 </div>
-                <!--HORAS INICIO FIN SOLO DOUOC
+             
                 <div class="col-md-4">                    
                     <label for="horaIngreso" class="form-label">Hora Inicio</label>
                     <input type="time" class="form-control form-control-sm" id="horaIngreso" 
@@ -81,9 +81,9 @@
                     <input type="time" class="form-control form-control-sm" id="horaSalida" 
                         value="">
                 </div>
-                -->
+             
             </div>
-            <!--DESCRIPCION SOLO DUOC
+           
             <br>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="descripcion">Descripción</label>
@@ -91,7 +91,7 @@
                     <textarea class="tinymce d-none" id="descripcion" data-id="descripcion"></textarea>
                 </div>
             </div>
-            -->
+          
             <hr>
             <div class="form-group text-center">
                 <?php  if ($tareaID > 0){?> 
@@ -210,9 +210,9 @@
         var clientes     = document.querySelector('#clientes').value;
         var sucursal     = document.querySelector('#sucursal').value;
         var fechaCheckin = document.querySelector('#fechaCheckin').value;
-        var horaIngreso  = '';//document.querySelector('#horaIngreso').value;
-        var horaSalida   = '';//document.querySelector('#horaSalida').value;
-        var descripcion  = '';//tinymce.activeEditor.getContent();
+        var horaIngreso  = document.querySelector('#horaIngreso').value;
+        var horaSalida   = document.querySelector('#horaSalida').value;
+        var descripcion  = tinymce.activeEditor.getContent();
            // descripcion  = descripcion.replace(/['"]+/g, '');
         Swal.fire({
             title: '<strong>Confirma '+Accion+'?</strong>',

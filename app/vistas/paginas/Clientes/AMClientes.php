@@ -44,10 +44,10 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="dni">Cedula *</label>
+                <label class="col-sm-3 col-form-label" for="dni">RUT *</label>
                 <div class="col-sm-9">
                     <input class="form-control form-control-sm" type="text" id="dni" placeholder="" aria-label="" value="" />
-                    <small>EJ: N° de RUT - NFC - DNI - Pasaporte</small>
+                    <small>--</small>
                 </div>
             </div>
 
@@ -62,9 +62,7 @@
                 <label class="col-sm-3 col-form-label" for="panol">Activar Modulo Pañol</label>
                 <div class="col-sm-9">
                     <select class="form-select form-select-sm" 
-                            id="panol">
-                        <option value="0">No</option>
-                        <option value="1">Si</option>
+                            id="panol">                       
                     </select>
                     <small>Si activa este modulo se le permitira cargar un inventario al cliente.</small>
                 </div>
@@ -129,20 +127,29 @@
     {
         var clienteID  = <?php echo $clienteID; ?>;
         var empresaID = <?php echo $empresaID; ?>;
+        
         if(clienteID>0){
             var url ='<?php echo constant('RUTA_URL'); ?>/rest-api/Clientes?clienteID='+clienteID+'&consultaGET='+empresaID;
             fetch(url)
             .then(response => response.json())
             .then(data => {
+                $('#panol').html("");
+                var $select = $('#panol');
                 $.each(data, function(i, item) {
-                    if(clienteID==item.id){
-                        //`id`, `idempresa`, `idusuario`, `nombre`, `direccion`, `lat`, `lon`, `celular`, `email`, `cuit`, 
+                    if(clienteID==item.id){                        
                         $('#nombre').val(item.nombre); 
                         $('#direccion').val(item.direccion);
                         $('#celular').val(item.celular);
                         $('#dni').val(item.cuit);
                         $('#email').val(item.email);
-                        $('#panol').val(item.panol);
+                        console.log("itme pañol "+item.panol);                       
+                        if(item.panol==0){
+                            $select.append("<option value='0' selected>No</option>");
+                            $select.append("<option value='1'>Si</option>");
+                        }else{
+                            $select.append("<option value='0'>No</option>");
+                            $select.append("<option value='1' selected>Si</option>");
+                        }
                         
                     } 
                 });   
@@ -156,6 +163,10 @@
             $('#celular').val();
             $('#dni').val();
             $('#email').val();
+            $('#panol').html("");
+            var $select = $('#panol');
+            $select.append("<option value='0'>No</option>");
+            $select.append("<option value='1'>Si</option>");
 
         }    
         
@@ -197,9 +208,10 @@
         var Nombre    = $("#nombre").val();
         var Direccion = $('#direccion').val();
         var Celular   = $('#celular').val();
-        var Dni       =  $('#dni').val();
+        var Dni       = $('#dni').val();
         var Email     = $("#email").val(); 
         var panol     = $('#panol').val();  
+        alert(panol);
         Swal.fire({
             title: '<strong>Confirma '+Accion+'?</strong>',
             icon : 'info',

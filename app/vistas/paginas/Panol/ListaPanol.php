@@ -17,10 +17,24 @@
                     </a>
                 </div>
             </div>
-        </div>
-
+        </div>        
     </div>
 
+    <div class="card mb-3">
+        <div class="card-header">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="clientes">Seleccionar Cliente</label>
+                <div class="col-sm-9">
+                    <select class="form-select form-select-sm clienteSelect" 
+                            id="clientes" onchange="LstPanol()">
+                        <!--DINAMICO POR JS-->                       
+                    </select>
+                    <small>Seleccione el cliente para ver el inventario</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class="card mb-3">
         <div class="card-body">
             <div class="row">
@@ -54,17 +68,40 @@
 <script>
     $(document).ready(function ()
     {
+        $('.clienteSelect').select2();
+        ListaClientes();
+    }); 
+    function ListaClientes()
+    {  
+        var empresaID = <?php echo $empresaID; ?>;
+        var url       = '<?php echo constant('RUTA_URL');?>/rest-api/Clientes?clientesTodosGET='+empresaID;
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            $('#clientes').html("");
+            var $select = $('#clientes');
+                $select.append('<option value="0">Seleccionar Cliente</option>');
+            $.each(data, function(i, item) {
+                if(item.panol==1){
+                    $select.append('<option value=' + item.id + '>' + item.nombre + '</option>');
+                }
+            });    
+        });  
+    }
+    function LstPanol() {
+        var clienteID = $('#clientes').val();
         $('#Lista thead th').each(function () {
             var title = $(this).text();
             $(this).html(title);
         });
                             
         var table = $('#Lista').DataTable({
+                "destroy"   : true, 
                 "scrollX"   : true,
                 "pagingType": "numbers",
                 "processing": true,
                 "serverSide": true,
-                "ajax": "<?php echo constant('RUTA_REST');?>/rest-api/Panol?dtPanolGET="+<?php echo $empresaID; ?>,
+                "ajax": "<?php echo constant('RUTA_REST');?>/rest-api/Panol?dtPanolGET="+clienteID,
             columns: [
                 { "title": "ID" },             
                 { "title": "Codigo" },
@@ -94,7 +131,6 @@
                         }
                         return data;
                     }
-                    
                 }, 
                 {
                     targets: [ 6 ] ,
@@ -148,9 +184,8 @@
                 }
             });
         }); 
-
-    }); 
-
+        
+    }
     function EliminarUsuario(id) 
     {
         var usuarioID = <?php echo $userID ?>;

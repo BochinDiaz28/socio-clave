@@ -18,9 +18,9 @@ $sql_details = array(
 // TABLA DE BASE DE DATOS
 $table = <<<EOT
 (
-    SELECT  id, idempresa, codigo, producto, tipo_producto, cantidad, combo
+    SELECT  id, idcliente, codigo, producto, tipo_producto, cantidad, combo
     FROM panol
-    WHERE idempresa=$empresaID   
+    WHERE idcliente=$empresaID   
 ) temp
 EOT;
 // TABLA primary key id>1 AND

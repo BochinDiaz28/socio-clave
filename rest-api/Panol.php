@@ -20,8 +20,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200);
-    }else if(isset($_GET['dtPanolGET'])){ //LISTA DE panolS
-        $empresaID = $_GET['dtPanolGET'];
+    }else if(isset($_GET['dtPanolGET'])){ #|->LISTA DE PAÑOLES FILTRADAS POR CLIENTES
+        $empresaID = $_GET['dtPanolGET']; #| idcliente
         require_once 'clases/dt/dt.Panol.php'; 
     }else{
         
@@ -36,15 +36,15 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         date_default_timezone_set('America/Argentina/Buenos_Aires');
         $fecha = date("Y-m-d H:i:s");
         $usuarioID = htmlspecialchars($datos['usuarioID']);
-        $empresaID = htmlspecialchars($datos['empresaID']);
+        $clienteID = htmlspecialchars($datos['clienteID']);
         $nombre    = htmlspecialchars($datos['nombre']);
         $codigo    = htmlspecialchars($datos['codigo']);
         $tipo      = htmlspecialchars($datos['tipo']);
         $cantidad  = htmlspecialchars($datos['cantidad']);
         $combo     = htmlspecialchars($datos['combo']);
         //INSERTO PRODUCTO
-        $query2     = "INSERT INTO panol (`idempresa`, `codigo`, `producto`, `tipo_producto`, `cantidad`, `combo`) 
-                              VALUES ('$empresaID','$codigo','$nombre','$tipo','$cantidad','$combo')"; 
+        $query2     = "INSERT INTO panol (`idcliente`, `codigo`, `producto`, `tipo_producto`, `cantidad`, `combo`) 
+                              VALUES ('$clienteID','$codigo','$nombre','$tipo','$cantidad','$combo')"; 
         $resp2      = metodoPOST($query2);      
         $productoID = $resp2[0]['retornoID'];
         //INSERTO ARQUEO
@@ -65,14 +65,14 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         date_default_timezone_set('America/Argentina/Buenos_Aires');
         $fecha = date("Y-m-d H:i:s");
 
-        $empresaID = htmlspecialchars($datos['empresaID']);
+        $clienteID = htmlspecialchars($datos['clienteID']);
         $panolID   = htmlspecialchars($datos['panolID']);
         $nombre    = htmlspecialchars($datos['nombre']);
         $codigo    = htmlspecialchars($datos['codigo']);
         $tipo      = htmlspecialchars($datos['tipo']);
         $cantidad  = htmlspecialchars($datos['cantidad']);
         $combo     = htmlspecialchars($datos['combo']);
-        $query = "UPDATE panol SET idempresa='$empresaID', codigo='$codigo', producto='$nombre', tipo_producto='$tipo', cantidad='$cantidad', combo='$combo' WHERE id=$panolID"; 
+        $query = "UPDATE panol SET idcliente='$clienteID', codigo='$codigo', producto='$nombre', tipo_producto='$tipo', cantidad='$cantidad', combo='$combo' WHERE id=$panolID"; 
         $resp  = metodoPUT($query);
     } 
     header('Content-Type: application/json');

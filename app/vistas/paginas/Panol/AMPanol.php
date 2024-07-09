@@ -22,6 +22,18 @@
         </div>
         <div class="card-body">
             <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="clientes">Cliente</label>
+                <div class="col-sm-9">
+                    <select class="form-select form-select-sm clienteSelect" 
+                            id="clientes">
+                        <!--DINAMICO POR JS-->                       
+                    </select>
+                    <small>Cliente al que se asocia el inventario</small>
+                </div>
+            </div>
+
+            <hr>
+            <div class="form-group row">
                 <div class="col-sm-9">
                     <div class="form-check form-switch">
                         <input class="form-check-input" id="estado" type="checkbox" />
@@ -154,8 +166,9 @@
     //ABM
     $(document).ready(function ()
     {
-        var panolID  = <?php echo $panolID; ?>;
-        var empresaID   = <?php echo $empresaID; ?>;
+        $('.clienteSelect').select2();
+        var panolID   = <?php echo $panolID; ?>;
+        var empresaID = <?php echo $empresaID; ?>;
         if(panolID>0){
             var url ='<?php echo constant('RUTA_URL'); ?>/rest-api/Panol?panolGET='+panolID;
             fetch(url)
@@ -174,19 +187,45 @@
                             checkbox.checked = false; 
                             document.getElementById("miBoton").disabled = false;
                         }
+                        ListaClientes(item.idcliente);
                     } 
                 });   
             });
            
         }else{
-            
+            ListaClientes(0)
         }    
         
     });
+
+    function ListaClientes(clienteID)
+    {  
+        console.log("Cliente: "+clienteID);
+        var empresaID = <?php echo $empresaID; ?>;
+        var url       = '<?php echo constant('RUTA_URL');?>/rest-api/Clientes?clientesTodosGET='+empresaID;
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            $('#clientes').html("");
+            var $select = $('#clientes');
+                $select.append('<option value="0">Seleccionar Cliente</option>');
+            $.each(data, function(i, item) {
+                if(item.panol==1){
+                    if(clienteID==item.id){
+                        $select.append('<option selected value=' + item.id + '>' + item.nombre + '</option>');
+                        ListaSucursales();
+                    }else{
+                        $select.append('<option value=' + item.id + '>' + item.nombre + '</option>');
+                    }
+                }
+            });    
+        });  
+    }
     function Controlar_Requeridos() 
     {
         var codigo    = document.querySelector('#codigo').value;
         var nombre = document.querySelector('#nombre').value;
+        var clienteID = $('#clientes').val();
         if( codigo==='' || nombre ==='' ){  //SI NO VALIDA CORRECTAMENTE TIRA CARTEL
             swal({
                 type : 'error',
@@ -213,7 +252,7 @@
             var rtaAccion = 'Actualizado!'; 
             var metodo    = 'PUT'; 
         }
-       
+        var clienteID = $('#clientes').val();
         var codigo   = document.querySelector('#codigo').value;;
         var nombre   = document.querySelector('#nombre').value;
         var tipo     = document.querySelector('#tipo').value;
@@ -233,7 +272,7 @@
             if (result.value) {
                 var apiUrl='<?php echo constant('RUTA_URL'); ?>/rest-api/Panol'; 
                 var data = { 
-                    empresaID : empresaID,
+                    clienteID : clienteID,
                     panolID   : panolID,
                     usuarioID : userID,
                     codigo    : codigo,

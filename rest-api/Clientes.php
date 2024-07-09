@@ -43,11 +43,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         require_once 'clases/dt/dt.Retail.php'; 
     }else{
         /*
-        $query = "SELECT id,username,nombre,email,rol FROM usuarios";
-        $resp  = metodoGET($query);
-        header("Content-Type: application/json");
-        echo json_encode($resp);
-        http_response_code(200);
+        NO SE UTILIZA ESTE CAMINO
         */
     }
 }else if($_SERVER['REQUEST_METHOD'] == "POST"){

@@ -59,10 +59,10 @@
             </div>
             <hr>
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="panol">Activar Modulo Pañol</label>
+                <label class="col-sm-3 col-form-label" for="panolxx">Activar Modulo Pañol</label>
                 <div class="col-sm-9">
                     <select class="form-select form-select-sm" 
-                            id="panol">                       
+                            id="panolxx">                       
                     </select>
                     <small>Si activa este modulo se le permitira cargar un inventario al cliente.</small>
                 </div>
@@ -129,12 +129,13 @@
         var empresaID = <?php echo $empresaID; ?>;
         
         if(clienteID>0){
+            $('#panolxx').html("");
+            var $select = $('#panolxx');
             var url ='<?php echo constant('RUTA_URL'); ?>/rest-api/Clientes?clienteID='+clienteID+'&consultaGET='+empresaID;
             fetch(url)
             .then(response => response.json())
             .then(data => {
-                $('#panol').html("");
-                var $select = $('#panol');
+              
                 $.each(data, function(i, item) {
                     if(clienteID==item.id){                        
                         $('#nombre').val(item.nombre); 
@@ -142,13 +143,15 @@
                         $('#celular').val(item.celular);
                         $('#dni').val(item.cuit);
                         $('#email').val(item.email);
-                        console.log("itme pañol "+item.panol);                       
+                                          
                         if(item.panol==0){
-                            $select.append("<option value='0' selected>No</option>");
+                            console.log("ingresa por 0");
+                            $select.append("<option selected value='0'>No</option>");
                             $select.append("<option value='1'>Si</option>");
                         }else{
+                            console.log("ingresa por 1");
                             $select.append("<option value='0'>No</option>");
-                            $select.append("<option value='1' selected>Si</option>");
+                            $select.append("<option selected value='1'>Si</option>");
                         }
                         
                     } 
@@ -163,14 +166,17 @@
             $('#celular').val();
             $('#dni').val();
             $('#email').val();
-            $('#panol').html("");
-            var $select = $('#panol');
-            $select.append("<option value='0'>No</option>");
-            $select.append("<option value='1'>Si</option>");
-
+            $('#panolxx').html("");
+         
+            var $select = $('#panolxx');        
+                $select.append("<option value='0'>No</option>");
+                $select.append("<option value='1'>Si</option>");
+            console.log("Cliente nuevo");
+      
         }    
         
     });
+
     function Controlar_Requeridos() 
     {
         var nombre    = document.querySelector('#nombre').value;
@@ -210,8 +216,8 @@
         var Celular   = $('#celular').val();
         var Dni       = $('#dni').val();
         var Email     = $("#email").val(); 
-        var panol     = $('#panol').val();  
-        alert(panol);
+        var panol     = $('#panolxx').val();  
+    
         Swal.fire({
             title: '<strong>Confirma '+Accion+'?</strong>',
             icon : 'info',

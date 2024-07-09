@@ -867,4 +867,130 @@ class Paginas extends Controlador{
         
     }
     #|->FIN USUARIOS 
+
+    #|-> PAÑOL
+    public function lstpanol(){
+        if(isset($_SESSION['nombre'])){
+            if($_SESSION['rol']==100){
+                # Admistradores
+                $datos = [
+                    'titulo'    => 'Lista de Pañol',
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Panol/ListaPanol', $datos);
+            }else if ($_SESSION['rol']==125) {
+                # Clientes
+                $datos = [
+                    'titulo'    => 'Lista de Pañol',
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Panol/ListaPanol', $datos);
+            }else if ($_SESSION['rol']==150) {
+                # Clientes
+                $datos = [
+                    'titulo'         => 'Empresas',
+                ];
+                $this->vista('paginas/inicio', $datos);
+            }else if ($_SESSION['rol']==200) {
+                # Reponedores
+                $datos = [
+                    'titulo'         => 'Empresas',
+                ];
+                $this->vista('paginas/inicio', $datos);
+            }
+        }else{
+            $datos = [
+                'titulo' => 'Ingresar'
+            ];
+            $this->vista('paginas/Login/ingresar', $datos);
+        }    
+        
+    }
+    
+    public function panol($id){
+        if(isset($_SESSION['nombre'])){
+            if($_SESSION['rol']==100){
+                # Admistradores
+                $datos = [
+                    'titulo'     => 'Pañol',
+                    'panolID'    => $id,
+                    'userID'     => $_SESSION['id'],
+                    'empresaID'  => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Panol/AMPanol', $datos);
+            }else if ($_SESSION['rol']==125) {
+                # Supervisores
+                $datos = [
+                    'titulo'     => 'Pañol',
+                    'panolID'    => $id,
+                    'userID'     => $_SESSION['id'],
+                    'empresaID'  => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Panol/AMPanol', $datos);
+            }else if ($_SESSION['rol']==150) {
+                # Clientes
+                $datos = [
+                    'titulo'         => 'Inicio',
+                ];
+                $this->vista('paginas/inicio', $datos);
+            }else if ($_SESSION['rol']==200) {
+                # Reponedores
+                $datos = [
+                    'titulo'         => 'Inicio',
+                ];
+                $this->vista('paginas/inicio', $datos);
+            }
+        }else{
+            $datos = [
+                'titulo' => 'Ingresar'
+            ];
+            $this->vista('paginas/Login/ingresar', $datos);
+        }    
+        
+    }
+
+    public function panolkits($id){
+        if(isset($_SESSION['nombre'])){
+            if($_SESSION['rol']==100){
+                # Admistradores
+                $datos = [
+                    'titulo'     => 'Elementos de Kits',
+                    'panolID'    => $id,
+                    'userID'     => $_SESSION['id'],
+                    'empresaID'  => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Panol/AMPanolKits', $datos);
+            }else if ($_SESSION['rol']==125) {
+                # Supervisores
+                $datos = [
+                    'titulo'     => 'Elementos de Kits',
+                    'panolID'    => $id,
+                    'userID'     => $_SESSION['id'],
+                    'empresaID'  => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Panol/AMPanol', $datos);
+            }else if ($_SESSION['rol']==150) {
+                # Clientes
+                $datos = [
+                    'titulo'         => 'Inicio',
+                ];
+                $this->vista('paginas/inicio', $datos);
+            }else if ($_SESSION['rol']==200) {
+                # Reponedores
+                $datos = [
+                    'titulo'         => 'Inicio',
+                ];
+                $this->vista('paginas/inicio', $datos);
+            }
+        }else{
+            $datos = [
+                'titulo' => 'Ingresar'
+            ];
+            $this->vista('paginas/Login/ingresar', $datos);
+        }    
+        
+    }
+    #|-> FIN MODULO PAÑOL
 }

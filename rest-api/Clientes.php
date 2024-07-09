@@ -70,6 +70,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $passCorreo = $password;
         $password   = encriptar($password);
         $correo     = htmlspecialchars($datos['Email']);
+        $panol      = htmlspecialchars($datos['panol']);
 
         $query   = "SELECT COUNT(*)AS Total FROM clientes WHERE idempresa='$empresaID' AND cuit LIKE'$Dni'";
         $resp00  = metodoGET($query);
@@ -92,11 +93,11 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 $resp       = metodoPOST($query);        
                 $userID     = $resp[0]['retornoID'];
                 #|-CREAR PERFIL DEL AGENTE       
-                $query2     = "INSERT INTO clientes (`idempresa`, `idusuario`, `nombre`, `direccion`, `celular`, `email`, `cuit`,  `activo`, `fecha_alta`, `fecha_mod`) 
-                                    VALUES ('$empresaID','$userID','$nombre','$Direccion','$Celular','$username','$Dni','1','$fecha','$fecha')"; 
+                $query2     = "INSERT INTO clientes (`idempresa`, `idusuario`, `nombre`, `direccion`, `celular`, `email`, `cuit`,  `activo`, `fecha_alta`, `fecha_mod`,`panol`) 
+                                    VALUES ('$empresaID','$userID','$nombre','$Direccion','$Celular','$username','$Dni','1','$fecha','$fecha','$panol')"; 
                 $resp2      = metodoPOST($query2);
 
-                
+                /*
                 require_once 'Notif/afirebase.php';
                 $message = "Es un Cliente";
                 $title   = "Nuevo Registro";
@@ -110,6 +111,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 $resultado=$envio->enviarDataFireBase();
                 //echo $resultado;
                 $resultadoPush=$envio->enviarDataPush($message,$title);
+                */
             }
         }
     } 
@@ -131,8 +133,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $Celular    = htmlspecialchars($datos['Celular']);
         $Dni        = htmlspecialchars($datos['Dni']);
         $email      = htmlspecialchars($datos['Email']); 
-
-        $query = "UPDATE clientes SET nombre='$nombre', direccion='$Direccion', celular='$Celular', email='$email', cuit='$Dni', fecha_mod='$fecha' WHERE id=$userID"; 
+        $panol      = htmlspecialchars($datos['panol']);
+        $query = "UPDATE clientes SET nombre='$nombre', direccion='$Direccion', celular='$Celular', email='$email', cuit='$Dni', fecha_mod='$fecha', panol='$panol' WHERE id=$userID"; 
         $resp  = metodoPUT($query);
     } 
     header('Content-Type: application/json');

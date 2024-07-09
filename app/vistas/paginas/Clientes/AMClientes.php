@@ -58,6 +58,18 @@
                 </div>
             </div>
             <hr>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="panol">Activar Modulo Pañol</label>
+                <div class="col-sm-9">
+                    <select class="form-select form-select-sm" 
+                            id="panol">
+                        <option value="0">No</option>
+                        <option value="1">Si</option>
+                    </select>
+                    <small>Si activa este modulo se le permitira cargar un inventario al cliente.</small>
+                </div>
+            </div>
+            <hr>
             <div class="form-group text-center">
                 <?php  if ($clienteID > 0){?> 
                     <button class="btn btn-outline-primary btn-sm me-1 mb-1" type="button" onclick="Controlar_Requeridos();">
@@ -130,6 +142,8 @@
                         $('#celular').val(item.celular);
                         $('#dni').val(item.cuit);
                         $('#email').val(item.email);
+                        $('#panol').val(item.panol);
+                        
                     } 
                 });   
             });
@@ -184,7 +198,8 @@
         var Direccion = $('#direccion').val();
         var Celular   = $('#celular').val();
         var Dni       =  $('#dni').val();
-        var Email     = $("#email").val();    
+        var Email     = $("#email").val(); 
+        var panol     = $('#panol').val();  
         Swal.fire({
             title: '<strong>Confirma '+Accion+'?</strong>',
             icon : 'info',
@@ -206,7 +221,8 @@
                     Celular   : Celular,
                     Dni       : Dni,
                     Email     : Email,
-                    empresaID : empresaID
+                    empresaID : empresaID,
+                    panol     : panol
                 } 
                 fetch(apiUrl,{ 
                     method : metodo,  

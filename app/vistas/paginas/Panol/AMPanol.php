@@ -31,7 +31,7 @@
                     <small>Cliente al que se asocia el inventario</small>
                 </div>
             </div>
-
+            <!--
             <hr>
             <div class="form-group row">
                 <div class="col-sm-9">
@@ -42,6 +42,7 @@
                 </div>
             </div>
             <hr>
+            -->
 
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="codigo">Codigo *</label>
@@ -179,6 +180,7 @@
                         $('#codigo').val(item.codigo);
                         $('#nombre').val(item.producto);
                         $('#cantidad').val(item.cantidad);
+                        /*
                         var checkbox = document.getElementById("estado");
                         if(item.combo==1){
                             checkbox.checked = true; 
@@ -187,6 +189,7 @@
                             checkbox.checked = false; 
                             document.getElementById("miBoton").disabled = false;
                         }
+                        */
                         ListaClientes(item.idcliente);
                     } 
                 });   
@@ -257,7 +260,8 @@
         var nombre   = document.querySelector('#nombre').value;
         var tipo     = document.querySelector('#tipo').value;
         var cantidad = document.querySelector('#cantidad').value;
-        if(document.getElementById("estado").checked==true){ var activo=1; }else{ var activo=0;}
+        //if(document.getElementById("estado").checked==true){ var activo=1; }else{ var activo=0;}
+        var activo=0;
         Swal.fire({
             title: '<strong>Confirma '+Accion+'?</strong>',
             icon : 'info',

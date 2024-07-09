@@ -236,7 +236,6 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                         $resultadoPush = $envio->enviarDataPush($message,$Nombre,$token);
                     }
                 }
-                
             }
         }
     } 

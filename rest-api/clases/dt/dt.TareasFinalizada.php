@@ -18,7 +18,7 @@ $sql_details = array(
 // TABLA DE BASE DE DATOS
 $table = <<<EOT
 (
-    SELECT a.id, a.idempresa, a.idcliente, b.nombre AS nombreC, a.idreail, a.tarea, a.sucursal, (d.nombre) AS Agente,a.fecha_alta, a.fecha_sol, a.hora_inicio, a.hora_final, a.estado, a.idagente, a.checkin, a.checkout, a.cerradaAgente
+    SELECT a.id, a.idempresa, a.idcliente, b.nombre AS nombreC, a.idreail, a.tarea, a.sucursal, (d.nombre) AS Agente,a.fecha_alta, a.fecha_sol, a.hora_inicio, a.hora_final, a.estado, a.idagente, a.checkin, a.checkout, a.cerradaAgente, a.cerradaAdmin
     FROM tareas a, clientes b, retail c, agentes d
     WHERE a.idcliente=b.id
     AND a.idreail=c.id
@@ -40,7 +40,8 @@ $columns = array(
     array( 'db' => 'checkin',       'dt' => 6 ),
     array( 'db' => 'checkout',      'dt' => 7 ),
     array( 'db' => 'cerradaAgente', 'dt' => 8 ),
-    array( 'db' => 'id',            'dt' => 9 )
+    array( 'db' => 'cerradaAdmin',  'dt' => 9 ),    
+    array( 'db' => 'id',            'dt' => 10 )
 );
  
  

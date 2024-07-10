@@ -59,7 +59,7 @@
             </div> 
         </div> 
         <div class="card-footer">
-            <p class="fs--1">Tareas: Aceptadas o designadas a un agente.</p>
+            <p class="fs--1">Tareas Finalizadas: Lista de tareas finalizadas por agentes.</p>
         </div> 
     </div>
 </div>
@@ -136,7 +136,8 @@
                 { "title": "Fecha" },
                 { "title": "Check-in" },
                 { "title": "Check-out" },
-                { "title": "Confirmada" },
+                { "title": "C. Agente" },
+                { "title": "C. Admin" },
                 { "title": "Acciones" },
             ],
             columnDefs: [
@@ -146,12 +147,45 @@
                     "searchable": false
                 },
                 {
+                    targets: [ 8 ] ,
+                    searchable: true,
+                    orderable: false,
+                    render: function(data, type, full, meta){
+                        if(type === 'display'){
+                            if(data==1){
+                                data = 'C. con Exito';
+                            }else{
+                                data = 'Fallo';
+                            }
+                            
+                        }
+                        return data;
+                    }
+                    
+                }, 
+                {
                     targets: [ 9 ] ,
                     searchable: true,
                     orderable: false,
                     render: function(data, type, full, meta){
                         if(type === 'display'){
-                            data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Ver Resultados" type="button" onClick="FormFinal(' + data + ')"><span class="sr-only">Ver Resultados</span><i class="fa fa-eye"></i></button><button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Confirmar Cierre" type="button" onClick="confirmarCierre(' + data + ')"><span class="sr-only">Confirmar Cierre</span><i class="fa fa-check"></i></button>';      
+                            if(data===null || data === ''){
+                                data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Confirmar Cierre" type="button" onClick="confirmarCierre(' + full[10] + ')"><span class="sr-only">Confirmar Cierre</span><i class="fa fa-check"></i></button>';
+                            }else{
+                                data = 'C. con Exito';
+                                
+                            } 
+                        }
+                        return data;
+                    }  
+                }, 
+                {
+                    targets: [10 ] ,
+                    searchable: true,
+                    orderable: false,
+                    render: function(data, type, full, meta){
+                        if(type === 'display'){
+                            data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Ver Resultados" type="button" onClick="FormFinal(' + data + ')"><span class="sr-only">Ver Resultados</span><i class="fa fa-eye"></i></button>';
                         }
                         return data;
                     }

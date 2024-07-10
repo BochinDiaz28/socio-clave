@@ -40,35 +40,47 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
             $Ingresados = 0;
             $Existentes = 0;
             for ($i=2;$i<=$filas;$i++){
-                    $rut    = $objPHPExcel->getActiveSheet()->getCell('A'.$i)->getValue();
-                    $nombre = $objPHPExcel->getActiveSheet()->getCell('B'.$i)->getValue();
-                    $correo = $objPHPExcel->getActiveSheet()->getCell('C'.$i)->getValue();
-                    $nombre  = str_replace("'", " ", $nombre);
-                    // Obtener la parte antes del último carácter
-                    $parte_anterior = substr($rut, 0, -1);
-                    // Obtener el último carácter
-                    $ultimo_caracter = substr($rut, -1);
-                    // Concatenar las partes con un guion
-                    $rut_formateado = $parte_anterior . '-' . $ultimo_caracter;
+                    $rut        = $objPHPExcel->getActiveSheet()->getCell('A'.$i)->getValue();
+                    $nombre     = $objPHPExcel->getActiveSheet()->getCell('B'.$i)->getValue();
+                    $correo     = $objPHPExcel->getActiveSheet()->getCell('C'.$i)->getValue();
+                    $nombre     = str_replace("'", " ", $nombre);
+                    $direccion  = $objPHPExcel->getActiveSheet()->getCell('D'.$i)->getValue();
+                    $celular    = $objPHPExcel->getActiveSheet()->getCell('E'.$i)->getValue();
+                    $sucursales = $objPHPExcel->getActiveSheet()->getCell('F'.$i)->getValue();
                     #|-> PASAMOS CORREO A MINUSCULAS
                     $correo  = strtolower($correo);
-                    $query   = "SELECT COUNT(*)AS Total FROM clientes WHERE idempresa='$empresaID' AND cuit LIKE'$rut_formateado'";
+                    $query   = "SELECT COUNT(*)AS Total FROM clientes WHERE idempresa='$empresaID' AND cuit LIKE'$rut'";
                     $resp00  = metodoGET($query);
                     $valores = json_encode($resp00);
                     $valores = json_decode($valores, true);
                     $total   = $valores[0]['Total']; 
                     if($total==0){
                         #|-> CREAMOS EL USUARIO
-                        $query      = "INSERT INTO usuarios (username,idempresa,password,nombre,email,rol,activo) 
-                                              VALUES ('$correo','$empresaID','$rut_formateado','$nombre','$correo','200','0')"; 
-                        $resp       = metodoPOST($query);        
-                        $userID     = $resp[0]['retornoID'];
+                        $queryU      = "INSERT INTO usuarios (username,idempresa,password,nombre,email,rol,activo) 
+                                              VALUES ('$correo','$empresaID','$rut','$nombre','$correo','200','1')"; 
+                        $respU       = metodoPOST($queryU);        
+                        $userID     = $respU[0]['retornoID'];
                         #|-> CREAR PERFIL DEL AGENTE     
                         $query2     = "INSERT INTO agentes (`idempresa`, `idusuario`, `nombre`, `direccion`, `celular`, `email`, `cuit`,  `activo`, `fecha_alta`, `fecha_mod`) 
-                                              VALUES ('$empresaID','$userID','$nombre','-','0','$correo','$rut_formateado','1','$fecha','$fecha')"; 
+                                              VALUES ('$empresaID','$userID','$nombre','$direccion','$celular','$correo','$rut','1','$fecha','$fecha')"; 
                         $resp2      = metodoPOST($query2);
-
-                        $Ingresados=$Ingresados+1;
+                        $agenteID   = $resp2[0]['retornoID'];
+                        $Ingresados = $Ingresados+1;
+                        #|->COMPRUEBO SUCURSALES Y LAS INGRESO.                      
+                        $sucursalArray = explode(',', $sucursales);
+                        foreach ($sucursalArray as $sucursal) {
+                            $queryS = "SELECT * FROM retail 
+                                       WHERE cod_local LIKE '$sucursal'";
+                            $respS  = metodoGET($queryS);                            
+                            $cantRes= COUNT($respS);
+                            if($cantRes>0){
+                                $sucursalID = $respS[0]['id'];
+                                #|-> ASOCIO LA SUCURSAL AL AGENTE
+                                $queryA     = "INSERT INTO agentes_retails (`idempresa`, `idagente`, `idretail`) 
+                                                      VALUES ('$empresaID','$agenteID','$sucursalID')"; 
+                                $respA      = metodoPOST($queryA);
+                            }
+                        }
                     }else{
                         $Existentes=$Existentes+1;
                     }

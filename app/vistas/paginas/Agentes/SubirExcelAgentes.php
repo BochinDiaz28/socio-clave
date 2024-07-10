@@ -50,7 +50,7 @@
                             <span class="fas fa-cloud-download-alt mr-1" data-fa-transform="shrink-3"></span>
                             <span class="text">Descargar Ejemplo</span>
                         </a>
-                        <p class="fs--1">Para un correcto envío de la información, descargue la planilla de ejemplo, todos los usuarios se crearan de forma desactivada</p>
+                        <p class="fs--1">Para un correcto envío de la información, descargue la planilla de ejemplo, no envie más de 100 lineas por carga.</p>
                        
                     </div>
                 </div>

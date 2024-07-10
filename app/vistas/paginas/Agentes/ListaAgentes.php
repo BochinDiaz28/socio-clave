@@ -15,8 +15,15 @@
                         <span class="fas fa-plus mr-1" data-fa-transform="shrink-3"></span>
                         <span class="text">Nuevo</span>
                     </a>
+                    
                 </div>
-               
+                <div class="col-md-auto">
+                    <a class="btn btn-sm btn btn-outline-success btn-sm me-1 mb-1"
+                       href="<?php echo constant('RUTA_URL');?>/uploadagentes" >
+                        <span class="far fa-file-excel mr-1" data-fa-transform="shrink-2"></span>
+                        <span class="text">Subir</span>
+                    </a>
+                </div>
               
             </div>
         </div>

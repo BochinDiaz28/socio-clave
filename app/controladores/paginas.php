@@ -575,6 +575,46 @@ class Paginas extends Controlador{
         }    
         
     }
+
+    public function uploadagentes(){
+        if(isset($_SESSION['nombre'])){
+            if($_SESSION['rol']==100){
+                # Admistradores
+                $datos = [
+                    'titulo'    => 'Subir Agentes',
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Agentes/SubirExcelAgentes', $datos);
+            }else if ($_SESSION['rol']==125) {
+                # supervisores
+                $datos = [
+                    'titulo'    => 'Subir Agentes',
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Agentes/SubirExcelAgentes', $datos);
+            }else if ($_SESSION['rol']==150) {
+                # Clientes
+                $datos = [
+                    'titulo'         => 'Empresas',
+                ];
+                $this->vista('paginas/inicio', $datos);
+            }else if ($_SESSION['rol']==200) {
+                # agentes
+                $datos = [
+                    'titulo'         => 'Empresas',
+                ];
+                $this->vista('paginas/inicio', $datos);
+            }
+        }else{
+            $datos = [
+                'titulo' => 'Ingresar'
+            ];
+            $this->vista('paginas/Login/ingresar', $datos);
+        }    
+        
+    }
     #|->FIN AGENTES 
 
     #|->CLIENTES 

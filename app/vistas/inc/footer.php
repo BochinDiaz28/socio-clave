@@ -128,7 +128,7 @@
         <script src="<?php echo constant('RUTA_URL'); ?>/public/vendors/echarts/echarts.min.js"></script>
         <script src="<?php echo constant('RUTA_URL'); ?>/public/vendors/fontawesome/all.min.js"></script>
         <script src="<?php echo constant('RUTA_URL'); ?>/public/vendors/lodash/lodash.min.js"></script>
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+        <!--<script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>-->
         <script src="<?php echo constant('RUTA_URL'); ?>/public/vendors/list.js/list.min.js"></script>
         <script src="<?php echo constant('RUTA_URL'); ?>/public/js/sweetalert2.all.min.js"></script>
 

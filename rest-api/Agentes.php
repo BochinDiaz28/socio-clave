@@ -1,53 +1,48 @@
 <?php
 require_once 'clases/respuestas.class.php';
 require_once 'clases/conexion/bd.php';
-
 $_respuestas = new respuestas;
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 if($_SERVER['REQUEST_METHOD'] == "GET"){
-    if(isset($_GET['agenteID'])){ //SOLICITA UN DATO ESPECIFICO POR ID
+    if(isset($_GET['agenteID'])){                 #|-> SOLICITA TODOS LOS DATOS DE UN AGENTE POR SU ID
         $id=$_GET['agenteID'];
         $query = "SELECT * FROM agentes WHERE id=$id";
         $resp  = metodoGET($query);
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200);
-    }else if(isset($_GET['Correo'])){ //SOLICITA UN DATO ESPECIFICO POR CORRREO
+    }else if(isset($_GET['Correo'])){             #|-> SOLICITA DATOS DE USUARIO POR CORREO
         $email = $_GET['Correo'];
         $query = "SELECT id,username,nombre,email,rol FROM usuarios WHERE email LIKE '$email'";
         $resp  = metodoGET($query);
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200);
-    }else if(isset($_GET['agentesUserGET'])){
+    }else if(isset($_GET['agentesUserGET'])){     #|-> AGENTE SOLICITADO POR ID DE USUARIO
         $usuarioID = $_GET['agentesUserGET'];
         $query     = "SELECT * FROM agentes WHERE idusuario=$usuarioID";
         $resp      = metodoGET($query);
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200);
-    }else if(isset($_GET['dtagentesGET'])){ //LISTA DE USUARIOS
+    }else if(isset($_GET['dtagentesGET'])){       #|-> LISTA DE AGENTES
         $empresaID = $_GET['dtagentesGET'];
         require_once 'clases/dt/dt.Agentes.php'; 
     }else{
         /*
-        $query = "SELECT id,username,nombre,email,rol FROM usuarios";
-        $resp  = metodoGET($query);
-        header("Content-Type: application/json");
-        echo json_encode($resp);
-        http_response_code(200);
+        NO SE UTILIZADA
         */
     }
-}else if($_SERVER['REQUEST_METHOD'] == "POST"){
+}else if($_SERVER['REQUEST_METHOD'] == "POST"){   #|-> CREA UN AGENTE CON SU RESPECTIVO USUARIO
     $postBody = file_get_contents("php://input");
     $datos    = json_decode($postBody,true);
     if(!isset($datos['usuarioID']) || !isset($datos['Nombre']) || !isset($datos['Email'])){
         $resp=$_respuestas->error_400();
     }else{
         # FECHA FORMATO 
-        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        date_default_timezone_set('America/Santiago');
         $fecha = date("Y-m-d H:i:s");
         $Direccion  = htmlspecialchars($datos['Direccion']);
         $Celular    = htmlspecialchars($datos['Celular']);
@@ -89,14 +84,14 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     header('Content-Type: application/json');
     echo json_encode($resp2);
     http_response_code(200);
-}else if($_SERVER['REQUEST_METHOD'] == "PUT"){
+}else if($_SERVER['REQUEST_METHOD'] == "PUT"){    #|-> ACTUALIZA DATOS DE AGENTES, NO DE USUARIO DEL AGENTE
     $postBody = file_get_contents("php://input");
     $datos    = json_decode($postBody,true);
     if(!isset($datos['userID']) || !isset($datos['Nombre']) || !isset($datos['Email'])){
         $resp=$_respuestas->error_400();
     }else{
         # FECHA FORMATO 
-        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        date_default_timezone_set('America/Santiago');
         $fecha = date("Y-m-d H:i:s");
         $userID     = htmlspecialchars($datos['userID']);
         $nombre     = htmlspecialchars($datos['Nombre']);
@@ -111,7 +106,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     header('Content-Type: application/json');
     echo json_encode($resp);
     http_response_code(200);
-}else if($_SERVER['REQUEST_METHOD'] == "DELETE"){
+}else if($_SERVER['REQUEST_METHOD'] == "DELETE"){ #|-> ELIMINA AGENTE Y USUARIO
     $headers = getallheaders();
     if(isset($headers["userID"])){
         $send = [
@@ -123,7 +118,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     }
     $datos = json_decode($postBody,true);
     if(!isset($datos['userID'])){
-        $resp=$_respuestas->error_400(); //si no envio id usuario devuelve error
+        $resp=$_respuestas->error_400();
     }else{
         /*POR AHORA SOLO ELIMINO DE LA TABLA AGENTES VER LUEGO
         PARA ELIMINAR DATOS ASOCIADOS*/

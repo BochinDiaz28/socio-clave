@@ -31,6 +31,14 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200);  
+    }else if(isset($_GET['tareInformeFinalGET'])){
+        $id    = $_GET['tareInformeFinalGET'];
+        $query = "SELECT a.id, a.tarea, a.ubicacion, a.nota, a.fecha_sol, a.checkin, a.checkout, (b.nombre) AS Agente, (c.nombre) AS Cliente, c.cuit, a.checklist FROM tareas a, agentes b, clientes c 
+                  WHERE a.idagente=b.id AND a.idcliente=c.id AND a.id=$id";
+        $resp  = metodoGET($query);
+        header("Content-Type: application/json");
+        echo json_encode($resp);
+        http_response_code(200);  
     }else if(isset($_GET['dttareasGET'])){ //TAREAS PENDIENTES O APROBADAS
         $empresaID = $_GET['dttareasGET'];
         require_once 'clases/dt/dt.Tareas.php'; 

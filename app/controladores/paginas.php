@@ -704,6 +704,15 @@ class Paginas extends Controlador{
         }    
         
     }
+
+    public function finalcliente(){
+        //MUESTRA CON VISTA DE CLIENTE
+        $datos = [
+            'titulo' => 'Contizacion Cliente'
+        ];
+        $this->vista('paginas/informeCliente', $datos);
+    }
+
     ##|->Lista de sucursales
     public function lstretails(){
         if(isset($_SESSION['nombre'])){

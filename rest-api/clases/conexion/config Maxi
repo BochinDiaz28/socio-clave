@@ -1,9 +1,9 @@
 {
     "conexion":{
-        "server"   : "93.127.189.174",
-        "user"     : "u629979261_gestor",
+        "server"   : "185.28.21.60",
+        "user"     : "u250533375_gestor",
         "password" : "31817361Ma+",
-        "database" : "u629979261_gestor",
+        "database" : "u250533375_gestor",
         "port"     : "3306",
         "charset"  :"utf8mb4",
         "time_zone":"America/Argentina/Buenos_Aires"

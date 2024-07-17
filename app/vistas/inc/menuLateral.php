@@ -84,21 +84,21 @@
                 <!--SECCION PAÑOL-->
                 <li class="nav-item">
                     <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-                        <div class="col-auto navbar-vertical-label">Pañol</div>
+                        <div class="col-auto navbar-vertical-label">Inventarios</div>
                         <div class="col ps-0">
                             <hr class="mb-0 navbar-vertical-divider" />
                         </div>
                     </div>
                 
                     <a class="nav-link dropdown-indicator" href="#panol" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-toolbox"></span></span><span class="nav-link-text ps-1">Pañol</span>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-toolbox"></span></span><span class="nav-link-text ps-1">Inventario</span>
                         </div>
                     </a>    
                     <ul class="nav collapse false" id="panol">
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo constant('RUTA_URL'); ?>/lstpanol" 
                                 aria-expanded="false">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lista de Pañol</span></div>
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lista de Inventario</span></div>
                             </a>                                        
                         </li>
                         

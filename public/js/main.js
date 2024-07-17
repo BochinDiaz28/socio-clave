@@ -66,3 +66,29 @@ function NumeroChile(amount,decimals){
 
 	return amount_parts.join('.');
 }
+
+function calculateTimeDifference(checkin, checkout) {
+	// Convertir las cadenas de fecha y hora a objetos Date
+	let checkinDate = new Date(checkin);
+	let checkoutDate = new Date(checkout);
+
+	// Calcular la diferencia en milisegundos
+	let differenceInMillis = checkoutDate - checkinDate;
+
+	// Convertir la diferencia de milisegundos a minutos
+	let differenceInMinutes = Math.floor(differenceInMillis / (1000 * 60));
+
+	// Calcular horas y minutos
+	let hours = Math.floor(differenceInMinutes / 60);
+	let minutes = differenceInMinutes % 60;
+
+	// Formatear la respuesta
+	let result;
+	if (hours > 0) {
+		result = `${hours}h:${minutes}min`;
+	} else {
+		result = `${minutes} minutos`;
+	}
+
+	return result;
+}

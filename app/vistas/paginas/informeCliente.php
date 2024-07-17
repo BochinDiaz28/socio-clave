@@ -94,13 +94,23 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!--SECCION DINAMICA SEGUN IVA INTERNO-->
-                        <div id="_ivas"></div>
-                      
                     </div>
-                    
-               
                 </div>
+
+                <div class="cs-invoice_head cs-mb10">
+                    <div class="invoice_full">
+                        <b class="cs-primary_color">Informe de Ingreso:</b><span id="_ingreso"></span><br>
+                        <div id="_MuestraFotos"></div>
+                    </div>
+                </div>
+
+                <div class="cs-invoice_head cs-mb10">
+                    <div class="invoice_full">
+                        <b class="cs-primary_color">Informe de Salida:</b><span id="_salida"></span><br>
+                        <div id="_MuestraFotos2"></div> <br>
+                    </div>
+                </div>
+
                 <div id="_MuestraTerminos"></div>
 
                 <div class="cs-invoice_btns cs-hide_print">
@@ -132,7 +142,11 @@
 </html>
 
 <script>
-
+    $(document).ready(function ()
+    {
+        LlamadoPublico();
+        
+    });
     function LlamadoPublico()
     {   
         var html      = ''; //ESTE ES PARA PRODUCTOS
@@ -143,17 +157,14 @@
         .then(response => response.json())
         .then(data => {
             $.each(data, function(i, item) {
-                
                 $('#_presupuestoNumero').html(item.id);
                 $('#_presupuestoFecha').html(InvertirFechaCorta(item.fecha_sol));
                 $('#_MuestraNombre').html(item.tarea);
                 $('#_Ubicacion').html(item.ubicacion);
-                
-                 var textoDecodificado = he.decode(item.nota);
+                var textoDecodificado = he.decode(item.nota);
                 document.getElementById('_MuestraDetalle').innerHTML = textoDecodificado;
-
                 //TABLA DE PERMANENCIA
-                let checkin = item.checkin;
+                let checkin  = item.checkin;
                 let checkout = item.checkout;
                 let tiempoEnElLugar = calculateTimeDifference(checkin, checkout);
                 html+='<tr>'+
@@ -162,36 +173,49 @@
                             '<td class="cs-width_3">'+InvertirFecha(item.checkout)+'</td>'+
                             '<td class="cs-width_3 cs-text_right">'+tiempoEnElLugar+'</td>'+                            
                         '</tr>';
-                       
                 $('#_Cliente').html(item.Cliente);
                 $('#_Rut').html(item.cuit);
                 //CONTROLAREMOS EL CHECK LIST SI EXISTE
                 var x = document.getElementById("_verCheck");
                 if(item.checklist==1){
-                    console.log("armo checklist");
-                    //llamadoPublicioItems(item.id);
                     x.style.display = "block";
+                    //llamadoPublicioItems(item.id);
                 }else{
-                    console.log("oculta checklist");
                     x.style.display = "none";
                 }
-               
-
+                llamadoFotos(item.id);
             });    
             $('#_lstItems').html(html);
+            
         });  
     }
-    LlamadoPublico();
-
-
-    function sumaNumeros(n1,n2) {
-        return (parseFloat(n1) + parseFloat(n2));
-    };
 
     function EnviarRta() {
-        window.location = "<?php echo constant('RUTA_URL');?>/rtacotizacion/"+<?=$token?>;
+        //window.location = "<?php echo constant('RUTA_URL');?>/rtacotizacion/"+<?=$token?>;
+        alert("No configurado");
     }
-
-
+    function llamadoFotos() {
+        var token = <?=$token?>;
+        var url ='<?php echo constant('RUTA_URL');?>/rest-api/Tareas.php?tareaFotoGET='+token;
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            $.each(data, function(i, item) {
+                if(item.estado==3){
+                    $('#_ingreso').html(" "+item.comentario);
+                    var foto = '<div class="cs-logo cs-mb5"><img src="<?=constant('RUTA_URL'); ?>/public/img/logosEmpresas/logo.png" alt="Logo"></div>';
+                    $('#_MuestraFotos').html(foto);
+                }
+               
+                if(item.estado==4){
+                    $('#_salida').html(" "+ item.comentario);
+                    var foto2 = '<div class="cs-logo cs-mb5"><img src="<?=constant('RUTA_URL'); ?>/public/img/logosEmpresas/logo.png" alt="Logo"></div>';
+                    $('#_MuestraFotos2').html(foto2);
+                }              
+            }); 
+            $('#_lstItems').html(html);   
+        });  
+    }
+    
 
 </script>

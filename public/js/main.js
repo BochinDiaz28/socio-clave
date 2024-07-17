@@ -44,7 +44,6 @@ function calculateAge(birthday) {
 }
 //FIN FUNCIONES DE FECHAS
 
-
 function NumeroChile(amount,decimals){
 	amount += ''; // por si pasan un numero en vez de un string
 	amount = parseFloat(amount.replace(/[^0-9\.]/g, '')); // elimino cualquier cosa que no sea numero o punto
@@ -91,4 +90,8 @@ function calculateTimeDifference(checkin, checkout) {
 	}
 
 	return result;
+}
+
+function sumaNumeros(n1,n2) {
+	return (parseFloat(n1) + parseFloat(n2));
 }

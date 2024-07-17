@@ -21,9 +21,9 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200);  
-    }else if(isset($_GET['tareaFotoGET'])){
+    }else if(isset($_GET['tareaFotoGET'])){ 
         $id    = $_GET['tareaFotoGET'];
-        $query = "SELECT a.id, a.tarea, a.sucursal, a.ubicacion, b.foto, b.comentario, b.fecha  
+        $query = "SELECT a.id, a.tarea, a.sucursal, a.ubicacion, b.foto, b.comentario, b.fecha, b.estado  
                   FROM tareas a, tareas_fotos b 
                   WHERE a.id=b.idtarea 
                   AND a.id=$id";
@@ -31,7 +31,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200);  
-    }else if(isset($_GET['tareInformeFinalGET'])){
+    }else if(isset($_GET['tareInformeFinalGET'])){ #|->LLAMA DESDE INFORMES
         $id    = $_GET['tareInformeFinalGET'];
         $query = "SELECT a.id, a.tarea, a.ubicacion, a.nota, a.fecha_sol, a.checkin, a.checkout, (b.nombre) AS Agente, (c.nombre) AS Cliente, c.cuit, a.checklist FROM tareas a, agentes b, clientes c 
                   WHERE a.idagente=b.id AND a.idcliente=c.id AND a.id=$id";

@@ -6,7 +6,7 @@ header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 if($_SERVER['REQUEST_METHOD'] == "GET"){
-    if(isset($_GET['agenteRetailGET'])){ //ok filtra bien
+    if(isset($_GET['agenteRetailGET'])){                    #|->FILTRA TAREA Y CON SUCURSAL POR AGENTE EN ESTADO 1
         $agenteID = $_GET['agenteRetailGET'];
         $query = "SELECT b.id,b.tarea,b.sucursal,b.ubicacion,b.lat,b.lon,b.fecha_sol,b.hora_inicio,b.hora_final 
                   FROM agentes_retails a, tareas b
@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200);
-    }else if(isset($_GET['dtagentesRetailPendietesGET'])){
+    }else if(isset($_GET['dtagentesRetailPendietesGET'])){  #|->FILTRA TAREA POR AGENTE EN ESTADO 2  
         $agenteID = $_GET['dtagentesRetailPendietesGET'];
         $query = "SELECT b.id, b.tarea, b.sucursal, b.ubicacion, b.lat, b.lon, b.fecha_sol, b.hora_inicio, b.hora_final
                   FROM tareas b
@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200);
-    }else if(isset($_GET['dtagentesRetailCursoGET'])){
+    }else if(isset($_GET['dtagentesRetailCursoGET'])){      #|->FILTRA TAREA POR AGENTE EN ESTADO 3
         $agenteID = $_GET['dtagentesRetailCursoGET'];
         $query = "SELECT b.id, b.tarea, b.sucursal, b.ubicacion, b.lat, b.lon, b.fecha_sol, b.hora_inicio, b.hora_final
                   FROM tareas b
@@ -37,27 +37,23 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200);
-    }else if(isset($_GET['dtagentesRetailGET'])){ //LISTA DE RETAILS
+    }else if(isset($_GET['dtagentesRetailGET'])){           #|->FILTRA SUCURSALES ASOCIADAS A AGENTES
         $empresaID = $_GET['dtagentesRetailGET'];
         $agenteID  = $_GET['agenteID'];
         require_once 'clases/dt/dt.AgentesRetails.php'; 
     }else{
         /*
-        $query = "SELECT id,username,nombre,email,rol FROM usuarios";
-        $resp  = metodoGET($query);
-        header("Content-Type: application/json");
-        echo json_encode($resp);
-        http_response_code(200);
+        NO SE UTILIZA
         */
     }
-}else if($_SERVER['REQUEST_METHOD'] == "POST"){
+}else if($_SERVER['REQUEST_METHOD'] == "POST"){             #|->ASOCIA AGENTES A SUCURSALES
     $postBody = file_get_contents("php://input");
     $datos    = json_decode($postBody,true);
     if(!isset($datos['usuarioID']) || !isset($datos['agenteID']) || !isset($datos['sucursalID'])){
         $resp=$_respuestas->error_400();
     }else{
         # FECHA FORMATO 
-        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        date_default_timezone_set('America/Santiago');
         $fecha = date("Y-m-d H:i:s");
         $usuarioID  = htmlspecialchars($datos['usuarioID']);
         $agenteID   = htmlspecialchars($datos['agenteID']);
@@ -81,9 +77,9 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     header('Content-Type: application/json');
     echo json_encode($resp2);
     http_response_code(200);
-}else if($_SERVER['REQUEST_METHOD'] == "PUT"){
+}else if($_SERVER['REQUEST_METHOD'] == "PUT"){              #|->NO SE UTILIZA
     
-}else if($_SERVER['REQUEST_METHOD'] == "DELETE"){
+}else if($_SERVER['REQUEST_METHOD'] == "DELETE"){           #|->ELIMINA ASOCIACION DE AGENTES A SUCURSALES 
     $headers = getallheaders();
     if(isset($headers["userID"])){
         $send = [
@@ -95,7 +91,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     }
     $datos = json_decode($postBody,true);
     if(!isset($datos['userID'])){
-        $resp=$_respuestas->error_400(); //si no envio id usuario devuelve error
+        $resp=$_respuestas->error_400();
     }else{
         $userID     = $datos['userID'];
         $query  = "DELETE FROM agentes_retails WHERE id=$userID";

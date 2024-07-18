@@ -185,11 +185,11 @@
                     orderable: false,
                     render: function(data, type, full, meta){
                         if(type === 'display'){
-                            data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Ver Resultados" type="button" onClick="FormFinal(' + data + ')"><span class="sr-only">Ver Resultados</span><i class="fa fa-eye"></i></button>';
+                            data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Ver Informe" type="button" onClick="FormFinalX(' + data + ')"><span class="sr-only">Ver Informe</span><i class="fa fa-eye"></i></button>';
                         }
                         return data;
                     }
-                    
+                    //<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Ver Resultados" type="button" onClick="FormFinal(' + data + ')"><span class="sr-only">Ver Resultados</span><i class="fa fa-eye"></i></button>
                 } 
             ],
 
@@ -264,7 +264,12 @@
     function recarga(){
         window.location = "<?php echo constant('RUTA_URL');?>/lsttareas/";
     }
+    
+    function FormFinalX(tareaID){
+        window.open("<?php echo constant('RUTA_URL');?>/finalcliente?token=" + tareaID, '_blank');
+    }
 
+    /* no borrar aun.
     function FormFinal(tareaID) {
         var  resultadosHtml = '';
         var url = '<?php echo constant('RUTA_URL');?>/rest-api/Tareas?tareaFotoGET='+tareaID;
@@ -295,7 +300,7 @@
     function CloseModalHab() {
         $('#modalHab').modal('hide');
     }
-
+    */
     function confirmarCierre(tareaID) {
         alert(tareaID)
     }

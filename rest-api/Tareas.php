@@ -104,12 +104,13 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $Estado     = htmlspecialchars($datos['Estado']);
         $empresaID  = htmlspecialchars($datos['empresaID']);
         $Nota       = htmlspecialchars($datos['Nota']);
+        $controlCk  = htmlspecialchars($datos['controlCk']);
         $query  = "SELECT * FROM retail WHERE id=$Sucursal";
         $resp   = metodoGET($query);
         $codigo = $resp[0]['cod_local'];
        
-        $query2      = "INSERT INTO tareas (`idempresa`, `idcliente`, `idreail`, `tarea`, `sucursal`, `ubicacion`, `lat`, `lon`, `nota`, `fecha_alta`, `fecha_sol`, `hora_inicio`, `hora_final`, `estado`) 
-                               VALUES ('$empresaID','$Cliente','$Sucursal','$Nombre','$codigo','$Direccion','0','0','$Nota', '$fecha', '$Solicitud', '$HIngreso', '$HSalida', '$Estado')"; 
+        $query2      = "INSERT INTO tareas (`idempresa`, `idcliente`, `idreail`, `tarea`, `sucursal`, `ubicacion`, `lat`, `lon`, `nota`, `fecha_alta`, `fecha_sol`, `hora_inicio`, `hora_final`, `estado`, `checklist`) 
+                               VALUES ('$empresaID','$Cliente','$Sucursal','$Nombre','$codigo','$Direccion','0','0','$Nota', '$fecha', '$Solicitud', '$HIngreso', '$HSalida', '$Estado','$controlCk')"; 
         $resp2       = metodoPOST($query2);
 
         #|->ENVIO NOTIFICACION SI EL ESTADO ES 0 PARA EL ADMIN
@@ -207,10 +208,11 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $Estado     = htmlspecialchars($datos['Estado']);
         $empresaID  = htmlspecialchars($datos['empresaID']);
         $Nota       = htmlspecialchars($datos['Nota']);
+        $controlCk  = htmlspecialchars($datos['controlCk']);
         $query  = "SELECT * FROM retail WHERE id=$Sucursal";
         $resp   = metodoGET($query);
         $codigo = $resp[0]['cod_local'];
-        $query  = "UPDATE tareas SET idreail='$Sucursal', tarea='$Nombre', sucursal='$codigo', ubicacion='$Direccion', lat='0', lon='0', nota='$Nota', fecha_sol='$Solicitud', hora_inicio='$HIngreso', hora_final='$HSalida', estado='$Estado' WHERE id=$tareaID"; 
+        $query  = "UPDATE tareas SET idreail='$Sucursal', tarea='$Nombre', sucursal='$codigo', ubicacion='$Direccion', lat='0', lon='0', nota='$Nota', fecha_sol='$Solicitud', hora_inicio='$HIngreso', hora_final='$HSalida', estado='$Estado', checklist='$controlCk' WHERE id=$tareaID"; 
         $resp   = metodoPUT($query);
 
         #|->ENVIO NOTIFICACION SI EL ESTADO ES 1 PARA EL CLIENTE

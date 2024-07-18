@@ -55,7 +55,6 @@
                 </div>
             </div>
 
-
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="direccion">Dirección *</label>
                 <div class="col-sm-9">
@@ -63,14 +62,12 @@
                 </div>
             </div>
    
-           
             <div class="form-group row">
                 <div class="col-md-4">                    
                     <label for="fechaCheckin" class="form-label">Fecha Inicio</label>
                     <input type="date" class="form-control form-control-sm" id="fechaCheckin" 
                            value="<?php echo $fecha1;?>">
                 </div>
-             
                 <div class="col-md-4">                    
                     <label for="horaIngreso" class="form-label">Hora Inicio</label>
                     <input type="time" class="form-control form-control-sm" id="horaIngreso" 
@@ -80,10 +77,8 @@
                     <label for="horaSalida" class="form-label">Hora Fin</label>
                     <input type="time" class="form-control form-control-sm" id="horaSalida" 
                         value="">
-                </div>
-             
+                </div>             
             </div>
-           
             <br>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="descripcion">Descripción</label>
@@ -91,7 +86,17 @@
                     <textarea class="tinymce d-none" id="descripcion" data-id="descripcion"></textarea>
                 </div>
             </div>
-          
+            <hr>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="controlCk">Controlar Checklist</label>
+                <div class="col-sm-8">                    
+                    <select class="form-select form-select-sm" 
+                            id="controlCk">
+                        <!--DINAMICO POR JS-->                       
+                    </select>
+                    <small>Indique si se debe informar lista de trabajo</small>
+                </div>
+            </div>
             <hr>
             <div class="form-group text-center">
                 <?php  if ($tareaID > 0){?> 
@@ -107,6 +112,7 @@
         </div>
     </div>
     <input type="hidden" id="sucID" value="0">
+    <input type="hidden" id="checkList" value="0">
 </div>
 <?php require RUTA_APP . '/vistas/inc/footer.php'; ?>
 <script src="<?php echo constant('RUTA_URL');?>/public/vendors/datatables/js/jquery.dataTables.min.js"></script>
@@ -154,6 +160,8 @@
                         } else {
                             console.error('El editor no se encuentra inicializado.');
                         }
+                        
+                        $('#checkList').val(item.checklist);
                     } 
                 });  
                 
@@ -162,9 +170,7 @@
             });
            
         }else{
-            
             ListaClientes(clienteID);
-
         }    
         
     });
@@ -214,6 +220,7 @@
         var horaSalida   = document.querySelector('#horaSalida').value;
         var descripcion  = tinymce.activeEditor.getContent();
            // descripcion  = descripcion.replace(/['"]+/g, '');
+        var controlCk    = document.querySelector('#controlCk').value;
         Swal.fire({
             title: '<strong>Confirma '+Accion+'?</strong>',
             icon : 'info',
@@ -226,7 +233,7 @@
             cancelButtonAriaLabel : 'Thumbs down'
         }).then((result) => {
             if (result.value) {
-                var apiUrl='<?php echo constant('RUTA_URL'); ?>/rest-api/Tareas'; 
+                var apiUrl='<?php echo constant('RUTA_URL'); ?>/rest-api/Tareas.php'; 
                 var data = { 
                     usuarioID : userID,
                     tareaID   : tareaID,
@@ -239,7 +246,8 @@
                     HSalida   : horaSalida,
                     empresaID : empresaID,
                     Estado    : 1,
-                    Nota      : descripcion
+                    Nota      : descripcion,
+                    controlCk : controlCk
                 } 
                 fetch(apiUrl,{ 
                     method : metodo,  
@@ -319,7 +327,8 @@
                         $select.append('<option value=' + item.idretail + '>' + item.local + '</option>');
                     }
                 });    
-            });  
+            });
+            solicitarCheckList(clienteID)
         }
     }
 
@@ -335,6 +344,36 @@
             .then(data => {  //por aca leo los resultados de la consulta
                 $.each(data, function(i, item) {                   
                     $("#direccion").val(item.direccion);
+                });    
+            }); 
+        }
+    }
+    function solicitarCheckList(clienteID)
+    {  
+        if(clienteID>0){
+            var panol = 0;
+            var checkX =  $('#checkList').val();
+            var url = '<?php echo constant('RUTA_URL');?>/rest-api/Clientes?clienteID='+clienteID;
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {                
+                $('#controlCk').html("");
+                var $select = $('#controlCk');               
+                $.each(data, function(i, item) {                   
+                    panol = item.panol;
+                    if(panol==1){
+                        //muestro opcion de checklist
+                        if(checkX==1){
+                            $select.append('<option value=0>No</option>');
+                            $select.append('<option selected selected value=1>Si</option>');
+                        }else{
+                            $select.append('<option selected selected value=0>No</option>');
+                            $select.append('<option value=1>Si</option>');
+                         }
+                    }else{
+                        //desactivo opcion de checklist
+                        $select.append('<option selected selected value=0>No</option>');
+                    }
                 });    
             }); 
         }

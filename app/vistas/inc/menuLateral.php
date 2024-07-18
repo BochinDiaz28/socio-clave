@@ -78,6 +78,15 @@
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lista de Tareas</span></div>
                             </a>                                        
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" 
+                                href="<?php echo constant('RUTA_URL'); ?>/lsttareasfalladas" 
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lista de Tareas Falladas</span></div>
+                            </a>                                        
+                        </li>
+
+                        
                     </ul>
                 </li>
                 <!--FIN SECCION MENU EMPRESAS-->

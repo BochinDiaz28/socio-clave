@@ -33,7 +33,7 @@ $table = <<<EOT
         agentes d ON a.idagente=d.id
     WHERE 
         a.idempresa = $empresaID
-        AND a.estado = 4
+        AND a.estado = 5
 
 ) temp
 EOT;

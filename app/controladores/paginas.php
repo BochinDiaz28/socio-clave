@@ -278,6 +278,45 @@ class Paginas extends Controlador{
         }    
         
     }
+    public function lsttareasfalladas(){
+        if(isset($_SESSION['nombre'])){
+            if($_SESSION['rol']==100){
+                # Admistradores
+                $datos = [
+                    'titulo'    => 'Tareas Falladas',
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Tareas/ListaTareasFalladas', $datos);
+            }else if ($_SESSION['rol']==125) {
+                # Superivsor
+                $datos = [
+                    'titulo'    => 'Falladas',
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Tareas/ListaTareasFalladas', $datos);
+            }else if ($_SESSION['rol']==150) {
+                # Clientes
+                $datos = [
+                    'titulo'         => 'Tareas',
+                ];
+                $this->vista('paginas/Tareas/ListaTareas', $datos);
+            }else if ($_SESSION['rol']==200) {
+                # Reponedores
+                $datos = [
+                    'titulo'         => 'Tareas',
+                ];
+                $this->vista('paginas/Tareas/ListaTareas', $datos);
+            } 
+        }else{
+            $datos = [
+                'titulo' => 'Ingresar'
+            ];
+            $this->vista('paginas/Login/ingresar', $datos);
+        }    
+        
+    }
     ##|->MODULO TAREAS CLIENTES
     public function lstsolicitadas(){
         if(isset($_SESSION['nombre'])){
@@ -488,6 +527,7 @@ class Paginas extends Controlador{
             $this->vista('paginas/Login/ingresar', $datos);
         }    
     }
+    
     #|->FIN TAREAS 
 
     #|->AGENTES 

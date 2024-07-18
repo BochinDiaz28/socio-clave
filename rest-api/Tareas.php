@@ -39,19 +39,22 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200);  
-    }else if(isset($_GET['dttareasGET'])){ //TAREAS PENDIENTES O APROBADAS
+    }else if(isset($_GET['dttareasGET'])){              #|-> TAREAS PENDIENTES O APROBADAS ESTADOS 0 Y 1 (VISTA ADMIN)
         $empresaID = $_GET['dttareasGET'];
         require_once 'clases/dt/dt.Tareas.php'; 
-    }else if(isset($_GET['dttareasaceptadasGET'])){ //TAREAS ACEPTADAS
+    }else if(isset($_GET['dttareasaceptadasGET'])){     #|->TAREAS ACEPTADAS POR UN AGENTE (VISTA ADMIN)
         $empresaID = $_GET['dttareasaceptadasGET'];
         require_once 'clases/dt/dt.TareasAceptadas.php'; 
-    }else if(isset($_GET['dttareascursoGET'])){ //TAREAS EN CURSO
+    }else if(isset($_GET['dttareascursoGET'])){         #|-> TAREAS ESTADO 3 (VISTA ADMIN)
         $empresaID = $_GET['dttareascursoGET'];
         require_once 'clases/dt/dt.TareasCurso.php'; 
-    }else if(isset($_GET['dttareasfinalizadasGET'])){ //TAREAS FINALIZADAS
+    }else if(isset($_GET['dttareasfinalizadasGET'])){   #|-> TAREAS FINALZIADAS ESTADO 4 (VISTA ADMIN)
         $empresaID = $_GET['dttareasfinalizadasGET'];
         require_once 'clases/dt/dt.TareasFinalizada.php';
-    }else if(isset($_GET['listaRangoGET'])){ //TAREAS FINALIZADAS POR RANGO DE FECHAS
+    }else if(isset($_GET['dttareasfalladasGET'])){      #|->TAREAS ESTADO 5 FALLO ALGUNA DE LAS PARTES (VISTA ADMIN)
+        $empresaID = $_GET['dttareasfalladasGET'];
+        require_once 'clases/dt/dt.TareasFalladas.php';
+    }else if(isset($_GET['listaRangoGET'])){            #|-> TAREAS FINALIZADAS POR RANGO DE FECHAS (VISTA ADMIN)
         $empresaID = $_GET['listaRangoGET'];
         $inicio    = $_GET['inicio'];
         $final     = $_GET['final'];
@@ -92,7 +95,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $resp=$_respuestas->error_400();
     }else{
         # FECHA FORMATO 
-        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        date_default_timezone_set('America/Santiago');
         $fecha = date("Y-m-d H:i:s");
         $Nombre     = htmlspecialchars($datos['Nombre']);
         $Direccion  = htmlspecialchars($datos['Direccion']);
@@ -195,7 +198,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $resp=$_respuestas->error_400();
     }else{
         # FECHA FORMATO 
-        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        date_default_timezone_set('America/Santiago');
         $fecha = date("Y-m-d H:i:s");
         $tareaID    = htmlspecialchars($datos['tareaID']);
         $Nombre     = htmlspecialchars($datos['Nombre']);
@@ -298,7 +301,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     if(!isset($datos['userID'])){
         $resp=$_respuestas->error_400(); //si no envio id usuario devuelve error
     }else{
-        $userID     = $datos['userID'];
+        $userID = $datos['userID'];
         $query  = "DELETE FROM tareas WHERE id=$userID";
         $resp   = metodoDELETE($query);
     }

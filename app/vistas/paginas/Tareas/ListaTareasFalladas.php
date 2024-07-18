@@ -25,6 +25,7 @@
                         <span class="text">Todas</span>
                     </a>
                 </div>
+                <!--
                 <div class="col-md-auto">                   
                     <input class="form-control-sm datetimepicker" id="timepicker2" type="text" placeholder="d/m/y to d/m/y" data-options='{"mode":"range","dateFormat":"Y-m-d","disableMobile":true}' />
                     <a class="btn btn-outline-primary btn-sm me-1 mb-1"
@@ -34,13 +35,14 @@
                         <span class="text">Filtrar</span>
                     </a>
                 </div>
+                -->
             </div>    
         </div>
        
     </div>
     <div class="card mb-3">
         <div class="card-header">
-            <h5>Tareas Finalizadas</h5>
+            <h5>Tareas Falladas</h5>
         </div>
         <div class="card-body">
             <div class="row">
@@ -59,7 +61,7 @@
             </div> 
         </div> 
         <div class="card-footer">
-            <p class="fs--1">Tareas Finalizadas: Lista de tareas finalizadas por agentes.</p>
+            <p class="fs--1">Tareas Falladas: Lista de tareas no realizadas con exito.</p>
         </div> 
     </div>
 </div>
@@ -118,7 +120,7 @@
     
     function FiltroRango(filtro) {
         if(filtro==1){
-            var LinkFiltro = "<?php echo constant('RUTA_REST');?>/rest-api/Tareas?dttareasfinalizadasGET="+<?php echo $empresaID; ?>;
+            var LinkFiltro = "<?php echo constant('RUTA_REST');?>/rest-api/Tareas?dttareasfalladasGET="+<?php echo $empresaID; ?>;
         }else{
             var filtro = $('#timepicker2').val();
             var arr = filtro.split('to');
@@ -186,7 +188,7 @@
                             }else if(data==1){
                                 data = 'C. con Exito';
                             }else if(data==0){
-                                data = '<button class="btn btn-outline-info btn-sm me-1 mb-1" title="Clonar Cotización" type="button" onClick="ClonarTarea(' + full[10] + ')"><span class="sr-only">Clonar Cotización</span><i class="far fa-clone"></i></button>';
+                                data = 'C. sin Exito';
                             } 
                         }
                         return data;

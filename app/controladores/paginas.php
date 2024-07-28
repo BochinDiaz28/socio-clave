@@ -963,7 +963,7 @@ class Paginas extends Controlador{
             if($_SESSION['rol']==100){
                 # Admistradores
                 $datos = [
-                    'titulo'    => 'Lista de Pañol',
+                    'titulo'    => 'Lista de Inventarios',
                     'userID'    => $_SESSION['id'],
                     'empresaID' => $_SESSION['empresaID'],
                 ];
@@ -971,7 +971,7 @@ class Paginas extends Controlador{
             }else if ($_SESSION['rol']==125) {
                 # Clientes
                 $datos = [
-                    'titulo'    => 'Lista de Pañol',
+                    'titulo'    => 'Lista de Inventarios',
                     'userID'    => $_SESSION['id'],
                     'empresaID' => $_SESSION['empresaID'],
                 ];
@@ -979,9 +979,11 @@ class Paginas extends Controlador{
             }else if ($_SESSION['rol']==150) {
                 # Clientes
                 $datos = [
-                    'titulo'         => 'Empresas',
+                    'titulo'    => 'Lista de Inventario',
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
                 ];
-                $this->vista('paginas/inicio', $datos);
+                $this->vista('paginas/Panol/ListaPanolCliente', $datos);
             }else if ($_SESSION['rol']==200) {
                 # Reponedores
                 $datos = [
@@ -1021,9 +1023,12 @@ class Paginas extends Controlador{
             }else if ($_SESSION['rol']==150) {
                 # Clientes
                 $datos = [
-                    'titulo'         => 'Inicio',
+                    'titulo'     => 'Pañol',
+                    'panolID'    => $id,
+                    'userID'     => $_SESSION['id'],
+                    'empresaID'  => $_SESSION['empresaID'],
                 ];
-                $this->vista('paginas/inicio', $datos);
+                $this->vista('paginas/Panol/AMPanolCliente', $datos);
             }else if ($_SESSION['rol']==200) {
                 # Reponedores
                 $datos = [
@@ -1107,7 +1112,7 @@ class Paginas extends Controlador{
                     'userID'    => $_SESSION['id'],
                     'empresaID' => $_SESSION['empresaID'],
                 ];
-                $this->vista('paginas/Panol/SubirExcelPanol', $datos);
+                $this->vista('paginas/Panol/SubirExcelPanolCliente', $datos);
             }else if ($_SESSION['rol']==200) {
                 # agentes
                 $datos = [

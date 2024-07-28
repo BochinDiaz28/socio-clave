@@ -4,21 +4,22 @@
     $empresaID = $datos['empresaID']; #|->EMPRESA LOGEADA
     $userID    = $datos['userID'];    #|->USUARIOS LOGEADO
 ?>
+
 <div class="content">
     <?php require RUTA_APP . '/vistas/inc/menuSuperior.php'; ?>
     <div class="card mb-3">
         <div class="card-header">
-        <div class="row">
+            <div class="row">
                 <div class="col-md-auto">
                     <a class="btn btn-outline-primary btn-sm me-1 mb-1"
-                       href="<?php echo constant('RUTA_URL');?>/panol/0">
+                        href="<?php echo constant('RUTA_URL');?>/panol/0">
                         <span class="fas fa-plus mr-1" data-fa-transform="shrink-3"></span>
                         <span class="text">Nuevo</span>
                     </a>
                 </div>
                 <div class="col-md-auto">
                     <a class="btn btn-sm btn btn-outline-success btn-sm me-1 mb-1"
-                       href="<?php echo constant('RUTA_URL');?>/uploadpanol" >
+                        href="<?php echo constant('RUTA_URL');?>/uploadpanol" >
                         <span class="far fa-file-excel mr-1" data-fa-transform="shrink-2"></span>
                         <span class="text">Subir</span>
                     </a>
@@ -27,20 +28,7 @@
         </div>        
     </div>
 
-    <div class="card mb-3">
-        <div class="card-header">
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="clientes">Seleccionar Cliente</label>
-                <div class="col-sm-9">
-                    <select class="form-select form-select-sm clienteSelect" 
-                            id="clientes" onchange="LstPanol()">
-                        <!--DINAMICO POR JS-->                       
-                    </select>
-                    <small>Seleccione el cliente para ver el inventario</small>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     
     <div class="card mb-3">
         <div class="card-body">
@@ -64,6 +52,7 @@
             <p class="fs--1">Productos en inventario</p>
         </div> 
     </div>
+    <input type="hidden" id="clienteID">
 </div>
 <?php require RUTA_APP . '/vistas/inc/footer.php'; ?>
 
@@ -75,28 +64,28 @@
 <script>
     $(document).ready(function ()
     {
-        $('.clienteSelect').select2();
         ListaClientes();
     }); 
     function ListaClientes()
     {  
-        var empresaID = <?php echo $empresaID; ?>;
-        var url       = '<?php echo constant('RUTA_URL');?>/rest-api/Clientes?clientesTodosGET='+empresaID;
+        var userID = <?php echo $userID; ?>;
+        var url       = '<?php echo constant('RUTA_URL');?>/rest-api/Clientes?clientesUserGET='+userID;
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            $('#clientes').html("");
-            var $select = $('#clientes');
-                $select.append('<option value="0">Seleccionar Cliente</option>');
+          
             $.each(data, function(i, item) {
                 if(item.panol==1){
-                    $select.append('<option value=' + item.id + '>' + item.nombre + '</option>');
+                    $('#clienteID').val(item.id);
+                    LstPanol()
+                }else{
+                    //no mostrar pañol
                 }
             });    
         });  
     }
     function LstPanol() {
-        var clienteID = $('#clientes').val();
+        var clienteID = $('#clienteID').val();
         $('#Lista thead th').each(function () {
             var title = $(this).text();
             $(this).html(title);

@@ -15,7 +15,6 @@
                         <span class="fas fa-plus mr-1" data-fa-transform="shrink-3"></span>
                         <span class="text">Nuevo</span>
                     </a>
-                    
                 </div>
                 <div class="col-md-auto">
                     <a class="btn btn-sm btn btn-outline-success btn-sm me-1 mb-1"

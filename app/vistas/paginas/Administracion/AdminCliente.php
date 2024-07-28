@@ -133,7 +133,7 @@
                     <input type="date" class="form-control form-control-sm" id="fechaCheckin" 
                         value="<?php echo $fecha1;?>">
                 </div>
-                <!--
+                
                 <div class="col-md-4">                    
                     <label for="horaIngreso" class="form-label">Hora Inicio</label>
                     <input type="time" class="form-control form-control-sm" id="horaIngreso" 
@@ -144,9 +144,9 @@
                     <input type="time" class="form-control form-control-sm" id="horaSalida" 
                         value="">
                 </div>
-                -->
+              
             </div>
-            <!--DESCRIPCION SOLO DUOC
+        
             <br>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="descripcion">Descripción</label>
@@ -154,7 +154,17 @@
                     <textarea class="tinymce d-none" id="descripcion" data-id="descripcion"></textarea>
                 </div>
             </div>
-            -->
+            <hr>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="controlCk">Controlar Checklist</label>
+                <div class="col-sm-8">                    
+                    <select class="form-select form-select-sm" 
+                            id="controlCk">
+                        <!--DINAMICO POR JS-->                       
+                    </select>
+                    <small>Indique si se debe informar lista de trabajo</small>
+                </div>
+            </div>
             <hr>
             <div class="form-group text-center">
                 <?php  if ($tareaID > 0){?> 
@@ -203,8 +213,8 @@
                         //item.lon
                         //item.nota
                         $('#fechaCheckin').val(item.fecha_sol);
-                        //$('#horaIngreso').val(item.hora_inicio);
-                        //$('#horaSalida').val(item.hora_final);
+                        $('#horaIngreso').val(item.hora_inicio);
+                        $('#horaSalida').val(item.hora_final);
                     } 
                 });  
                 
@@ -256,6 +266,7 @@
                     }
                 });    
             });  
+            solicitarCheckList(clienteID)
         }
     }
 
@@ -282,8 +293,8 @@
         var clientes     = document.querySelector('#clienteID').value;
         var sucursal     = document.querySelector('#sucursal').value;
         var fechaCheckin = document.querySelector('#fechaCheckin').value;
-        var horaIngreso  = ''; //document.querySelector('#horaIngreso').value;
-        var horaSalida   = ''; //document.querySelector('#horaSalida').value;
+        var horaIngreso  = document.querySelector('#horaIngreso').value;
+        var horaSalida   = document.querySelector('#horaSalida').value;
         if(nombre === '' || direccion===''){  //SI NO VALIDA CORRECTAMENTE TIRA CARTEL
             swal({
                 type : 'error',
@@ -316,10 +327,11 @@
         var clientes     = document.querySelector('#clienteID').value;
         var sucursal     = document.querySelector('#sucursal').value;
         var fechaCheckin = document.querySelector('#fechaCheckin').value;
-        var horaIngreso  = ''; //document.querySelector('#horaIngreso').value;
-        var horaSalida   = ''; //document.querySelector('#horaSalida').value;
-        var descripcion  = ''; //tinymce.activeEditor.getContent();
-            //descripcion  = descripcion.replace(/['"]+/g, '');
+        var horaIngreso  = document.querySelector('#horaIngreso').value;
+        var horaSalida   = document.querySelector('#horaSalida').value;
+        var descripcion  = tinymce.activeEditor.getContent();
+            // descripcion  = descripcion.replace(/['"]+/g, '');
+        var controlCk    = document.querySelector('#controlCk').value;
         Swal.fire({
             title: '<strong>Confirma '+Accion+'?</strong>',
             icon : 'info',
@@ -344,8 +356,9 @@
                     HIngreso  : horaIngreso,
                     HSalida   : horaSalida,
                     empresaID : empresaID,
-                    Estado    : 0,
-                    Nota      : descripcion
+                    Estado    : 1,
+                    Nota      : descripcion,
+                    controlCk : controlCk
                 } 
                 fetch(apiUrl,{ 
                     method : metodo,  
@@ -379,6 +392,38 @@
             }   
         })
     }
+
+    function solicitarCheckList(clienteID)
+    {  
+        if(clienteID>0){
+            var panol = 0;
+            var checkX =  $('#checkList').val();
+            var url = '<?php echo constant('RUTA_URL');?>/rest-api/Clientes?clienteID='+clienteID;
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {                
+                $('#controlCk').html("");
+                var $select = $('#controlCk');               
+                $.each(data, function(i, item) {                   
+                    panol = item.panol;
+                    if(panol==1){
+                        //muestro opcion de checklist
+                        if(checkX==1){
+                            $select.append('<option value=0>No</option>');
+                            $select.append('<option selected selected value=1>Si</option>');
+                        }else{
+                            $select.append('<option selected selected value=0>No</option>');
+                            $select.append('<option value=1>Si</option>');
+                         }
+                    }else{
+                        //desactivo opcion de checklist
+                        $select.append('<option selected selected value=0>No</option>');
+                    }
+                });    
+            }); 
+        }
+    }
+
     function redireccion(){
         window.location = "<?php echo constant('RUTA_URL');?>/inicio";
     }

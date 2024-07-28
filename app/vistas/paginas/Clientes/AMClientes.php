@@ -59,7 +59,7 @@
             </div>
             <hr>
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label" for="panolxx">Activar Modulo Pañol</label>
+                <label class="col-sm-3 col-form-label" for="panolxx">Activar Invenario?</label>
                 <div class="col-sm-9">
                     <select class="form-select form-select-sm" 
                             id="panolxx">                       

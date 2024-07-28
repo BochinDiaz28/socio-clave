@@ -11,14 +11,14 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-auto">
-                    <a class="btn btn-outline-primary btn-sm me-1 mb-1"
+                    <a id="_nuevo" class="btn btn-outline-primary btn-sm me-1 mb-1"
                         href="<?php echo constant('RUTA_URL');?>/panol/0">
                         <span class="fas fa-plus mr-1" data-fa-transform="shrink-3"></span>
                         <span class="text">Nuevo</span>
                     </a>
                 </div>
                 <div class="col-md-auto">
-                    <a class="btn btn-sm btn btn-outline-success btn-sm me-1 mb-1"
+                    <a  id="_subir" class="btn btn-sm btn btn-outline-success btn-sm me-1 mb-1"
                         href="<?php echo constant('RUTA_URL');?>/uploadpanol" >
                         <span class="far fa-file-excel mr-1" data-fa-transform="shrink-2"></span>
                         <span class="text">Subir</span>
@@ -28,8 +28,6 @@
         </div>        
     </div>
 
-    
-    
     <div class="card mb-3">
         <div class="card-body">
             <div class="row">
@@ -42,7 +40,6 @@
                                 <!-- COMPLETO LOS TITULOS DINAMICOS -->
                             </thead>                
                                 <!-- COMPLETO LOS DATOS DINAMICOS -->
-        
                         </table>
                     </div>
                 </div>  
@@ -80,6 +77,12 @@
                     LstPanol()
                 }else{
                     //no mostrar pañol
+                    document.getElementById("_nuevo").addEventListener("click", function(event) {
+                        event.preventDefault();
+                    });
+                    document.getElementById("_subir").addEventListener("click", function(event) {
+                        event.preventDefault();
+                    });
                 }
             });    
         });  

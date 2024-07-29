@@ -87,13 +87,26 @@
                 { "title": "Sucursal" },
                 { "title": "Agente" },
                 { "title": "Fecha" },
+                { "title": "Informe" },
             ],
             columnDefs: [
                 {
                     "targets"   : [ 0 ],
                     "visible"   : false,
                     "searchable": false
-                }
+                },
+                {
+                    targets: [5] ,
+                    searchable: true,
+                    orderable: false,
+                    render: function(data, type, full, meta){
+                        if(type === 'display'){
+                            data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Ver Informe" type="button" onClick="FormFinalX(' + data + ')"><span class="sr-only">Ver Informe</span><i class="fa fa-eye"></i></button>';
+                        }
+                        return data;
+                    }
+                    //<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Ver Resultados" type="button" onClick="FormFinal(' + data + ')"><span class="sr-only">Ver Resultados</span><i class="fa fa-eye"></i></button>
+                } 
                 
             ],
 
@@ -137,5 +150,7 @@
         }); 
     }
 
-
+    function FormFinalX(tareaID){
+        window.open("<?php echo constant('RUTA_URL');?>/finalcliente?token=" + tareaID, '_blank');
+    }
 </script>

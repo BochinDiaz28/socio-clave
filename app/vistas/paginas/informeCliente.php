@@ -203,13 +203,13 @@
             $.each(data, function(i, item) {
                 if(item.estado==3){
                     $('#_ingreso').html(" "+item.comentario);
-                    var foto = '<div class="cs-logo cs-mb5"><img src="<?=constant('RUTA_URL'); ?>/public/img/logosEmpresas/logo.png" alt="Logo"></div>';
+                    var foto = '<div class="cs-logo cs-mb5"><img width="200px" src="<?=constant('RUTA_URL'); ?>/public/img/tarea/'+item.foto+'" alt="Foto Inicio"></div>';
                     $('#_MuestraFotos').html(foto);
                 }
                
                 if(item.estado==4){
                     $('#_salida').html(" "+ item.comentario);
-                    var foto2 = '<div class="cs-logo cs-mb5"><img src="<?=constant('RUTA_URL'); ?>/public/img/logosEmpresas/logo.png" alt="Logo"></div>';
+                    var foto2 = '<div class="cs-logo cs-mb5"><img width="200px" src="<?=constant('RUTA_URL'); ?>/public/img/tarea/'+item.foto+'" alt="Foto Final"></div>';
                     $('#_MuestraFotos2').html(foto2);
                 }              
             }); 

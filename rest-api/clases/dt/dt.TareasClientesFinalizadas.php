@@ -36,7 +36,8 @@ $columns = array(
     array( 'db' => 'tarea', 'dt'     => 1 ),
     array( 'db' => 'sucursal', 'dt'  => 2 ),
     array( 'db' => 'Agente', 'dt'    => 3 ),
-    array( 'db' => 'fecha_sol', 'dt' => 4 )
+    array( 'db' => 'fecha_sol', 'dt' => 4 ),
+    array( 'db' => 'id', 'dt'        => 5 )
 );
  
  

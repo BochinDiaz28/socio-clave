@@ -191,8 +191,7 @@
     }
 
     function EnviarRta() {
-        //window.location = "<?php echo constant('RUTA_URL');?>/rtacotizacion/"+<?=$token?>;
-        alert("No configurado");
+        window.location = "<?php echo constant('RUTA_URL');?>/rtainforme/"+<?=$token?>;        
     }
     function llamadoFotos() {
         var token = <?=$token?>;

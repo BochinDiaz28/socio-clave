@@ -760,7 +760,22 @@ class Paginas extends Controlador{
         ];
         $this->vista('paginas/informeCliente', $datos);
     }
+    public function rtainforme($id){
+        //MUESTRA INTERNA EN ADJUDICADA
+        $datos = [
+            'titulo' => 'Informe tasknow',
+            'cotID'  => $id
+        ];
+        $this->vista('paginas/rtaCliente', $datos);
+    }
 
+    public function rtafin(){
+        //MUESTRA INTERNA EN ADJUDICADA
+        $datos = [
+            'titulo' => 'Respuesta tasknow'
+        ];
+        $this->vista('paginas/rtaClienteFin', $datos);
+    }
     ##|->Lista de sucursales
     public function lstretails(){
         if(isset($_SESSION['nombre'])){
@@ -963,7 +978,6 @@ class Paginas extends Controlador{
         }    
         
     }
-    //SIN CONFIGURAR
     public function cambiopass(){
         if(isset($_SESSION['nombre'])){ 
             if($_SESSION['rol']==100){

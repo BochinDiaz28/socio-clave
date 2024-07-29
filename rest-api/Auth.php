@@ -69,7 +69,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         }else{
             #|->EL USUARIO NO EXISTE
            header('Content-Type: application/json');
-            $result["result"] =  array( "status" => "El usuaro $usuario no existe" );
+            $result["result"] =  array( "status" => "El usuario $usuario no existe" );
             echo json_encode($result);
             http_response_code(200);
         }

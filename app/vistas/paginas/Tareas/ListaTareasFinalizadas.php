@@ -59,7 +59,7 @@
             </div> 
         </div> 
         <div class="card-footer">
-            <p class="fs--1">Tareas Finalizadas: Lista de tareas finalizadas por agentes.</p>
+            <p class="fs--1">Tareas -> Acciones en Azul (falta resp de cliente) | Verde(Aprobada por cliente) | Rojo (Observada por cliente) </p>
         </div> 
     </div>
 </div>
@@ -150,11 +150,12 @@
                 { "title": "Check-out" },
                 { "title": "C. Agente" },
                 { "title": "C. Admin" },
+                { "title": "C. Cliente" },
                 { "title": "Acciones" },
             ],
             columnDefs: [
                 {
-                    "targets"   : [ 0 ],
+                    "targets"   : [ 0,10 ],
                     "visible"   : false,
                     "searchable": false
                 },
@@ -193,12 +194,19 @@
                     }  
                 }, 
                 {
-                    targets: [10 ] ,
+                    targets: [11 ] ,
                     searchable: true,
                     orderable: false,
                     render: function(data, type, full, meta){
                         if(type === 'display'){
-                            data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Ver Informe" type="button" onClick="FormFinalX(' + data + ')"><span class="sr-only">Ver Informe</span><i class="fa fa-eye"></i></button>';
+                            if(full[10]==0){
+                                var btn='btn-outline-primary';
+                            }else if(full[10]==1){
+                                var btn='btn-outline-success';
+                            }else if(full[10]==2){
+                                var btn='btn-outline-danger';
+                            }
+                            data = '<button class="btn '+btn+' btn-sm me-1 mb-1" title="Ver Informe" type="button" onClick="FormFinalX(' + data + ')"><span class="sr-only">Ver Informe</span><i class="fa fa-eye"></i></button>';
                         }
                         return data;
                     }

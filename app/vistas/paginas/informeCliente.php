@@ -110,20 +110,26 @@
                         <div id="_MuestraFotos2"></div> <br>
                     </div>
                 </div>
-
-                <div id="_MuestraTerminos"></div>
+                <hr>
+                <div class="cs-invoice_head cs-mb10">
+                    <div class="invoice_full">
+                        <b class="cs-primary_color">Respuesta Cliente:</b><br>
+                        <div id="_MuestraTerminos"></div>
+                    </div>
+                </div>
 
                 <div class="cs-invoice_btns cs-hide_print">
                     <a href="javascript:window.print()" class="cs-invoice_btn cs-color1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M384 368h24a40.12 40.12 0 0040-40V168a40.12 40.12 0 00-40-40H104a40.12 40.12 0 00-40 40v160a40.12 40.12 0 0040 40h24" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/><rect x="128" y="240" width="256" height="208" rx="24.32" ry="24.32" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/><path d="M384 128v-24a40.12 40.12 0 00-40-40H168a40.12 40.12 0 00-40 40v24" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/><circle cx="392" cy="184" r="24"/></svg>
                         <span>Imprimir</span>
                     </a>
+                    <!--
                     <button id="download_btn" class="cs-invoice_btn cs-color2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Download</title><path d="M336 176h40a40 40 0 0140 40v208a40 40 0 01-40 40H136a40 40 0 01-40-40V216a40 40 0 0140-40h40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M176 272l80 80 80-80M256 48v288"/></svg>
                         <span>Descargar</span>
                     </button>
-                   
-                    <button id="" 
+                    -->
+                    <button id="_respuesta" 
                             class="cs-invoice_btn cs-color2" 
                             style="background-color: #2d3494;border-color: #2d3494;"
                             onclick="EnviarRta();">                        
@@ -184,6 +190,17 @@
                     x.style.display = "none";
                 }
                 llamadoFotos(item.id);
+                //
+                if(item.cerradaCliente>0){
+                    document.getElementById('_respuesta').disabled = true;
+                    if(item.cerradaCliente==1){
+                        var mje = "Aprobada";
+                    }else{
+                        var mje = "Observada";
+                    }
+                    $('#_MuestraTerminos').html(mje +': '+item.notaCliente);
+                }
+                //
             });    
             $('#_lstItems').html(html);
             

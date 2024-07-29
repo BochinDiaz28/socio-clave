@@ -108,6 +108,16 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 //echo $resultado;
                 $resultadoPush=$envio->enviarDataPush($message,$title);
                 */
+
+                #|->ENVIO DE CORREO A CLIENTE                
+                $queryC = "SELECT host, usuario, clave, puerto FROM correo WHERE id=1";
+                $respC  = metodoGET($queryC);
+                
+                $smtpHost    = $respC[0]['host'];
+                $smtpUsuario = $respC[0]['usuario'];
+                $smtpClave   = $respC[0]['clave'];
+                $smtpPuerto  = $respC[0]['puerto'];
+                require_once 'correos/class.correo_bienvenida.php';
             }
         }
     } 

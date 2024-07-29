@@ -54,7 +54,7 @@ $cuerpo = '<!DOCTYPE html>
                 <tr>
                   <td style="padding:0;width:50%;" align="left">
                     <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
-                      &reg; MIL TAREAS
+                      &reg; TaskNow.cl
                     </p>
                   </td>
                 </tr>

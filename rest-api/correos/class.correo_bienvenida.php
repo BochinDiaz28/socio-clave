@@ -4,7 +4,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 date_default_timezone_set('America/Lima');
 
-$nombrePro   = "miltareas.com";
+$nombrePro   = "tasknow.cl";
 
 require("class.phpmailer.php");
 require("class.smtp.php");
@@ -28,7 +28,7 @@ $cuerpo = '<!DOCTYPE html>
         <table role="presentation" style="width:602px;border-collapse:collapse;border:0px solid #ffffff;border-spacing:0;text-align:left;">
           <tr>
             <td align="center" style="padding:40px 0 30px 0;background:#ffffff;">
-              <img src="https://grudigoapps.com/public/img/logosEmpresas/miltareas.png" alt="mil tareas" width="250" style="height:auto;display:block;" />
+              <img src="https://tasknow.cl/public/img/logosEmpresas/logo.png" alt="mil tareas" width="250" style="height:auto;display:block;" />
             </td>
           </tr>
           <tr>
@@ -38,7 +38,7 @@ $cuerpo = '<!DOCTYPE html>
                   <td style="padding:0 0 36px 0;color:#153643;">
                     <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Hola '.$nombre.'.</h1>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                      Bienvenid@ a '.$nombrePro.', acabas de hacer la mejor elección para la solución de tus proyectos.<br>
+                      Bienvenid@ a '.$nombrePro.', acabas de tomar la mejor elección en soluciones empresariales.<br>
                       <i> ¡Desde ahora somos tu mejor Aliado para lo que necesites!</i>
                     </p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
@@ -48,31 +48,29 @@ $cuerpo = '<!DOCTYPE html>
                       CLAVE: <b>'.$passCorreo.'</b>
                     </p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                    <b>CONSEJOS PARA TU PRIMER ENVÍO</b>
+                    <b>CONSEJOS PARA SOLICITAR TU PRIMER TAREA</b>
                     </p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                    1. EMBALAJE IDEAL: Todos los paquetes deben ir cerrados herméticamente, no pueden tener espacios ni aberturas para evitar que salgan tus productos. No se aceptarán bolsas o cajas que no cumplan con este requisito.
+                    1. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab dolorum officia molestiae nihil officiis qui excepturi consectetur dicta tempore maiores.
                     </p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                    2. IDENTIFICA TUS PAQUETES: Todos tus paquetes deben ir con el nombre de tu tienda y rotulados con la información del cliente.
+                    2. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab dolorum officia molestiae nihil officiis qui excepturi consectetur dicta tempore maiores.
                     </p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                    3.  DATOS DEL CLIENTE: Todos los paquetes deben ir con los datos del cliente: Nombre, dirección, comuna, teléfono y una observación si es necesario.
+                    3.  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab dolorum officia molestiae nihil officiis qui excepturi consectetur dicta tempore maiores.
                     </p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                    3b. OBSERVACIONES: Si tu paquete requiere un trato especial debes indicarlo en el paquete y formulario, ejemplo: FRÁGIL, RECIBIR CAMBIO, MEDIDAS (80X50CM), TOMAR SOLO HORIZONTALMENTE, ETC.
+                    3b. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab dolorum officia molestiae nihil officiis qui excepturi consectetur dicta tempore maiores.
                     </p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                      4.INFORMAR A CLIENTE: Repartidores entregan sin horarios específicos, no entregamos en su lugar de trabajo o locales comerciales, No reciben Pagos y su tiempo de espera máximo es de 10min, cliente no puede revisar o probar el Producto, si tienen algún problema pueden hablar directamente con su tienda.
+                      4.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab dolorum officia molestiae nihil officiis qui excepturi consectetur dicta tempore maiores.
                     </p>
 
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                      HORARIO DE RETIROS Y ENTREGAS
+                      HORARIO DE INGRESOS
                     </p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                    Todos los retiros se realizan entre las 19:30hrs a 22:30hrs y las entregas desde las 8:30hrs a 22:30hrs, en ambos casos el repartidor espera máximo 10min. Lo ideal esque publiques una historia en tus redes para que tus clientes esten atentos. <br>
-                    El repartidor puede pasar desde las 19:31hrs a 22:30hrs, entre ese horario debes estar preparado(a) con la mercadería lista para su entrega.<br>
-                    En el caso de no estar listo, no contestar el teléfono, o no salir del domicilio, y el repartidor se encuentra afuera o llegando, perderas el valor del retiro y solo se reembolsará el valor de los envíos no realizados.
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab dolorum officia molestiae nihil officiis qui excepturi consectetur dicta tempore maiores.
                     </p>
                   </td>
                 </tr>
@@ -80,12 +78,12 @@ $cuerpo = '<!DOCTYPE html>
             </td>
           </tr>
           <tr>
-            <td style="padding:30px;background:#0A663D;">
+            <td style="padding:30px;background:#26B7BC;">
               <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
                 <tr>
                   <td style="padding:0;width:50%;" align="left">
                     <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
-                      &reg; MIL TAREAS 
+                      &reg; tasknow.cl
                     </p>
                   </td>
                 </tr>

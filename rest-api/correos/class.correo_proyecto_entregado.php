@@ -4,16 +4,13 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 date_default_timezone_set('America/Lima');
 
-$nombrePro   = "miltareas.com";
-$nombre      = "Carlos Adrian";
-$email       = "carlosadrianchoquehuanca@gmail.com"; 
+$nombrePro   = "tasknow.cl";
 $correoCopia = "diazfranco2003@hotmail.com";
-$nombrePF = "Profesor XXXX";
 
 require("class.phpmailer.php");
 require("class.smtp.php");
 //ENVIO EMAIL USUARIOS
-$asunto = "Proyecto entreado por ".$nombrePF;
+$asunto = "Tarea finalizada ".$tareaNom;
 $cuerpo = '<!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
@@ -32,7 +29,7 @@ $cuerpo = '<!DOCTYPE html>
         <table role="presentation" style="width:602px;border-collapse:collapse;border:0px solid #ffffff;border-spacing:0;text-align:left;">
           <tr>
             <td align="center" style="padding:40px 0 30px 0;background:#ffffff;">
-              <img src="https://grudigoapps.com/public/img/logosEmpresas/miltareas.png" alt="mil tareas" width="250" style="height:auto;display:block;" />
+              <img src="https://tasknow.cl/public/img/logosEmpresas/logo.png" alt="mil tareas" width="250" style="height:auto;display:block;" />
             </td>
           </tr>
           <tr>
@@ -40,12 +37,12 @@ $cuerpo = '<!DOCTYPE html>
               <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
                 <tr>
                   <td style="padding:0 0 36px 0;color:#153643;">
-                    <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Hola '.$nombre.', tu proyecto esta listo!.</h1>
+                    <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Hola '.$nombreC.', tu tarea esta lista!.</h1>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                      Nuestro tutor, '.$nombrePF.', connfirmo la entrega de tu pedido, por favor descarga y revisa el mismo, califica he indicanos que todo esta correcto.<br>
+                      El Agente, '.$nobmreA.', connfirmo la realización de tu pedido, por favor descarga y revisa el informe, califica he indicanos que todo esta correcto.<br>
                     </p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                      Importante: podras mantener el chat activo con el hasta que indiques la finalizacion y conformidad con la entrega.
+                      Importante: si no esta conforme con el trabajo indiquelo a la brevedad.
                     </p>
                   </td>
                 </tr>
@@ -53,12 +50,12 @@ $cuerpo = '<!DOCTYPE html>
             </td>
           </tr>
           <tr>
-            <td style="padding:30px;background:#0A663D;">
+            <td style="padding:30px;background:#26B7BC;">
               <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
                 <tr>
                   <td style="padding:0;width:50%;" align="left">
                     <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
-                      &reg; MIL TAREAS 
+                      &reg; tasknow.cl
                     </p>
                   </td>
                 </tr>
@@ -72,21 +69,16 @@ $cuerpo = '<!DOCTYPE html>
 </body>
 </html>';
 
-$nombre  = "Proyecto entregado por ".$nombrePF;
+$nombre  = "Tarea finalizada en ".$nombrePro;
 $mensaje = $cuerpo;
 
-// Datos de la cuenta de correo utilizada para enviar vía SMTP
-$smtpHost    = "smtp.hostinger.com";//$smtpHost0;
-$smtpUsuario = "noreply@clubdeatletismoloshorneros.com.ar"; //$smtpUsuario0;
-$smtpClave   = "31817361Ma+";//$smtpClave0; 
-
 // Email de destino cliente
-$emailDestino = $email;
+$emailDestino = $correoC;
 
 $mail = new PHPMailer();
 $mail->IsSMTP();
 $mail->SMTPAuth   = true;
-$mail->Port       = 465;//$smtpPuerto0; 
+$mail->Port       = $smtpPuerto; 
 $mail->SMTPSecure = 'ssl';
 $mail->IsHTML(true); 
 $mail->CharSet    = "utf-8";
@@ -96,7 +88,7 @@ $mail->Host     = $smtpHost;
 $mail->Username = $smtpUsuario; 
 $mail->Password = $smtpClave;
 
-$mail->From     = "noreply@clubdeatletismoloshorneros.com.ar";//$smtpUsuario0; // Email desde donde envío el correo.
+$mail->From     = $smtpUsuario; // Email desde donde envío el correo.
 $mail->FromName = $nombre;
 $mail->AddAddress($emailDestino); // Esta es la dirección a donde enviamos los datos del formulario
 $mail->addAddress($correoCopia);
@@ -106,7 +98,7 @@ $mail->Body = "{$mensaje}"; // Texto del email en formato HTML
 // FIN - VALORES A MODIFICAR //
 
 $estadoEnvio = $mail->Send(); 
-
+/*
 if($estadoEnvio){
     //echo "El correo fue enviado correctamente.";
     $respuesta []= array("rta" => 1); 
@@ -117,5 +109,5 @@ if($estadoEnvio){
 header("Content-Type: application/json");
 echo json_encode($respuesta);
 http_response_code(200);
-
+*/
 ?>

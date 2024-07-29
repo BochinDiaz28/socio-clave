@@ -4,7 +4,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 date_default_timezone_set('America/Lima');
 
-$nombrePro   = "miltareas.com";
+$nombrePro   = "tasknow.cl";
 $nombre      = "Carlos Adrian";
 $email       = "carlosadrianchoquehuanca@gmail.com"; 
 $correoCopia = "diazfranco2003@hotmail.com";
@@ -12,7 +12,7 @@ $correoCopia = "diazfranco2003@hotmail.com";
 require("class.phpmailer.php");
 require("class.smtp.php");
 //ENVIO EMAIL USUARIOS
-$asunto = "Pedido publicado en ".$nombrePro;
+$asunto = "Tarea finalizada ".$nombrePro;
 $cuerpo = '<!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
@@ -31,7 +31,7 @@ $cuerpo = '<!DOCTYPE html>
         <table role="presentation" style="width:602px;border-collapse:collapse;border:0px solid #ffffff;border-spacing:0;text-align:left;">
           <tr>
             <td align="center" style="padding:40px 0 30px 0;background:#ffffff;">
-              <img src="https://grudigoapps.com/public/img/logosEmpresas/miltareas.png" alt="mil tareas" width="250" style="height:auto;display:block;" />
+              <img src="https://tasknow.cl/public/img/logosEmpresas/logo.png" alt="mil tareas" width="250" style="height:auto;display:block;" />
             </td>
           </tr>
           <tr>
@@ -52,12 +52,12 @@ $cuerpo = '<!DOCTYPE html>
             </td>
           </tr>
           <tr>
-            <td style="padding:30px;background:#0A663D;">
+            <td style="padding:30px;background:#26B7BC;">
               <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
                 <tr>
                   <td style="padding:0;width:50%;" align="left">
                     <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
-                      &reg; MIL TAREAS
+                      &reg; tasknow.cl
                     </p>
                   </td>
                 </tr>

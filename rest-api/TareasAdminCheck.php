@@ -43,6 +43,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         #|-> PASO LA TAREA A ESTADO 5 HISTORIAL DE FALLAS
         $query  = "UPDATE tareas SET estado='5' WHERE id=$id"; 
         $resp   = metodoPUT($query);
+        #|-> ENVIAR CORREO DE FALLA E INFORMAR QUE SE ENVIARA UN NUEVO AGENTE
+
     } 
     header('Content-Type: application/json');
     echo json_encode($resp2);
@@ -59,8 +61,29 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $tareaID = htmlspecialchars($datos['tareaID']);
         $cerrada = htmlspecialchars($datos['cerrada']);
         
-        $query  = "UPDATE tareas SET cerradaAdmin='$cerrada' WHERE id=$tareaID"; 
-        $resp   = metodoPUT($query);
+        $query = "UPDATE tareas SET cerradaAdmin='$cerrada' WHERE id=$tareaID"; 
+        $resp  = metodoPUT($query);
+
+        #|-> ENVIAR CORREO DE FINALIZADA               
+        $queryC = "SELECT host, usuario, clave, puerto FROM correo WHERE id=1";
+        $respC  = metodoGET($queryC);        
+        $smtpHost    = $respC[0]['host'];
+        $smtpUsuario = $respC[0]['usuario'];
+        $smtpClave   = $respC[0]['clave'];
+        $smtpPuerto  = $respC[0]['puerto'];
+        //NOMBRE CLIENTE Y CORREO. nombre agente
+        $queryT = "SELECT a.id, a.tarea, b.nombre as Cliente, b.email AS correoC, c.nombre as Agente
+                   FROM tareas a, clientes b, agentes c  
+                   WHERE a.idcliente=b.id
+                   AND a.idagente=c.id
+                   AND a.id=$tareaID";
+        $respT  = metodoGET($queryT);        
+        $tareaNom = $respT[0]['tarea'];
+        $nombreC  = $respT[0]['Cliente'];
+        $correoC  = $respT[0]['correoC'];
+        $nobmreA  = $respT[0]['Agente'];
+   
+        require_once 'correos/class.correo_proyecto_entregado.php';
     } 
     header('Content-Type: application/json');
     echo json_encode($resp);

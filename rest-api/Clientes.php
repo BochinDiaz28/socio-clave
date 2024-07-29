@@ -62,7 +62,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $username   = htmlspecialchars($datos['Email']);
         $nombre     = htmlspecialchars($datos['Nombre']);
         $empresaID  = htmlspecialchars($datos['empresaID']);
-        $password   = '123456';//"mrenvio".rand(1111,9999);
+        $password   = 'SC-123456';//"SC-".rand(1111,9999);
         $passCorreo = $password;
         $password   = encriptar($password);
         $correo     = htmlspecialchars($datos['Email']);

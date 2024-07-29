@@ -63,6 +63,14 @@ class Paginas extends Controlador{
         ];
         $this->vista('paginas/Login/registro', $datos);
     }
+    //SIN CONFIGURAR
+    public function olvido(){
+        
+        $datos = [
+            'titulo' => 'Recuperar Contraseña'
+        ];
+        $this->vista('paginas/Login/olvido', $datos);
+    }
     #|->FIN LOGIN Y REGISTRO
 
     #|->REDIRECCION DESDE LOGIN
@@ -955,6 +963,42 @@ class Paginas extends Controlador{
         }    
         
     }
+    //SIN CONFIGURAR
+    public function cambiopass(){
+        if(isset($_SESSION['nombre'])){ 
+            if($_SESSION['rol']==100){
+                $datos = [
+                    'titulo'    => 'Cambio de Contraseña',
+                    'usuarioID' => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID']
+                ];
+            }elseif ($_SESSION['rol']==125) {
+                $datos = [
+                    'titulo'    => 'Cambio de Contraseña',
+                    'usuarioID' => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID']
+                ];
+            }elseif ($_SESSION['rol']==150) {
+                $datos = [
+                    'titulo'    => 'Cambio de Contraseña',
+                    'usuarioID' => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID']
+                ];
+            }elseif ($_SESSION['rol']==200) {
+                $datos = [
+                    'titulo'    => 'Cambio de Contraseña',
+                    'usuarioID' => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID']
+                ];
+            }              
+            $this->vista('paginas/Usuarios/CambioPassword', $datos);
+        }else{
+            $datos = [
+                'titulo' => 'Ingresar'
+            ];
+            $this->vista('paginas/Login/ingresar', $datos);
+        }    
+    }
     #|->FIN USUARIOS 
 
     #|-> PAÑOL
@@ -1129,4 +1173,49 @@ class Paginas extends Controlador{
         
     }
     #|-> FIN MODULO PAÑOL
+
+    #|->EMPRESA | ENTORNOS
+    public function correo(){
+        if(isset($_SESSION['nombre'])){
+            if($_SESSION['rol']==100){
+                # Admistradores
+                $datos = [
+                    'titulo'    => 'Conf. Correo',
+                    'clienteID'  => 1,
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Entornos/AMCorreos', $datos);
+            }else if ($_SESSION['rol']==125) {
+                # Supervisores
+                $datos = [
+                    'titulo'    => 'Conf. Correo',
+                    'clienteID' => 1,
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Entornos/AMCorreos', $datos);
+            }else if ($_SESSION['rol']==150) {
+                # Clientes
+                $datos = [
+                    'titulo'    => 'Perfil',
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/inicio', $datos);
+            }else if ($_SESSION['rol']==200) {
+                # Reponedores
+                $datos = [
+                    'titulo'         => 'Inicio',
+                ];
+                $this->vista('paginas/inicio', $datos);
+            }
+        }else{
+            $datos = [
+                'titulo' => 'Ingresar'
+            ];
+            $this->vista('paginas/Login/ingresar', $datos);
+        }    
+        
+    }
 }

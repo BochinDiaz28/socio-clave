@@ -2,9 +2,9 @@
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-date_default_timezone_set('America/Argentina/Buenos_Aires');
+date_default_timezone_set('America/Lima');
 
-$email = $email; 
+$nombrePro   = "miltareas.com";
 
 require("class.phpmailer.php");
 require("class.smtp.php");
@@ -28,7 +28,7 @@ $cuerpo = '<!DOCTYPE html>
         <table role="presentation" style="width:602px;border-collapse:collapse;border:0px solid #ffffff;border-spacing:0;text-align:left;">
           <tr>
             <td align="center" style="padding:40px 0 30px 0;background:#ffffff;">
-              <img src="http://testpaquteria.sistema-online.cl/public/img/logo_bienvenida.png" alt="" width="100" style="height:auto;display:block;" />
+              <img src="https://grudigoapps.com/public/img/logosEmpresas/miltareas.png" alt="mil tareas" width="250" style="height:auto;display:block;" />
             </td>
           </tr>
           <tr>
@@ -38,14 +38,14 @@ $cuerpo = '<!DOCTYPE html>
                   <td style="padding:0 0 36px 0;color:#153643;">
                     <h1 style="font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;">Hola '.$nombre.'.</h1>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                      Bienvenido (a) a Full delivery express, acabas de hacer la mejor elección para la solución de tus envíos en Santiago.<br>
+                      Bienvenid@ a '.$nombrePro.', acabas de hacer la mejor elección para la solución de tus proyectos.<br>
                       <i> ¡Desde ahora somos tu mejor Aliado para lo que necesites!</i>
                     </p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                      USUARIO: <b>'.$email.'</b>
+                      USUARIO: <b>'.$correo.'</b>
                     </p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
-                      CLAVE: <b>'.$password_enviar.'</b>
+                      CLAVE: <b>'.$passCorreo.'</b>
                     </p>
                     <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;">
                     <b>CONSEJOS PARA TU PRIMER ENVÍO</b>
@@ -80,12 +80,12 @@ $cuerpo = '<!DOCTYPE html>
             </td>
           </tr>
           <tr>
-            <td style="padding:30px;background:#6AACED;">
+            <td style="padding:30px;background:#0A663D;">
               <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
                 <tr>
                   <td style="padding:0;width:50%;" align="left">
                     <p style="margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;">
-                      &reg; FDE 
+                      &reg; MIL TAREAS 
                     </p>
                   </td>
                 </tr>
@@ -99,21 +99,15 @@ $cuerpo = '<!DOCTYPE html>
 </body>
 </html>';
 
-$nombre  = "Bienvenido a ".$nombrePro;
+$nombreS  = "Bienvenido a ".$nombrePro;
 $mensaje = $cuerpo;
 
-// Datos de la cuenta de correo utilizada para enviar vía SMTP
-$smtpHost    = "fde.sistema-online.cl";//$smtpHost0;    //"mail.arriendanow.com";  // Dominio alternativo brindado en el email de alta 
-$smtpUsuario = "noreply@fde.sistema-online.cl"; //$smtpUsuario0; //"notificaciones-no-reply@arriendanow.com"; 
-$smtpClave   = "qcAGxr*CoCH]";//$smtpClave0;   //"6ai7USJe==yk";
 
-// Email de destino cliente
-$emailDestino = $email;
 
 $mail = new PHPMailer();
 $mail->IsSMTP();
 $mail->SMTPAuth   = true;
-$mail->Port       = 465;//$smtpPuerto0; 
+$mail->Port       = $smtpPuerto; 
 $mail->SMTPSecure = 'ssl';
 $mail->IsHTML(true); 
 $mail->CharSet    = "utf-8";
@@ -123,9 +117,9 @@ $mail->Host     = $smtpHost;
 $mail->Username = $smtpUsuario; 
 $mail->Password = $smtpClave;
 
-$mail->From     = "noreply@fde.sistema-online.cl";//$smtpUsuario0; //"noreply@fde.sistema-online.cl";//$email; // Email desde donde envío el correo.
-$mail->FromName = $nombre;
-$mail->AddAddress($emailDestino); // Esta es la dirección a donde enviamos los datos del formulario
+$mail->From     = $smtpUsuario;//$smtpUsuario0; // Email desde donde envío el correo.
+$mail->FromName = $nombreS;
+$mail->AddAddress($correo); // Esta es la dirección a donde enviamos los datos del formulario
 
 $mail->Subject = $asunto;//"DonWeb - Ejemplo de formulario de contacto"; // Este es el titulo del email.
 //$mensajeHtml = nl2br($mensaje);

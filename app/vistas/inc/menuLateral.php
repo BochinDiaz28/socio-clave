@@ -190,13 +190,40 @@
                             <a class="nav-link" href="<?php echo constant('RUTA_URL'); ?>/lstusuarios" 
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lista de Usuarios</span></div>
+                            </a>  
+                            <!--SIN CONFIGURAR-->
+                            <a class="nav-link" href="<?php echo constant('RUTA_URL'); ?>/cambiopass" 
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Cambio Password</span></div>
                             </a>                                        
                         </li>
                         
                     </ul>
                 </li>
+
                 <!--FIN SECCION MENU USUARIOS-->
                 <?php } ?>
+                <li class="nav-item">
+                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                        <div class="col-auto navbar-vertical-label">Configuraciones</div>
+                        <div class="col ps-0">
+                            <hr class="mb-0 navbar-vertical-divider" />
+                        </div>
+                    </div>
+                    <a class="nav-link dropdown-indicator" href="#empresa" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-cogs"></span></span><span class="nav-link-text ps-1">Entornos</span>
+                        </div>
+                    </a>    
+                    <ul class="nav collapse false" id="empresa">
+                        <li class="nav-item">
+                            <a class="nav-link" 
+                                href="<?php echo constant('RUTA_URL'); ?>/correo" 
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Configurar Correo</span></div>
+                            </a>                                        
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     <?php }elseif ($_SESSION['rol']==150) {?>

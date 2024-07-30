@@ -20,7 +20,7 @@
                 <div class="z-index-1 position-relative">
                   <a class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder" 
                      href="<?php echo constant('RUTA_URL'); ?>/ingresar"><?php echo constant('NOMBRE_SITIO'); ?></a>
-                  <p class="opacity-75 text-white">CRM de gestion y administración de tareas</p>
+                  <p class="opacity-75 text-white">Socio Clave</p>
                 </div>
               </div>
              

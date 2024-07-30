@@ -155,8 +155,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 $data              = str_replace(['data:image/png;base64,', 'data:image/jpeg;base64,', 'data:image/jpg;base64,'], '', $base64Image);
                 $decodedData       = base64_decode($data, true);
                 if(file_put_contents($directorioDestino, $decodedData)){
-                    $query = "INSERT INTO tareas_fotos (idtarea, agenteID, comentario, foto, fecha) 
-                                     VALUES ('$tareaID','$agenteID','$comentario','$nombreArchivo','$fecha')"; 
+                    $query = "INSERT INTO tareas_fotos (idtarea, agenteID, comentario, foto, fecha, estado) 
+                                     VALUES ('$tareaID','$agenteID','$comentario','$nombreArchivo','$fecha', '3')"; 
                     $resp1 = metodoPOST($query);
                 }
             }
@@ -209,8 +209,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 $data              = str_replace(['data:image/png;base64,', 'data:image/jpeg;base64,', 'data:image/jpg;base64,'], '', $base64Image);
                 $decodedData       = base64_decode($data, true);
                 if(file_put_contents($directorioDestino, $decodedData)){
-                    $query      = "INSERT INTO tareas_fotos (idtarea, agenteID, comentario, foto, fecha) 
-                                          VALUES ('$tareaID','$agenteID','$comentario','$nombreArchivo','$fecha')"; 
+                    $query      = "INSERT INTO tareas_fotos (idtarea, agenteID, comentario, foto, fecha, estado) 
+                                          VALUES ('$tareaID','$agenteID','$comentario','$nombreArchivo','$fecha', '4')"; 
                     $resp1      = metodoPOST($query);
                 }
             }

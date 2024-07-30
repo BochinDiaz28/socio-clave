@@ -14,7 +14,8 @@
                 <div class="col-12">
                     <div class="card bg-transparent-50 overflow-hidden">
                     <div class="card-header position-relative">
-                        <div class="bg-holder d-none d-md-block bg-card z-index-1" style="background-image:url(<?php if($LogoE<>''){?><?php echo constant('RUTA_URL'); ?>/public/img/logosEmpresas/<?php echo $_SESSION['empresaID']; ?>/<?php echo $LogoE; ?><?php }else{ ?> <?php echo constant('RUTA_URL'); ?>/public/assets/img/favicons/sistema-online_128.png' <?php } ?>);background-size:230px;background-position:right bottom;z-index:-1;"></div>
+                    <div class="bg-holder d-none d-md-block bg-card z-index-1" 
+                    style="background-image:url(<?=constant('RUTA_URL');?>/public/img/logosEmpresas/logo.png');background-size:200px; background-position:right bottom; z-index:-1;"></div>
                         <div class="position-relative z-index-2">
                             <div>
                                 <h3 class="text-primary mb-1">Hola, <span id="_Nombre"></span>!</h3>

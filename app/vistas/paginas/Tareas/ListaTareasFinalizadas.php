@@ -166,7 +166,7 @@
                     render: function(data, type, full, meta){
                         if(type === 'display'){
                             if(data==1){
-                                data = 'C. con Exito';
+                                data = 'ok';
                             }else{
                                 data = 'Fallo';
                             }
@@ -183,11 +183,11 @@
                     render: function(data, type, full, meta){
                         if(type === 'display'){
                             if(data===null || data === ''){
-                                data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Confirmar Cierre" type="button" onClick="FormFinal(' + full[10] + ')"><span class="sr-only">Confirmar Cierre</span><i class="fa fa-check"></i></button>';
+                                data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Confirmar Cierre" type="button" onClick="FormFinal(' + full[11] + ')"><span class="sr-only">Confirmar Cierre</span><i class="fa fa-check"></i></button>';
                             }else if(data==1){
                                 data = 'C. con Exito';
                             }else if(data==0){
-                                data = '<button class="btn btn-outline-info btn-sm me-1 mb-1" title="Clonar Cotización" type="button" onClick="ClonarTarea(' + full[10] + ')"><span class="sr-only">Clonar Cotización</span><i class="far fa-clone"></i></button>';
+                                data = '<button class="btn btn-outline-info btn-sm me-1 mb-1" title="Clonar Cotización" type="button" onClick="ClonarTarea(' + full[11] + ')"><span class="sr-only">Clonar Cotización</span><i class="far fa-clone"></i></button>';
                             } 
                         }
                         return data;
@@ -292,6 +292,7 @@
 
 
     function FormFinal(tareaID) {
+        $('#detalleHab').html('');   
         var  resultadosHtml = '';
         var url = '<?php echo constant('RUTA_URL');?>/rest-api/Tareas.php?tareaID='+tareaID;
         fetch(url)
@@ -325,10 +326,15 @@
         var rtaAccion    = 'Finalizada!'; 
         var metodo       = 'PUT'; 
         var cerradaAdmin = document.querySelector('#cerrada').value;
+        if(cerradaAdmin==1){
+            var mje = "<b>con Exito!</b>"
+        }else{
+            var mje = "<b>sin Exito!</b>"
+        }
         Swal.fire({
             title: '<strong>Confirma '+Accion+'?</strong>',
             icon : 'info',
-            html : 'Esta realizando un cierre definitivo de tarea',
+            html : 'Esta realizando un cierre definitivo de tarea '+mje,
             showCancelButton : true,
             focusConfirm     : false,
             confirmButtonText: '<i class="fa fa-thumbs-up"></i> '+ Accion +'!',

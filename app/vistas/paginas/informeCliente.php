@@ -185,12 +185,11 @@
                 var x = document.getElementById("_verCheck");
                 if(item.checklist==1){
                     x.style.display = "block";
-                    //llamadoPublicioItems(item.id);
+                    ListaTemporal(item.id);
                 }else{
                     x.style.display = "none";
                 }
                 llamadoFotos(item.id);
-                //
                 if(item.cerradaCliente>0){
                     document.getElementById('_respuesta').disabled = true;
                     if(item.cerradaCliente==1){
@@ -228,10 +227,26 @@
                     var foto2 = '<div class="cs-logo cs-mb5"><img width="200px" src="<?=constant('RUTA_URL'); ?>/public/img/tarea/'+item.foto+'" alt="Foto Final"></div>';
                     $('#_MuestraFotos2').html(foto2);
                 }              
-            }); 
-            $('#_lstItems').html(html);   
+            });   
         });  
     }
-    
+
+    function ListaTemporal(tareaID) {
+       //console.log("Tempora con tareaID"+tareaID)
+        var url = '<?php echo constant('RUTA_URL');?>/rest-api/PanolControl.php?panolControlGET='+ tareaID;
+        var html = '';
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            $.each(data, function(i, item) {                        
+                html+='<tr>'+
+                            '<td class="cs-width_3">'+item.codigo+'</td>'+
+                            '<td class="cs-width_6">'+item.producto+'</td>'+
+                            '<td class="cs-width_3">'+item.cantidad+'</td>'+                          
+                       '</tr>';
+            }); 
+            $('#_lstItems2').html(html);
+        });
+    }
 
 </script>

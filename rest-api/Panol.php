@@ -13,9 +13,9 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200); 
-    }else if(isset($_GET['panolTodosGET'])){
-        $empresaID = $_GET['panolTodosGET'];
-        $query     = "SELECT * FROM panol WHERE idempresa=$empresaID";
+    }else if(isset($_GET['panolClienteGET'])){
+        $empresaID = $_GET['panolClienteGET'];
+        $query     = "SELECT * FROM panol WHERE idcliente=$empresaID";
         $resp      = metodoGET($query);
         header("Content-Type: application/json");
         echo json_encode($resp);

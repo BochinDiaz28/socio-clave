@@ -14,12 +14,13 @@
       <div class="card overflow-hidden z-index-1">
         <div class="card-body p-0">
           <div class="row g-0 h-100">
-            <div class="col-md-5 text-center bg-card-gradient">
+            <div class="col-md-5 text-center" style="background-color: #0C787B;">
               <div class="position-relative p-4 pt-md-5 pb-md-7 light">
                 <!--/.bg-holder-->
                 <div class="z-index-1 position-relative">
                   <a class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder" 
-                     href="<?php echo constant('RUTA_URL'); ?>/ingresar"><?php echo constant('NOMBRE_SITIO'); ?></a>
+                     href="<?php echo constant('RUTA_URL'); ?>/ingresar">
+                    <?php echo constant('NOMBRE_SITIO'); ?></a>
                   <p class="opacity-75 text-white">Socio Clave</p>
                 </div>
               </div>
@@ -46,17 +47,19 @@
                 <div class="row flex-between-center">
                   <div class="col-auto">
                     <div class="form-check mb-0">
-                      <input class="form-check-input" type="checkbox" id="autoL" checked="checked" />
+                      <input class="form-check-input" type="checkbox" id="autoL" checked="checked" style="background-color: #0C787B; border-color: #0C787B;"/>
                       <label class="form-check-label mb-0" for="autoL">Recuerdame</label>
                     </div>
                   </div>
-               
-                  <div class="col-auto"><a class="fs--1" href="<?php echo constant('RUTA_URL'); ?>/inicio">Olvido su Clave?</a></div>
-                
+                  <!--
+                  <div class="col-auto"><a class="fs--1" href="<?php //echo constant('RUTA_URL'); ?>/inicio" style="color: #0C787B;">Olvido su Clave?</a></div>
+                  -->
                 </div>
 
                 <div class="mb-3">
-                  <button class="btn btn-primary d-block w-100 mt-3" type="bottom" onclick="Controlar_Ingreso()" name="submit">Ingresar</button>
+                  <button class="btn btn-primary d-block w-100 mt-3" 
+                          type="bottom" onclick="Controlar_Ingreso()" name="submit"
+                          style="background-color: #0C787B; border-color: #0C787B;">Ingresar</button>
                 </div>
               
               </div>

@@ -20,4 +20,4 @@ define('RUTA_URL', 'http://127.0.0.1/SocioClaveMVC');
 define('RUTA_REST', 'http://127.0.0.1/SocioClaveMVC');
 
 //NOMBRE DEL SITIO
-define('NOMBRE_SITIO', 'Socio Clave');
+define('NOMBRE_SITIO', 'TASKNOW');

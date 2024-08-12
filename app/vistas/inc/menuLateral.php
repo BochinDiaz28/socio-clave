@@ -115,7 +115,7 @@
                 </li>
                 <!--FIN SECCION PAÑOL-->
                 
-                <!--SECCION MENU EMPRESAS-->
+                <!--SECCION MENU CLIENTES-->
                 <li class="nav-item">
                     <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
                         <div class="col-auto navbar-vertical-label">Clientes</div>
@@ -134,13 +134,6 @@
                                 href="<?php echo constant('RUTA_URL'); ?>/lstclientes" 
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lista de Clientes</span></div>
-                            </a>                                        
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" 
-                                href="<?php echo constant('RUTA_URL'); ?>/lstretails" 
-                                aria-expanded="false">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lista de Retails</span></div>
                             </a>                                        
                         </li>
                     </ul>
@@ -191,7 +184,7 @@
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lista de Usuarios</span></div>
                             </a>  
-                            <!--SIN CONFIGURAR-->
+                           
                             <a class="nav-link" href="<?php echo constant('RUTA_URL'); ?>/cambiopass" 
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Cambio Password</span></div>
@@ -220,6 +213,13 @@
                                 href="<?php echo constant('RUTA_URL'); ?>/correo" 
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Configurar Correo</span></div>
+                            </a>                                        
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" 
+                                href="<?php echo constant('RUTA_URL'); ?>/lstretails" 
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Lista de Retails</span></div>
                             </a>                                        
                         </li>
                     </ul>
@@ -352,7 +352,11 @@
                                 href="<?php echo constant('RUTA_URL'); ?>/lstclientes" 
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Mi Perfil</span></div>
-                            </a>                                        
+                            </a>
+                            <a class="nav-link" href="<?php echo constant('RUTA_URL'); ?>/cambiopass" 
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Cambio Password</span></div>
+                            </a>                                           
                         </li>
                     </ul>
                 </li>
@@ -410,7 +414,11 @@
                                 href="<?php echo constant('RUTA_URL'); ?>/lstagentes" 
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Mi Perfil</span></div>
-                            </a>                                        
+                            </a> 
+                            <a class="nav-link" href="<?php echo constant('RUTA_URL'); ?>/cambiopass" 
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Cambio Password</span></div>
+                            </a>                                          
                         </li>
                     </ul>
                 </li>

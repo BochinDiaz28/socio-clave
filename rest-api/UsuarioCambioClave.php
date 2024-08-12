@@ -24,10 +24,25 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
  
         $passCorreo=$nPass;
         $password = encriptar($nPass);
-        $query = "UPDATE usuarios SET password='$password' WHERE id=$usuarioID"; 
-        $resp = metodoPUT($query);
-        //ENVIAR CORREO CON CLAVE NUEVA.
-        $respuesta [] = array ("rta" => "Clave cambiada correctamente");
+
+        $query    = "SELECT id,username,password,rol,activo FROM usuarios WHERE id=$usuarioID";
+        $resp     = metodoGET($query);
+        if($resp){
+            #|->CONTROLAR PASSORD ANTERIOR
+            if(password_verify($oPass,$resp[0]['password'])){
+                $query = "UPDATE usuarios SET password='$password' WHERE id=$usuarioID"; 
+                $resp = metodoPUT($query);
+                //ENVIAR CORREO CON CLAVE NUEVA.
+                $respuesta [] = array ("rta" => "Clave cambiada correctamente");
+            }else{
+                #|->CONTRASEÑA INCORRECTA
+                $respuesta [] = array ("error" => "Error en el password anterior");
+            }
+           
+        }else{
+            #|->CONTRASEÑA INCORRECTA
+            $respuesta [] = array ("error" => "Error en el envio de id usuario");
+        }
          
     } 
     header("Content-Type: application/json");

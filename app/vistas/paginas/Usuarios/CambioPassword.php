@@ -36,7 +36,7 @@
 
 <script>
 
-function CambioPassword()
+    function CambioPassword()
     { 
         var oPass = $('#password').val();
         var nPass = $('#newpassword').val();
@@ -49,19 +49,17 @@ function CambioPassword()
                 html: 'Debera acceder con la nueva contraseña',
                 showCancelButton: true,
                 focusConfirm: false,
-                confirmButtonText:
-                '<i class="fa fa-thumbs-up"></i> Cambiar!',
+                confirmButtonText: '<i class="fa fa-thumbs-up"></i> Cambiar!',
                 confirmButtonAriaLabel: 'Thumbs up, great!',
-                cancelButtonText:
-                '<i class="fa fa-thumbs-down"></i> Cancelar',
+                cancelButtonText: '<i class="fa fa-thumbs-down"></i> Cancelar',
                 cancelButtonAriaLabel: 'Thumbs down'
             }).then((result) => {
                 if (result.value) {
                     var apiUrl='<?php echo constant('RUTA_URL'); ?>/rest-api/UsuarioCambioClave.php'; 
                     var data = { 
                         usuarioID : usuarioID,
-                        nPass    : nPass,
-                        oPass    : oPass
+                        nPass     : nPass,
+                        oPass     : oPass
                     } 
                     fetch(apiUrl,{ 
                         method: 'PUT',  

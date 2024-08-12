@@ -4,7 +4,7 @@
     $empresaID = $datos['empresaID']; #|->EMPRESA LOGEADA
     $userID    = $datos['userID'];    #|->USUARIOS LOGEADO
     #|->AGENTE QUE ESTOY EDITANDO
-    $response  = file_get_contents(''.RUTA_URL.'/rest-api/Clientes.php?clientesUserGET='.$userID);
+    $response  = file_get_contents(''.RUTA_URL.'/rest-api/Agentes.php?agentesUserGET='.$userID);
     $datos     = json_decode($response,true);
     $clienteID = $datos[0]['id'];  
 ?>
@@ -27,8 +27,7 @@
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label" for="nombre">Apellido y Nombre *</label>
                 <div class="col-sm-9">
-                    <input class="form-control form-control-sm" type="text" id="nombre" placeholder="Apellido y Nombre" aria-label="" value="" />
-                    <small>Nombre de Empresa en caso de no ser persona fisica</small>
+                    <input class="form-control form-control-sm" type="text" id="nombre" placeholder="Apellido y Nombre" aria-label="" value="" />                    
                 </div>
             </div>
 
@@ -50,7 +49,7 @@
                 <label class="col-sm-3 col-form-label" for="dni">Cedula *</label>
                 <div class="col-sm-9">
                     <input class="form-control form-control-sm" type="text" id="dni" placeholder="" aria-label="" value="" />
-                    <small>EJ: N° de RUT - NFC - DNI - Pasaporte</small>
+                    <small>EJ: N° de RUT</small>
                 </div>
             </div>
 
@@ -110,13 +109,12 @@
         var clienteID  = <?php echo $clienteID; ?>;
         var empresaID = <?php echo $empresaID; ?>;
         if(clienteID>0){
-            var url ='<?php echo constant('RUTA_URL'); ?>/rest-api/Clientes?clienteID='+clienteID+'&consultaGET='+empresaID;
+            var url ='<?php echo constant('RUTA_URL'); ?>/rest-api/Agentes.php?agenteID='+clienteID+'&consultaGET='+empresaID;
             fetch(url)
             .then(response => response.json())
             .then(data => {
                 $.each(data, function(i, item) {
-                    if(clienteID==item.id){
-                        //`id`, `idempresa`, `idusuario`, `nombre`, `direccion`, `lat`, `lon`, `celular`, `email`, `cuit`, 
+                    if(clienteID==item.id){                        
                         $('#nombre').val(item.nombre); 
                         $('#direccion').val(item.direccion);
                         $('#celular').val(item.celular);
@@ -125,8 +123,6 @@
                     } 
                 });   
             });
-           
-
         }else{
             $('#nombre').val(); 
             $('#direccion').val();
@@ -187,7 +183,7 @@
             cancelButtonAriaLabel : 'Thumbs down'
         }).then((result) => {
             if (result.value) {
-                var apiUrl='<?php echo constant('RUTA_URL'); ?>/rest-api/Clientes'; 
+                var apiUrl='<?php echo constant('RUTA_URL'); ?>/rest-api/Agentes.php'; 
                 var data = { 
                     usuarioID : userID,
                     userID    : clienteID,
@@ -232,12 +228,10 @@
     }
 
     function redireccion(){
-        window.location = "<?php echo constant('RUTA_URL');?>/lstclientes";
+        window.location = "<?php echo constant('RUTA_URL');?>/lstagentes";
     }
 
-
     <?php  if($clienteID > 0){?> 
-       
         $(document).ready(function ()
         {
             var empresaID = <?php echo $empresaID;?>;
@@ -252,7 +246,7 @@
                     "pagingType": "numbers",
                     "processing": true,
                     "serverSide": true,
-                    "ajax"      : "<?php echo constant('RUTA_REST');?>/rest-api/ClientesRetails?dtclientesRetailGET="+empresaID+"&clienteID="+clienteID,
+                    "ajax"      : "<?php echo constant('RUTA_REST');?>/rest-api/AgentesRetails.php?dtagentesRetailGET="+empresaID+"&agenteID="+clienteID,
                 columns: [
                     { "title": "ID" },
                     { "title": "Canal" },                
@@ -322,70 +316,6 @@
 
         }); 
 
-        function ActivarBtn() {
-            var userID    = <?php echo $userID ?>;
-            var clienteID = <?php echo $clienteID; ?>;
-            var empresaID = <?php echo $empresaID; ?>;
-            var sucursalID = $('#sucursal').val();
-            var selectElement = document.getElementById("sucursal");
-            var selectedId = selectElement.value;
-            var selectedOption = selectElement.querySelector(`option[value="${selectedId}"]`);
-            var selectedText = selectedOption.textContent;
- 
-
-            if(sucursalID>0){
-                Swal.fire({
-                title: '<strong>Confirma Asociar sucursal?</strong>',
-                icon : 'info',
-                html : 'Sucursal <b>'+ selectedText +'</b> <br/> ',
-                showCancelButton : true,
-                focusConfirm     : false,
-                confirmButtonText: '<i class="fa fa-thumbs-up"></i> Asociar!',
-                confirmButtonAriaLabel: 'Thumbs up, great!',
-                cancelButtonText      : '<i class="fa fa-thumbs-down"></i> Cancelar',
-                cancelButtonAriaLabel : 'Thumbs down'
-            }).then((result) => {
-                if (result.value) {
-                    var apiUrl='<?php echo constant('RUTA_URL'); ?>/rest-api/ClientesRetails'; 
-                    var data = { 
-                        usuarioID  : userID,
-                        clienteID  : clienteID,
-                        sucursalID : sucursalID,
-                        empresaID  : empresaID
-                    } 
-                    fetch(apiUrl,{ 
-                        method : 'POST',  
-                        headers: {'Content-type' : 'application/json'},
-                        body   : JSON.stringify(data) 
-                    })
-                    .then(response => response.json() )
-                    .then(data => {
-                        console.log(data);
-                        if(data[0]["error"]){
-                            Swal.fire({
-                                type : 'error',
-                                icon : 'error',
-                                title: ''+data[0]["error"]+'',
-                                showConfirmButton: false,
-                                timer: 2000
-                            })
-                        }else{
-                            var retornoID = data[0]['retornoID']; 
-                            Swal.fire({
-                                type : 'success',
-                                icon : 'success',
-                                title: 'Sucursal asociada con exito!',
-                                showConfirmButton: false,
-                                timer: 2000
-                            })
-                            setInterval(redireccionLocal, 2000); 
-                        }
-                    }) 
-
-                }   
-            })
-            }
-        }
 
         function redireccionLocal(){           
            location.reload();

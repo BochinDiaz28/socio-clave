@@ -391,6 +391,30 @@
                         -->
                     </ul>
                 </li>
+                <!--SECCION PERFIL AGENTE-->
+                <li class="nav-item">
+                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                        <div class="col-auto navbar-vertical-label">Perfil</div>
+                        <div class="col ps-0">
+                            <hr class="mb-0 navbar-vertical-divider" />
+                        </div>
+                    </div>
+                
+                    <a class="nav-link dropdown-indicator" href="#empresas" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user-check"></span></span><span class="nav-link-text ps-1">Perfil</span>
+                        </div>
+                    </a>
+                    <ul class="nav collapse false" id="empresas">
+                        <li class="nav-item">
+                            <a class="nav-link" 
+                                href="<?php echo constant('RUTA_URL'); ?>/lstagentes" 
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Mi Perfil</span></div>
+                            </a>                                        
+                        </li>
+                    </ul>
+                </li>
+                <!--FIN SECCION MENU EMPRESAS-->
                 <!--SECCION MENU ADMINISTRACION-->
                 <!--SECCION MENU TAREAS-->
                 <!--

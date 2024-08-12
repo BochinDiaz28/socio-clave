@@ -68,6 +68,16 @@
                 </div>
             </div>
             <hr>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="informexx">Informes Personalizados?</label>
+                <div class="col-sm-9">
+                    <select class="form-select form-select-sm" 
+                            id="informexx">                       
+                    </select>
+                    <small>Si activa este modulo se le debera crear al cliente informe final personalizado.</small>
+                </div>
+            </div>
+            <hr>
             <div class="form-group text-center">
                 <?php  if ($clienteID > 0){?> 
                     <button class="btn btn-outline-primary btn-sm me-1 mb-1" type="button" onclick="Controlar_Requeridos();">
@@ -131,6 +141,8 @@
         if(clienteID>0){
             $('#panolxx').html("");
             var $select = $('#panolxx');
+            $('#informexx').html("");
+            var $selectInf = $('#informexx'); 
             var url ='<?php echo constant('RUTA_URL'); ?>/rest-api/Clientes?clienteID='+clienteID+'&consultaGET='+empresaID;
             fetch(url)
             .then(response => response.json())
@@ -153,6 +165,16 @@
                             $select.append("<option value='0'>No</option>");
                             $select.append("<option selected value='1'>Si</option>");
                         }
+
+                        if(item.informe==0){
+                            console.log("ingresa por 0");
+                            $selectInf.append("<option selected value='0'>No</option>");
+                            $selectInf.append("<option value='1'>Si</option>");
+                        }else{
+                            console.log("ingresa por 1");
+                            $selectInf.append("<option value='0'>No</option>");
+                            $selectInf.append("<option selected value='1'>Si</option>");
+                        }
                         
                     } 
                 });   
@@ -171,8 +193,11 @@
             var $select = $('#panolxx');        
                 $select.append("<option value='0'>No</option>");
                 $select.append("<option value='1'>Si</option>");
-            console.log("Cliente nuevo");
-      
+           
+            var $selectInf = $('#informexx');        
+                $selectInf.append("<option value='0'>No</option>");
+                $selectInf.append("<option value='1'>Si</option>");
+                
         }    
         
     });
@@ -217,7 +242,7 @@
         var Dni       = $('#dni').val();
         var Email     = $("#email").val(); 
         var panol     = $('#panolxx').val();  
-    
+        var informe   = $('#informexx').val(); 
         Swal.fire({
             title: '<strong>Confirma '+Accion+'?</strong>',
             icon : 'info',
@@ -240,7 +265,8 @@
                     Dni       : Dni,
                     Email     : Email,
                     empresaID : empresaID,
-                    panol     : panol
+                    panol     : panol,
+                    informe   : informe
                 } 
                 fetch(apiUrl,{ 
                     method : metodo,  

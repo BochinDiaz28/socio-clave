@@ -166,6 +166,24 @@
                     <small>Indique si se debe informar lista de trabajo</small>
                 </div>
             </div>
+            <div class="form-group row">
+                <div class="col-md-6">                    
+                    <label for="foto_1" class="form-label">Foto de Inicio</label>
+                    <select class="form-select form-select-sm" 
+                            id="foto_1">
+                        <!--DINAMICO POR JS-->                       
+                    </select>
+                    <small>Indique si se debe tomar foto al iniciar</small>
+                </div>
+                <div class="col-md-6">                    
+                    <label for="foto_2" class="form-label">Foto al Finalizar</label>
+                    <select class="form-select form-select-sm" 
+                            id="foto_2">
+                        <!--DINAMICO POR JS-->                       
+                    </select>
+                    <small>Indique si se debe tomar foto al finalizar</small>
+                </div>             
+            </div>
             <hr>
             <div class="form-group text-center">
                 <?php  if ($tareaID > 0){?> 
@@ -225,6 +243,15 @@
            
         }else{
             //ListaClientes(clienteID);
+            $('#foto_1').html("");
+            var $selectIni = $('#foto_1');
+                $selectIni.append("<option value='0'>No</option>");
+                $selectIni.append("<option value='1'>Si</option>");
+
+            $('#foto_2').html("");
+            var $selectFin = $('#foto_2');
+                $selectFin.append("<option value='0'>No</option>");
+                $selectFin.append("<option value='1'>Si</option>");
         }    
         
     });
@@ -333,6 +360,8 @@
         var descripcion  = tinymce.activeEditor.getContent();
             // descripcion  = descripcion.replace(/['"]+/g, '');
         var controlCk    = document.querySelector('#controlCk').value;
+        var foto1        = document.querySelector('#foto_1').value;
+        var foto2        = document.querySelector('#foto_2').value;
         Swal.fire({
             title: '<strong>Confirma '+Accion+'?</strong>',
             icon : 'info',
@@ -359,7 +388,9 @@
                     empresaID : empresaID,
                     Estado    : 1,
                     Nota      : descripcion,
-                    controlCk : controlCk
+                    controlCk : controlCk,
+                    foto1     : foto1,
+                    foto2     : foto2
                 } 
                 fetch(apiUrl,{ 
                     method : metodo,  

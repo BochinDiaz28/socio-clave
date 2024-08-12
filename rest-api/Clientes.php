@@ -67,7 +67,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $password   = encriptar($password);
         $correo     = htmlspecialchars($datos['Email']);
         $panol      = htmlspecialchars($datos['panol']);
-
+        $informe    = htmlspecialchars($datos['informe']);
+        
         $query   = "SELECT COUNT(*)AS Total FROM clientes WHERE idempresa='$empresaID' AND cuit LIKE'$Dni'";
         $resp00  = metodoGET($query);
         $valores = json_encode($resp00);
@@ -89,8 +90,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 $resp       = metodoPOST($query);        
                 $userID     = $resp[0]['retornoID'];
                 #|-CREAR PERFIL DEL AGENTE       
-                $query2     = "INSERT INTO clientes (`idempresa`, `idusuario`, `nombre`, `direccion`, `celular`, `email`, `cuit`,  `activo`, `fecha_alta`, `fecha_mod`,`panol`) 
-                                    VALUES ('$empresaID','$userID','$nombre','$Direccion','$Celular','$username','$Dni','1','$fecha','$fecha','$panol')"; 
+                $query2     = "INSERT INTO clientes (`idempresa`, `idusuario`, `nombre`, `direccion`, `celular`, `email`, `cuit`,  `activo`, `fecha_alta`, `fecha_mod`,`panol`,`informe`) 
+                                    VALUES ('$empresaID','$userID','$nombre','$Direccion','$Celular','$username','$Dni','1','$fecha','$fecha','$panol','$informe')"; 
                 $resp2      = metodoPOST($query2);
 
                 /*
@@ -140,7 +141,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $Dni        = htmlspecialchars($datos['Dni']);
         $email      = htmlspecialchars($datos['Email']); 
         $panol      = htmlspecialchars($datos['panol']);
-        $query = "UPDATE clientes SET nombre='$nombre', direccion='$Direccion', celular='$Celular', email='$email', cuit='$Dni', fecha_mod='$fecha', panol='$panol' WHERE id=$userID"; 
+        $informe    = htmlspecialchars($datos['informe']);
+        $query = "UPDATE clientes SET nombre='$nombre', direccion='$Direccion', celular='$Celular', email='$email', cuit='$Dni', fecha_mod='$fecha', panol='$panol', informe='$informe' WHERE id=$userID"; 
         $resp  = metodoPUT($query);
     } 
     header('Content-Type: application/json');

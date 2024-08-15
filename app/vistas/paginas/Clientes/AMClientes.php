@@ -77,6 +77,22 @@
                     <small>Si activa este modulo se le debera crear al cliente informe final personalizado.</small>
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="formularioxx">Formulario Personalizados?</label>
+                <div class="col-sm-9">
+                    <select class="form-select form-select-sm" 
+                            id="formularioxx">                       
+                    </select>
+                    <small>Si activa este modulo el cliente vera algunos datos personalizados.</small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label" for="cantidad">Cantidad de Campos *</label>
+                <div class="col-sm-9">
+                    <input class="form-control form-control-sm" type="number" id="cantidad" placeholder="EJ: 5" aria-label="" value="" />
+                    <small>EJ: 5</small>
+                </div>
+            </div>
             <hr>
             <div class="form-group text-center">
                 <?php  if ($clienteID > 0){?> 
@@ -143,6 +159,9 @@
             var $select = $('#panolxx');
             $('#informexx').html("");
             var $selectInf = $('#informexx'); 
+            $('#formularioxx').html("");
+            var $selectForm = $('#formularioxx'); 
+            
             var url ='<?php echo constant('RUTA_URL'); ?>/rest-api/Clientes?clienteID='+clienteID+'&consultaGET='+empresaID;
             fetch(url)
             .then(response => response.json())
@@ -155,6 +174,7 @@
                         $('#celular').val(item.celular);
                         $('#dni').val(item.cuit);
                         $('#email').val(item.email);
+                        $('#cantidad').val(item.cantidad);
                                           
                         if(item.panol==0){
                             console.log("ingresa por 0");
@@ -175,6 +195,15 @@
                             $selectInf.append("<option value='0'>No</option>");
                             $selectInf.append("<option selected value='1'>Si</option>");
                         }
+                        if(item.formulario==0){
+                            $selectForm.append("<option selected value='0'>No</option>");
+                            $selectForm.append("<option value='1'>Si</option>");
+                        }else{
+                            $selectForm.append("<option value='0'>No</option>");
+                            $selectForm.append("<option selected value='1'>Si</option>");
+                        }
+
+                        
                         
                     } 
                 });   
@@ -197,6 +226,12 @@
             var $selectInf = $('#informexx');        
                 $selectInf.append("<option value='0'>No</option>");
                 $selectInf.append("<option value='1'>Si</option>");
+
+            var $selectForm = $('#formularioxx');        
+                $selectForm.append("<option value='0'>No</option>");
+                $selectForm.append("<option value='1'>Si</option>");
+
+                
                 
         }    
         
@@ -243,6 +278,9 @@
         var Email     = $("#email").val(); 
         var panol     = $('#panolxx').val();  
         var informe   = $('#informexx').val(); 
+        var formular  = $('#formularioxx').val(); 
+        var cantidad  = $('#cantidad').val(); 
+        if(cantidad===''){ cantidad = 1};
         Swal.fire({
             title: '<strong>Confirma '+Accion+'?</strong>',
             icon : 'info',
@@ -266,7 +304,9 @@
                     Email     : Email,
                     empresaID : empresaID,
                     panol     : panol,
-                    informe   : informe
+                    informe   : informe,
+                    formular  : formular,
+                    cantidad  : cantidad
                 } 
                 fetch(apiUrl,{ 
                     method : metodo,  

@@ -752,7 +752,7 @@ class Paginas extends Controlador{
         }    
         
     }
-
+    #|-->INFORME ESTANDAR DE CLIENTES
     public function finalcliente(){
         //MUESTRA CON VISTA DE CLIENTE
         $datos = [
@@ -768,7 +768,6 @@ class Paginas extends Controlador{
         ];
         $this->vista('paginas/rtaCliente', $datos);
     }
-
     public function rtafin(){
         //MUESTRA INTERNA EN ADJUDICADA
         $datos = [
@@ -776,6 +775,52 @@ class Paginas extends Controlador{
         ];
         $this->vista('paginas/rtaClienteFin', $datos);
     }
+    #|--->FORMULARIO EXTRA CLIETNES PARA TAREAS
+    public function extratareas($id){
+        if(isset($_SESSION['nombre'])){
+            if($_SESSION['rol']==100){
+                # Admistradores
+                $datos = [
+                    'titulo'    => 'Forulario Tareas Extra',
+                    'clienteID'  => $id,
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Clientes/LstFormExtra', $datos);
+            }else if ($_SESSION['rol']==125) {
+                # Supervisores
+                $datos = [
+                    'titulo'    => 'Forulario Tareas Extra',
+                    'clienteID' => $id,
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/Clientes/LstFormExtra', $datos);
+            }else if ($_SESSION['rol']==150) {
+                # Clientes
+                $datos = [
+                    'titulo'    => 'Perfil',
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/inicio', $datos);
+            }else if ($_SESSION['rol']==200) {
+                # Reponedores
+                $datos = [
+                    'titulo'         => 'Inicio',
+                ];
+                $this->vista('paginas/inicio', $datos);
+            }
+        }else{
+            $datos = [
+                'titulo' => 'Ingresar'
+            ];
+            $this->vista('paginas/Login/ingresar', $datos);
+        }    
+        
+    }
+    
+
     ##|->Lista de sucursales
     public function lstretails(){
         if(isset($_SESSION['nombre'])){

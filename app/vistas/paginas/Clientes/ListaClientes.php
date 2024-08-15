@@ -71,7 +71,10 @@
                 { "title": "Nombre" },                
                 { "title": "Dirección" },
                 { "title": "Celular" },
-                { "title": "Cedula" },
+                { "title": "RUT" },
+                { "title": "Inv." },
+                { "title": "Informe" },
+                { "title": "F.Tarea" },
                 { "title": "Acciones" },
             ],
             columnDefs: [
@@ -86,7 +89,58 @@
                     orderable: false,
                     render: function(data, type, full, meta){
                         if(type === 'display'){
-                            data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Editar" type="button" onClick="EditarForm(' + data + ')"><span class="sr-only">Editar</span><i class="fa fa-edit"></i></button><button class="btn btn-outline-warning btn-sm me-1 mb-1" title="Eliminar" type="button" onclick="EliminarUsuario(' + data + ')"><span class="sr-only">Eliminar</span><i class="fa fa-trash"></i></button>';      
+                            if( data==1){
+                                data = 'Si';
+                            }else{
+                                data = '';
+                            }
+                            
+                        }
+                        return data;
+                    }
+                    
+                }, 
+                {
+                    targets: [ 6 ] ,
+                    searchable: true,
+                    orderable: false,
+                    render: function(data, type, full, meta){
+                        if(type === 'display'){
+                            if( data==1){
+                                data = 'Si';
+                            }else{
+                                data = '';
+                            }
+                            
+                        }
+                        return data;
+                    }
+                    
+                }, 
+                {
+                    targets: [ 7 ] ,
+                    searchable: true,
+                    orderable: false,
+                    render: function(data, type, full, meta){
+                        if(type === 'display'){
+                            if( data==1){
+                                data = '<button class="btn btn-outline-info btn-sm me-1 mb-1" title="Formulario Tareas" type="button" onclick="FormTareas(' + full[8] + ')"><span class="sr-only">Formulario Tareas</span><i class="fas fa-clipboard-list"></i></button>';
+                            }else{
+                                data = '';
+                            }
+                            
+                        }
+                        return data;
+                    }
+                    
+                }, 
+                {
+                    targets: [ 8 ] ,
+                    searchable: true,
+                    orderable: false,
+                    render: function(data, type, full, meta){
+                        if(type === 'display'){
+                            data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Editar" type="button" onClick="EditarForm(' + data + ')"><span class="sr-only">Editar</span><i class="fa fa-edit"></i></button><button class="btn btn-outline-warning btn-sm me-1 mb-1" title="Eliminar" type="button" onclick="EliminarUsuario(' + data + ')"><span class="sr-only">Eliminar</span><i class="fa fa-trash"></i></button>';
                         }
                         return data;
                     }
@@ -189,6 +243,10 @@
 
     function EditarForm(id){
         window.location = "<?php echo constant('RUTA_URL');?>/clientes/"+id;
+    }
+
+    function FormTareas(id) {
+        window.location = "<?php echo constant('RUTA_URL');?>/extratareas/"+id;
     }
     
 </script>

@@ -68,6 +68,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $correo     = htmlspecialchars($datos['Email']);
         $panol      = htmlspecialchars($datos['panol']);
         $informe    = htmlspecialchars($datos['informe']);
+        $formulario = htmlspecialchars($datos['formular']);
+        $cantidad   = htmlspecialchars($datos['cantidad']);
         
         $query   = "SELECT COUNT(*)AS Total FROM clientes WHERE idempresa='$empresaID' AND cuit LIKE'$Dni'";
         $resp00  = metodoGET($query);
@@ -90,25 +92,21 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 $resp       = metodoPOST($query);        
                 $userID     = $resp[0]['retornoID'];
                 #|-CREAR PERFIL DEL AGENTE       
-                $query2     = "INSERT INTO clientes (`idempresa`, `idusuario`, `nombre`, `direccion`, `celular`, `email`, `cuit`,  `activo`, `fecha_alta`, `fecha_mod`,`panol`,`informe`) 
-                                    VALUES ('$empresaID','$userID','$nombre','$Direccion','$Celular','$username','$Dni','1','$fecha','$fecha','$panol','$informe')"; 
+                $query2     = "INSERT INTO clientes (`idempresa`, `idusuario`, `nombre`, `direccion`, `celular`, `email`, `cuit`,  `activo`, `fecha_alta`, `fecha_mod`,`panol`,`informe`, `formulario`) 
+                                    VALUES ('$empresaID','$userID','$nombre','$Direccion','$Celular','$username','$Dni','1','$fecha','$fecha','$panol','$informe',' $formulario')"; 
                 $resp2      = metodoPOST($query2);
-
-                /*
-                require_once 'Notif/afirebase.php';
-                $message = "Es un Cliente";
-                $title   = "Nuevo Registro";
-                //este es el registro que te explico en word
-                $json   = '{"loginnombre":"'.$username.'","loginpass":"'.$passCorreo.'","token":"","rol":"150","Activo":"false","IdTarea":""}';
-                //url de la base de datos
-                $url='https://prueba2-32b38-default-rtdb.firebaseio.com/SocioClave.json';
-                $envio = new aFireBase($json,$url);
-                //$dispositivos=$envio->obtenerTokens();
-                //echo $dispositivos;
-                $resultado=$envio->enviarDataFireBase();
-                //echo $resultado;
-                $resultadoPush=$envio->enviarDataPush($message,$title);
-                */
+                $clienteID = $resp2[0]['retornoID'];
+                #|->ACTIVO FORMULAR EXTRA SI EXISTE
+                if($formulario==1){
+                    for ($i=0; $i <=($cantidad-1) ; $i++) { 
+                        $query3 = "INSERT INTO clientes_formulario_tarea (`idcliente`) 
+                                          VALUES ('$clienteID')"; 
+                        $resp3  = metodoPOST($query3);
+                    }
+                    #|->REGISTRO CANTIDAD PARA FUTUROS CAMBIOS EN ADMINISTRACION
+                    $queryC = "UPDATE clientes SET cantidad='$cantidad' WHERE id=$clienteID"; 
+                    $respC  = metodoPUT($queryC);
+                }
 
                 #|->ENVIO DE CORREO A CLIENTE                
                 $queryC = "SELECT host, usuario, clave, puerto FROM correo WHERE id=1";
@@ -142,8 +140,40 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $email      = htmlspecialchars($datos['Email']); 
         $panol      = htmlspecialchars($datos['panol']);
         $informe    = htmlspecialchars($datos['informe']);
-        $query = "UPDATE clientes SET nombre='$nombre', direccion='$Direccion', celular='$Celular', email='$email', cuit='$Dni', fecha_mod='$fecha', panol='$panol', informe='$informe' WHERE id=$userID"; 
+        $formulario = htmlspecialchars($datos['formular']);
+        
+        $query = "UPDATE clientes SET nombre='$nombre', direccion='$Direccion', celular='$Celular', email='$email', cuit='$Dni', fecha_mod='$fecha', panol='$panol', informe='$informe', formulario='$formulario' 
+                  WHERE id=$userID"; 
         $resp  = metodoPUT($query);
+
+        if($formulario==1){
+            $cantidad   = htmlspecialchars($datos['cantidad']);
+            $queryF = "SELECT COUNT(*) AS Total FROM clientes_formulario_tarea WHERE idcliente=$userID";
+            $respF  = metodoGET($queryF);
+            $Existe = $respF[0]['Total'];
+            if($Existe==0){
+                for ($i=0; $i <=($cantidad-1) ; $i++) {
+                    $query3 = "INSERT INTO clientes_formulario_tarea (`idcliente`) 
+                                      VALUES ('$userID')"; 
+                    $resp3  = metodoPOST($query3);
+                } 
+                #|->REGISTRO CANTIDAD PARA FUTUROS CAMBIOS EN ADMINISTRACION
+                $queryC = "UPDATE clientes SET cantidad='$cantidad' WHERE id=$userID"; 
+                $respC  = metodoPUT($queryC);
+            }else if($cantidad>$Existe){
+                $direfencia = $cantidad-$Existe;
+                for ($i=0; $i <=($direfencia-1) ; $i++) {
+                    $query3 = "INSERT INTO clientes_formulario_tarea (`idcliente`) 
+                                      VALUES ('$userID')"; 
+                    $resp3  = metodoPOST($query3);
+                }
+                #|->REGISTRO CANTIDAD PARA FUTUROS CAMBIOS EN ADMINISTRACION
+                $queryC = "UPDATE clientes SET cantidad=cantidad+$direfencia WHERE id=$userID"; 
+                $respC  = metodoPUT($queryC); 
+            }
+        }
+
+
     } 
     header('Content-Type: application/json');
     echo json_encode($resp);
@@ -162,16 +192,18 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     if(!isset($datos['userID'])){
         $resp=$_respuestas->error_400(); //si no envio id usuario devuelve error
     }else{
-        /*POR AHORA SOLO ELIMINO DE LA TABLA AGENTES VER LUEGO
-        PARA ELIMINAR DATOS ASOCIADOS*/
         $userID     = $datos['userID'];
         $query3     = "SELECT * FROM clientes WHERE id=$userID";
         $resp3      = metodoGET($query3);
         $usuarioID  = $resp3[0]['idusuario'];
 
+        #|->ELIMINO USUARIO DE ACCESO
         $query2  = "DELETE FROM usuarios WHERE id=$usuarioID";
         $resp2   = metodoDELETE($query2);
-
+        #|->ELIMINO FORMULARIO EXTRA DE TAREAS
+        $query3  = "DELETE FROM clientes_formulario_tarea WHERE idcliente=$userID";
+        $resp3   = metodoDELETE($query3);
+        #|->ELIMINO DATOS DEL CLIENTE
         $query  = "DELETE FROM clientes WHERE id=$userID";
         $resp   = metodoDELETE($query);
     }

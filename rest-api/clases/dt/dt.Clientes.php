@@ -23,7 +23,7 @@ $table = <<<EOT
     nombre,
     direccion,
     celular,
-    cuit
+    cuit, panol, informe, formulario
     FROM clientes WHERE idempresa=$empresaID
 ) temp
 EOT;
@@ -36,7 +36,10 @@ $columns = array(
     array( 'db' => 'direccion', 'dt'  => 2 ),
     array( 'db' => 'celular', 'dt'    => 3 ),
     array( 'db' => 'cuit', 'dt'       => 4 ),
-    array( 'db' => 'id', 'dt'         => 5 )
+    array( 'db' => 'panol', 'dt'      => 5 ),
+    array( 'db' => 'informe', 'dt'    => 6 ),
+    array( 'db' => 'formulario', 'dt' => 7 ),
+    array( 'db' => 'id', 'dt'         => 8 )
 );
  
  

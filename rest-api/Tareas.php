@@ -82,11 +82,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         require_once 'clases/dt/dt.TareasClientesFinalizadas.php'; 
     }else{
         /*
-        $query = "SELECT id,username,nombre,email,rol FROM usuarios";
-        $resp  = metodoGET($query);
-        header("Content-Type: application/json");
-        echo json_encode($resp);
-        http_response_code(200);
+        NO SE UTILIZA ESTE CAMINO
         */
     }
 }else if($_SERVER['REQUEST_METHOD'] == "POST"){
@@ -111,14 +107,42 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $controlCk  = htmlspecialchars($datos['controlCk']);
         $foto1      = htmlspecialchars($datos['foto1']);
         $foto2      = htmlspecialchars($datos['foto2']);
-        
+        $formulario = htmlspecialchars($datos['formulario']); #|->ACTUALIZACION 15/08/24 CARGA DATOS EXTRAS EN VISTA CLIETNE
         $query  = "SELECT * FROM retail WHERE id=$Sucursal";
         $resp   = metodoGET($query);
         $codigo = $resp[0]['cod_local'];
        
-        $query2      = "INSERT INTO tareas (`idempresa`, `idcliente`, `idreail`, `tarea`, `sucursal`, `ubicacion`, `lat`, `lon`, `nota`, `fecha_alta`, `fecha_sol`, `hora_inicio`, `hora_final`, `estado`, `checklist`,`foto_inicio`,`foto_final`) 
-                               VALUES ('$empresaID','$Cliente','$Sucursal','$Nombre','$codigo','$Direccion','0','0','$Nota', '$fecha', '$Solicitud', '$HIngreso', '$HSalida', '$Estado','$controlCk','$foto1','$foto2')"; 
-        $resp2       = metodoPOST($query2);
+        $query2  = "INSERT INTO tareas (`idempresa`, `idcliente`, `idreail`, `tarea`, `sucursal`, `ubicacion`, `lat`, `lon`, `nota`, `fecha_alta`, `fecha_sol`, `hora_inicio`, `hora_final`, `estado`, `checklist`,`foto_inicio`,`foto_final`) 
+                           VALUES ('$empresaID','$Cliente','$Sucursal','$Nombre','$codigo','$Direccion','0','0','$Nota', '$fecha', '$Solicitud', '$HIngreso', '$HSalida', '$Estado','$controlCk','$foto1','$foto2')"; 
+        $resp2   = metodoPOST($query2);
+        $tareaID = $resp2[0]['retornoID'];
+
+        #|->SI EXISTE EL FORMULARIO REGISTRO LOS DATOS EXTRAS
+        if($formulario==1){
+            #|->ARRAY DE DATOS QUE DEBERIA VENIR
+            $dataExtra = $datos['dataExtra'];
+            #|->RECUPERAR EL FORM COMPLETO PARA REPLICAR Y SOLICITAR O PRESENTAR LOS DATOS LUEGO
+            $queryB = "SELECT * FROM clientes_formulario_tarea WHERE idcliente=$Cliente";
+            $respB  = metodoGET($queryB);
+            $cantidadB = COUNT($respB); 
+            #|->GENERAR EL ALTA DE DATOS PARA TAREA
+            for ($i=0; $i <=($cantidadB-1) ; $i++) { 
+                $formID = $respB[$i]['id'];
+                $queryE = "INSERT INTO tareas_clientes_especiales (`idcliente`, `idtarea`, `idform`) 
+                            VALUES ('$Cliente','$tareaID','$formID')"; 
+                $respE  = metodoPOST($queryE);
+            }
+            if (is_array($dataExtra)) {
+                foreach ($dataExtra as $entry) {
+                    $campoID = $entry['campoID'];   // ID del campo                  
+                    $valor   = $entry['valor'];     // Valor ingresado
+                    $queryU  = "UPDATE tareas_clientes_especiales SET dato_valor='$valor'
+                                WHERE idcliente=$Cliente AND idtarea=$tareaID AND idform=$campoID"; 
+                    $respU   = metodoPUT($queryU);
+                }
+            }
+          
+        }
 
         #|->ENVIO NOTIFICACION SI EL ESTADO ES 0 PARA EL ADMIN
         /*
@@ -296,9 +320,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 }else if($_SERVER['REQUEST_METHOD'] == "DELETE"){
     $headers = getallheaders();
     if(isset($headers["userID"])){
-        $send = [
-            "userID" =>$headers["userID"]
-        ];
+        $send = [ "userID" =>$headers["userID"] ];
         $postBody = json_encode($send);
     }else{
         $postBody = file_get_contents("php://input");
@@ -308,7 +330,11 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $resp=$_respuestas->error_400(); //si no envio id usuario devuelve error
     }else{
         $userID = $datos['userID'];
+        #|->ELIMINO LA TAREA RAIZ
         $query  = "DELETE FROM tareas WHERE id=$userID";
+        $resp   = metodoDELETE($query);
+        #|-> DATOS EXTRAS DE FORMULARIOS
+        $query  = "DELETE FROM tareas_clientes_especiales WHERE idtarea=$userID";
         $resp   = metodoDELETE($query);
     }
     header('Content-Type: application/json');

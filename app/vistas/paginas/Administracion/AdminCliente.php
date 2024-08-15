@@ -126,8 +126,6 @@
                 </div>
             </div>
 
-         
-           
             <div class="form-group row">
                 <div class="col-md-4">                    
                     <label for="fechaCheckin" class="form-label">Fecha</label>
@@ -145,7 +143,6 @@
                     <input type="time" class="form-control form-control-sm" id="horaSalida" 
                         value="">
                 </div>
-              
             </div>
         
             <br>
@@ -185,6 +182,23 @@
                 </div>             
             </div>
             <hr>
+            <div id="tipoJugadaGanador">
+    
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive scrollbar">
+                            <table class="table table-sm fs--1 mb-0 overflow-hidden"  
+                                id="Lista"                            
+                                style="width:100%">
+                                <thead class="bg-200 text-900">
+                                    <!-- COMPLETO LOS TITULOS DINAMICOS -->
+                                </thead>                
+                                    <!-- COMPLETO LOS DATOS DINAMICOS -->
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="form-group text-center">
                 <?php  if ($tareaID > 0){?> 
                     <button class="btn btn-outline-primary btn-sm me-1 mb-1" type="button" onclick="Controlar_Requeridos();">
@@ -200,6 +214,7 @@
     </div>
     <input type="hidden" id="sucID" value="0">
     <input type="hidden" id="clienteID" value="0">
+    <input type="hidden" id="formulario" value="0">
 </div>
 
 <?php require RUTA_APP . '/vistas/inc/footer.php'; ?>
@@ -218,7 +233,7 @@
         var clienteID  = 0;
         var sucursalID = 0;
         if(tareaID>0){
-            var url ='<?php echo constant('RUTA_URL'); ?>/rest-api/Tareas?tareaID='+tareaID;
+            var url    = '<?php echo constant('RUTA_URL'); ?>/rest-api/Tareas?tareaID='+tareaID;
             fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -228,9 +243,7 @@
                         $('#sucID').val(item.idreail);
                         $('#nombre').val(item.tarea); 
                         $('#direccion').val(item.ubicacion);
-                        //item.lat
-                        //item.lon
-                        //item.nota
+      
                         $('#fechaCheckin').val(item.fecha_sol);
                         $('#horaIngreso').val(item.hora_inicio);
                         $('#horaSalida').val(item.hora_final);
@@ -259,20 +272,29 @@
     function ListaClientes()
     {  
         var userID = <?php echo $userID; ?>;
-        var url       = '<?php echo constant('RUTA_URL');?>/rest-api/Clientes?clientesUserGET='+userID;
+        var formulario = 0; 
+        var url    = '<?php echo constant('RUTA_URL');?>/rest-api/Clientes?clientesUserGET='+userID;
         fetch(url)
         .then(response => response.json())
-        .then(data => {  //por aca leo los resultados de la consulta
+        .then(data => {
             $.each(data, function(i, item) {
                 $('#clienteID').val(item.id);
                 $('#_Nombre').html(item.nombre);
-                
-            }); 
+                formulario = item.formulario;
+            });
+            //PARA ACTIVAR CAMPOS EXTRA DE FORMULARIOS CLIENTES VIP
+            $('#formulario').val(formulario);
+            var x = document.getElementById("tipoJugadaGanador");
+            if(formulario==1){
+                x.style.display = "block";
+            }else{
+                x.style.display = "none";
+            }
             ListaSucursales();   
         });  
     }
-
     ListaClientes();
+
     function ListaSucursales()
     {  
         var empresaID  = <?php echo $empresaID; ?>;
@@ -282,7 +304,7 @@
             var url = '<?php echo constant('RUTA_URL');?>/rest-api/Retail?sucursalesClientesGET='+clienteID+'&empresaID='+empresaID;
             fetch(url)
             .then(response => response.json())
-            .then(data => {  //por aca leo los resultados de la consulta
+            .then(data => {
                 $('#sucursal').html("");
                 var $select = $('#sucursal');
                 $select.append('<option value="0">Seleccionar Sucursal</option>');
@@ -339,6 +361,7 @@
         var userID    = <?php echo $userID ?>;
         var tareaID   = <?php echo $tareaID; ?>;
         var empresaID = <?php echo $empresaID; ?>;
+        var formulario = $('#formulario').val()
         if(tareaID==0)
         { 
             var Accion    = 'Crear';
@@ -358,10 +381,24 @@
         var horaIngreso  = document.querySelector('#horaIngreso').value;
         var horaSalida   = document.querySelector('#horaSalida').value;
         var descripcion  = tinymce.activeEditor.getContent();
-            // descripcion  = descripcion.replace(/['"]+/g, '');
         var controlCk    = document.querySelector('#controlCk').value;
         var foto1        = document.querySelector('#foto_1').value;
         var foto2        = document.querySelector('#foto_2').value;
+
+        var dataExtra = []; // Array para almacenar los datos
+        if(formulario==1){            
+            $('#Lista input').each(function() {
+                var inputID = $(this).attr('id'); // ID del input (correspondiente al campo)
+                var inputValue = $(this).val(); // Valor ingresado por el cliente                
+                dataExtra.push({
+                    campoID: inputID,
+                    valor: inputValue
+                });
+            });
+            console.log(dataExtra);
+        }else{
+            console.log("Cliente sin datos extra");
+        }
         Swal.fire({
             title: '<strong>Confirma '+Accion+'?</strong>',
             icon : 'info',
@@ -374,7 +411,7 @@
             cancelButtonAriaLabel : 'Thumbs down'
         }).then((result) => {
             if (result.value) {
-                var apiUrl='<?php echo constant('RUTA_URL'); ?>/rest-api/Tareas'; 
+                var apiUrl='<?php echo constant('RUTA_URL'); ?>/rest-api/Tareas.php'; 
                 var data = { 
                     usuarioID : userID,
                     tareaID   : tareaID,
@@ -390,7 +427,9 @@
                     Nota      : descripcion,
                     controlCk : controlCk,
                     foto1     : foto1,
-                    foto2     : foto2
+                    foto2     : foto2,
+                    formulario: formulario,
+                    dataExtra : dataExtra
                 } 
                 fetch(apiUrl,{ 
                     method : metodo,  
@@ -424,7 +463,7 @@
             }   
         })
     }
-
+    /* ESTA FUNCIONA SE PUEDE SIMPLICAR ARRIBA PARA UN SOLO LLAMADO EN LISTA CLIENTES */
     function solicitarCheckList(clienteID)
     {  
         if(clienteID>0){
@@ -454,11 +493,105 @@
                 });    
             }); 
         }
+        documentacionAdjunta();
     }
 
     function redireccion(){
         window.location = "<?php echo constant('RUTA_URL');?>/inicio";
     }
+
+
+    function documentacionAdjunta() {
+        var clienteID = $("#clienteID").val();
+        $('#Lista thead th').each(function () {
+            var title = $(this).text();
+            $(this).html(title);
+        });
+        
+        var table = $('#Lista').DataTable({
+            "scrollX"   : true,
+            "destroy"   : true, 
+            "pagingType": "numbers",
+            "processing": true,
+            "serverSide": true,
+            "searching" : false, // Ocultar buscador
+            "paging"    : false, // Ocultar paginador
+            "ajax"      : "<?php echo constant('RUTA_URL');?>/rest-api/ClientesExtra.php?dtdatosGET="+clienteID,
+            columns: [
+                { "title": "ID"},
+                { "title": "Cliente"},
+                { "title": "Datos extras solicitados"},
+                { "title": "Requerido"},                    
+                { "title": "Acciones"},
+            ],
+            columnDefs: [
+                {
+                    "targets"   : [ 0, 1, 3, 4 ],
+                    "visible"   : false,
+                    "searchable": false
+                },
+                
+                {
+                    
+                    targets   : [ 2 ],
+                    searchable: true,
+                    orderable : false,
+                    render: function(data, type, full, meta){
+                        if(type === 'display'){
+                            if(full[3]==1){
+                                data = '<label for="'+full[4]+'" class="form-label">'+data+'</label><input class="form-control form-control-sm" type="text" id="'+full[4]+'" value=""/>'; 
+                            }else{
+                                data='';
+                            }
+                        }
+                        return data;
+                    }
+                }, 
+                {
+                    targets   : [ 3 ],
+                    searchable: true,
+                    orderable : false,
+                    render: function(data, type, full, meta){
+                        if(type === 'display'){
+                            var options = data == 0 ? '<option value="0">No</option>' : '<option value="1" selected>Si</option>';
+                            data = '<select class="form-select form-select-sm" id="requer_'+full[4]+'" disabled>'+options+'</select>'; 
+                        }
+                        return data;
+                    }
+                }
+            ],
+            language: {
+                "decimal"   : "",
+                "emptyTable": "No hay información",
+                "info"      : "Viendo _START_ a _END_ de _TOTAL_ extras",
+                "infoEmpty" : "Viendo 0 to 0 of 0 extras",
+                "infoFiltered": "(Filtrado de _MAX_ total extras)",
+                "infoPostFix" : "",
+                "thousands"   : ",",
+                "lengthMenu"  : "Ver _MENU_ extras",
+                "loadingRecords": "Cargando...",
+                "processing"    : "Procesando...",
+                "search"        : "",
+                "searchPlaceholder": "Buscar",
+                "zeroRecords"      : "Sin resultados encontrados",
+                "paginate" : {
+                    "first": "Primero",
+                    "last" : "Ultimo",
+                    "next" : ">",
+                    "previous": "<"
+                }
+            },
+            "lengthMenu": [ 100, 250, 500, 750, 1000 ],
+            ordering  : "false",
+            responsive: "true",
+        });
+    }
+    function Guardar() {
+       
+        
+    }
+
+
     //ESTABLECER FECHAS MINIMAS PARA LOS INPUT
     // Obtén el elemento input de fecha de check-in
     var fechaCheckinInput  = document.getElementById('fechaCheckin');

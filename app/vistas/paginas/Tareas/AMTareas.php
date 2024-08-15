@@ -246,6 +246,8 @@
         var userID    = <?php echo $userID ?>;
         var tareaID = <?php echo $tareaID; ?>;
         var empresaID = <?php echo $empresaID; ?>;
+        var formulario =0;
+        var dataExtra = []; // Array para almacenar los datos extras
         if(tareaID==0)
         { 
             var Accion    = 'Crear';
@@ -265,7 +267,6 @@
         var horaIngreso  = document.querySelector('#horaIngreso').value;
         var horaSalida   = document.querySelector('#horaSalida').value;
         var descripcion  = tinymce.activeEditor.getContent();
-           // descripcion  = descripcion.replace(/['"]+/g, '');
         var controlCk    = document.querySelector('#controlCk').value;
         var foto1        = document.querySelector('#foto_1').value;
         var foto2        = document.querySelector('#foto_2').value;
@@ -297,7 +298,9 @@
                     Nota      : descripcion,
                     controlCk : controlCk,
                     foto1     : foto1,
-                    foto2     : foto2
+                    foto2     : foto2,
+                    formulario: formulario,
+                    dataExtra : dataExtra
                 } 
                 fetch(apiUrl,{ 
                     method : metodo,  

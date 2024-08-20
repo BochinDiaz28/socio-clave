@@ -3,7 +3,7 @@
 <?php 
     $empresaID = $datos['empresaID']; #|->EMPRESA LOGEADA
     $userID    = $datos['userID'];    #|->USUARIOS LOGEADO
-    #|->AGENTE QUE ESTOY EDITANDO
+    #|-> AGENTE QUE ESTOY EDITANDO
     $response  = file_get_contents(''.RUTA_URL.'/rest-api/Agentes.php?agentesUserGET='.$userID);
     $datos     = json_decode($response,true);
     $clienteID = $datos[0]['id'];  
@@ -400,6 +400,7 @@
             })
         }
     <?php  }?> 
+    
     $(document).ready(function () {
         //FOTO DE PERFIL
         $(".upload").on('change', function() {

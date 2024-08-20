@@ -6,7 +6,8 @@
     #|->AGENTE QUE ESTOY EDITANDO
     $response  = file_get_contents(''.RUTA_URL.'/rest-api/Clientes.php?clientesUserGET='.$userID);
     $datos     = json_decode($response,true);
-    $clienteID = $datos[0]['id'];  
+    $clienteID = $datos[0]['id']; 
+    $foto      = $datos[0]['foto_pefil'];   
 ?>
 <div class="content">
     <?php require RUTA_APP . '/vistas/inc/menuSuperior.php'; ?>
@@ -98,6 +99,33 @@
             </div>
         </div>
     <?php  }?> 
+    <!--FOTO DE PERFIL y PORTADA-->
+    <div class="container py-2">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h4>Agregar | Cambiar logo corporativo.</h4>
+                        <small>...</small>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="profile-image" class="form-label">Seleccionar Logo</label>
+                            <input class="form-control upload" type="file" id="profile-image">
+                        </div>
+                    </div>
+                    <div class="card-foter">
+                        <div class="col-6 col-md-4 col-lg-3 col-xxl-2 mb-1">
+                            <div class="bg-white dark__bg-1100 p-3 h-100">
+                                <img class="img-thumbnail img-fluid rounded-circle mb-3 shadow-sm" 
+                                    src="<?php echo constant('RUTA_URL') ?>/public/img/perfil/<?=$foto?>" alt="" width="100" />
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <?php require RUTA_APP . '/vistas/inc/footer.php'; ?>
 <script src="<?php echo constant('RUTA_URL');?>/public/vendors/datatables/js/jquery.dataTables.min.js"></script>
@@ -442,4 +470,82 @@
             })
         }
     <?php  }?> 
+
+
+    $(document).ready(function () {
+        //FOTO DE PERFIL
+        $(".upload").on('change', function() {
+            var id = <?=$clienteID; ?>;
+            $(".upload").prop('disabled', true);
+            var formData = new FormData();
+            var files = $('#profile-image')[0].files[0];
+            formData.append('file',files);
+            ruta="<?php echo constant('RUTA_URL');?>/rest-api/uploads/UploadImagenesPerfil.php"; 
+            $.ajax({
+                url: ruta,
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,               
+                success: function(response) {
+                    $(".upload").prop('disabled', false);
+                    if (response != 0) {
+                        $('#foto').val(response);
+                        FotoPefil();
+                    } else {
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Formato de Imagen Incorrecto!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                }
+            });
+        }); 
+    });
+
+    function FotoPefil() {
+        var clienteID = <?=$clienteID; ?>;
+        var Accion    = 'Actualizar';  
+        var rtaAccion = 'Actualizada!'; 
+        var metodo    = 'PUT'; 
+        var Foto      = $('#foto').val();   
+
+        var apiUrl='<?php echo constant('RUTA_URL'); ?>/rest-api/ClientesFotoPerfil.php'; 
+        var data = {
+            clienteID : clienteID,
+            Foto      : Foto
+        }; 
+        fetch(apiUrl, { 
+            method: metodo,  
+            headers: {'Content-type' : 'application/json'},
+            body: JSON.stringify(data) 
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if(data[0]["error"]){
+                Swal.fire({
+                    type : 'error',
+                    icon : 'error',
+                    title: ''+data[0]["error"]+'',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            } else {
+                var retornoID = data[0]['rta']; 
+                Swal.fire({
+                    type : 'success',
+                    icon : 'success',
+                    title: 'Logo '+ rtaAccion +'',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                setTimeout(function(){
+                    window.location = "<?php echo constant('RUTA_URL') ?>/lstclientes";
+                },2000);
+            }
+        });
+    }
 </script>

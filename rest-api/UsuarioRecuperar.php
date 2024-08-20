@@ -28,8 +28,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $passCorreo = $password;
         $password   = encriptar($password);
         $query = "UPDATE usuarios SET password='$password' WHERE id=$usuarioID"; 
-        $resp = metodoPUT($query);
-        //ENVIAR CORREO CON CLAVE NUEVA.
+        $resp  = metodoPUT($query);
+        #|->ENVIAR CORREO CON CLAVE NUEVA.
         $queryC = "SELECT host, usuario, clave, puerto FROM correo WHERE id=1";
         $respC  = metodoGET($queryC);
         

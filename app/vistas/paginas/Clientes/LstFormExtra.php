@@ -82,7 +82,7 @@
                     { "title": "ID"},
                     { "title": "Cliente"},
                     { "title": "Etiqueta"},
-                    { "title": "Requerido"},                    
+                    { "title": "Req. en Tarea"},                    
                     { "title": "Acciones"},
                 ],
                 columnDefs: [

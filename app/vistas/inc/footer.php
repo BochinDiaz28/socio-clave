@@ -297,5 +297,55 @@
         setInterval(enLinea, 7 * 60 * 1000); // Luego, cada 7 minutos
     </script>
     <?php } ?>
+
+    <?php if ($_SESSION['rol']==200) {?>
+    <script>
+        // Función para aplicar las clases
+        function updateActiveMenu(linkId) {
+            // Primero, remover las clases 'active' y 'link-dark' de todos los enlaces          
+            document.getElementById('linkTomar').classList.remove('active','link-dark');
+            document.getElementById('linkAsignada').classList.remove('active','link-dark');
+            document.getElementById('linkCurso').classList.remove('active','link-dark');
+            document.getElementById('linkFinalizada').classList.remove('active', 'link-dark');
+            // Agregar las clases 'active' y 'carga datos boton' al enlace seleccionado
+            document.getElementById(linkId).classList.add('btn', 'btn-secondary', 'btn-sm');
+        }
+        let urlPath = window.location.pathname;
+        let lastSegment = urlPath.substring(urlPath.lastIndexOf('/') + 1);
+        //console.log(lastSegment);
+        if(lastSegment==='tomartarea' || lastSegment==='tareasasignadas' || lastSegment==='tareasencurso' || lastSegment==='tareafinalizada'){
+            const savedActiveMenu = localStorage.getItem('activeMenuAgente') || lastSegment;
+            
+
+            if(lastSegment==='tomartarea'){               
+                setActiveMenu('linkTomar')
+            }
+            if(lastSegment==='tareasasignadas'){               
+                setActiveMenu('linkAsignada')
+            }
+            if(lastSegment==='tareasencurso'){               
+                setActiveMenu('linkCurso')
+            }
+            if(lastSegment==='tareafinalizada'){               
+                setActiveMenu('linkFinalizada')
+            }
+            
+            
+            // Función para establecer el enlace activo y guardar la selección en localStorage
+            function setActiveMenu(linkId) {
+                // Guardar la selección en localStorage
+                localStorage.setItem('activeMenuAgente', linkId);
+                // Actualizar el estado 'active' en los enlaces del menú
+                updateActiveMenu(linkId);
+            }
+
+            // Al cargar la página, aplicar el enlace activo guardado o establecer uno por defecto
+            document.addEventListener('DOMContentLoaded', function() {
+                const savedActiveMenu = localStorage.getItem('activeMenuAgente') || '';
+                updateActiveMenu(savedActiveMenu);
+            });
+        }
+    </script>
+    <?php } ?>
     </body>
 </html>

@@ -378,7 +378,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/administracion" aria-expanded="false">
                                 <div class="d-flex align-items-center">
-                                    <span class="text-white ps-1">Inicio</span>
+                                    <span class="text-white ps-1 poppins-medium">Inicio</span>
                                 </div>
                             </a>                            
                         </li>
@@ -387,7 +387,7 @@
                             <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/tomartarea"
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center">
-                                    <span class="text-white ps-1">Tomar una Tarea</span>
+                                    <span class="text-white ps-1 poppins-medium">Tomar una Tarea</span>
                                 </div>
                             </a>                            
                         </li>
@@ -395,7 +395,7 @@
                             <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/tareasasignadas"
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center">
-                                    <span class="text-white ps-1">Tareas asignadas</span>
+                                    <span class="text-white ps-1 poppins-medium">Tareas asignadas</span>
                                 </div>
                             </a>                            
                         </li>
@@ -403,7 +403,7 @@
                             <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/tareasasignadas"
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center">
-                                    <span class="text-white ps-1">Tareas en curso</span>
+                                    <span class="text-white ps-1 poppins-medium">Tareas en curso</span>
                                 </div>
                             </a>                            
                         </li>
@@ -411,7 +411,7 @@
                             <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/tareasfinalizadas"
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center">
-                                    <span class="text-white ps-1">Tareas finalizadas</span>
+                                    <span class="text-white ps-1 poppins-medium">Tareas finalizadas</span>
                                 </div>
                             </a>                            
                         </li>
@@ -428,10 +428,10 @@
                         <li class="nav-item">
                             <a class="nav-link" 
                                 href="<?php echo constant('RUTA_URL'); ?>/lstagentes" aria-expanded="false">
-                                <div class="d-flex align-items-center"><span class="text-white ps-1">Mi Perfil</span></div>
+                                <div class="d-flex align-items-center"><span class="text-white ps-1 poppins-medium">Mi Perfil</span></div>
                             </a> 
                             <a class="nav-link" href="<?php echo constant('RUTA_URL'); ?>/cambiopass" aria-expanded="false">
-                                <div class="d-flex align-items-center"><span class="text-white ps-1">Cambio Password</span></div>
+                                <div class="d-flex align-items-center"><span class="text-white ps-1 poppins-medium">Cambio Password</span></div>
                             </a>                                          
                         </li>
                     </ul>

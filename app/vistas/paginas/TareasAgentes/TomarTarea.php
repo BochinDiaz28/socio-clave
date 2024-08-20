@@ -3,6 +3,13 @@
 .custom-card-border {
     border-color: #0C787B !important;
 }
+.link-dark {
+    text-decoration: none;
+}
+.btn-secondary{
+    background-color:#0C787B;
+    border-color: #0C787B !important;
+}
 </style>
 <?php require RUTA_APP . '/vistas/inc/menuLateral.php'; ?>
 <?php
@@ -28,10 +35,12 @@
                                 </div>
                             </div>
                             <div class="row">
+                               
                                 <div class="col-sm-12 col-md-12">
-                                    <a class="btn btn-secondary btn-sm" href="<?=constant('RUTA_URL');?>/tareasasignadas" style="border-color: #0C787B; background-color:#0C787B;">Asignadas</a>
-                                    <a class="btn btn-secondary btn-sm" href="<?=constant('RUTA_URL');?>/tareasencurso" style="border-color: #0C787B; background-color:#0C787B;">En curso</a>
-                                    <a class="btn btn-secondary btn-sm" href="<?=constant('RUTA_URL');?>/tareasfinalizadas" style="border-color: #0C787B; background-color:#0C787B;">Finalizadas</a>
+                                    <a id="linkTomar" class="link-dark active" href="<?=constant('RUTA_URL');?>/tomartarea" onclick="setActiveMenu('linkTomar')">Tomar</a>
+                                    <a id="linkAsignada" class="link-dark" href="<?=constant('RUTA_URL');?>/tareasasignadas" onclick="setActiveMenu('linkAsignada')" >Asignadas</a>
+                                    <a id="linkCurso" class="link-dark" href="<?=constant('RUTA_URL');?>/tareasencurso" onclick="setActiveMenu('linkCurso')" >En curso</a>
+                                    <a id="linkFinalizada" class="link-dark" href="<?=constant('RUTA_URL');?>/tareasfinalizadas" onclick="setActiveMenu('linkFinalizada')" >Finalizadas</a>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +132,7 @@
                     '   <div class="row">'+
                     '      <div class="col-12">'+
                     '          <div class="media-body position-relative pl-3">'+
-                    '              <h6 class="mt-3 mt-sm-0">'+item.tarea+'</h6>'+
+                    '              <h6 class="mt-3 mt-sm-0 poppins-medium">'+item.tarea+'</h6>'+
                     '              <p class="fs--1 mb-0"><b>'+item.sucursal+'</b></p>'+                                            
                     '              <p class="fs--1 mb-0">'+item.ubicacion+'</p>'+                    
                     '              <p class="fs--1 mb-0">Limite desde  : <b>'+item.hora_inicio+'</b> hasta: <b>'+ item.hora_final +'</b></p>'+

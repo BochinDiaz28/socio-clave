@@ -58,7 +58,7 @@
 
                 <div class="mb-3">
                   <button class="btn btn-primary d-block w-100 mt-3" 
-                          type="bottom" onclick="Controlar_Ingreso()" name="submit"
+                          type="bottom" onclick="Controlar_Ingreso()" name="submit" id="enviar"
                           style="background-color: #0C787B; border-color: #0C787B;">Ingresar</button>
                 </div>
               

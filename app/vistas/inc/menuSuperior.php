@@ -75,7 +75,7 @@
                    target="_blank">Ayudas</a>
                 <div class="dropdown-divider"></div>
                 <?php }?>
-                <a class="dropdown-item" href="<?php echo constant('RUTA_URL'); ?>/ingresar">Cerrar</a>
+                <a class="dropdown-item" id="cerrarSession" href="<?php echo constant('RUTA_URL'); ?>/ingresar">Cerrar</a>
             </div>
             </div>
         </li>

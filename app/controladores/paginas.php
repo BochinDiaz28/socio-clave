@@ -1285,7 +1285,7 @@ class Paginas extends Controlador{
             if ($_SESSION['rol']==200) {
                 # Reponedores
                 $datos = [
-                    'titulo'    => 'Administración',
+                    'titulo'    => 'Tomar tarea',
                     'userID'    => $_SESSION['id'],
                     'empresaID' => $_SESSION['empresaID'],
                 ];
@@ -1306,7 +1306,7 @@ class Paginas extends Controlador{
             if ($_SESSION['rol']==200) {
                 # Reponedores
                 $datos = [
-                    'titulo'    => 'Administración',
+                    'titulo'    => 'Tareas asignadas',
                     'userID'    => $_SESSION['id'],
                     'empresaID' => $_SESSION['empresaID'],
                 ];
@@ -1327,7 +1327,7 @@ class Paginas extends Controlador{
             if ($_SESSION['rol']==200) {
                 # Reponedores
                 $datos = [
-                    'titulo'    => 'Administración',
+                    'titulo'    => 'Tareas en curso',
                     'userID'    => $_SESSION['id'],
                     'empresaID' => $_SESSION['empresaID'],
                 ];

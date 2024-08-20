@@ -1277,4 +1277,71 @@ class Paginas extends Controlador{
         }    
         
     }
+
+
+    #|->SUBMODULO AGENTES SEGUN APP.
+    public function tomartarea(){
+        if(isset($_SESSION['nombre'])){
+            if ($_SESSION['rol']==200) {
+                # Reponedores
+                $datos = [
+                    'titulo'    => 'Administración',
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/TareasAgentes/TomarTarea', $datos);
+            }else{
+
+            }
+        }else{
+            $datos = [
+                'titulo' => 'Ingresar'
+            ];
+            $this->vista('paginas/Login/ingresar', $datos);
+        }    
+        
+    }
+    public function tareasasignadas(){
+        if(isset($_SESSION['nombre'])){
+            if ($_SESSION['rol']==200) {
+                # Reponedores
+                $datos = [
+                    'titulo'    => 'Administración',
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/TareasAgentes/TareasAsignadas', $datos);
+            }else{
+
+            }
+        }else{
+            $datos = [
+                'titulo' => 'Ingresar'
+            ];
+            $this->vista('paginas/Login/ingresar', $datos);
+        }    
+        
+    }
+    public function tareasencurso(){
+        if(isset($_SESSION['nombre'])){
+            if ($_SESSION['rol']==200) {
+                # Reponedores
+                $datos = [
+                    'titulo'    => 'Administración',
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/TareasAgentes/TareasEnCurso', $datos);
+            }else{
+
+            }
+        }else{
+            $datos = [
+                'titulo' => 'Ingresar'
+            ];
+            $this->vista('paginas/Login/ingresar', $datos);
+        }    
+        
+    }
+    
 }

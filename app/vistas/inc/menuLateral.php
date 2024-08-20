@@ -7,7 +7,7 @@
     container.classList.add('container-fluid');
     }
 </script>
-<nav class="navbar navbar-light navbar-vertical navbar-expand-xl">
+<nav class="navbar navbar-light navbar-vertical navbar-expand-xl" >
     <script>
         var navbarStyle = localStorage.getItem("navbarStyle");
         if (navbarStyle && navbarStyle !== 'transparent') {
@@ -25,7 +25,7 @@
             </div>
         </a>
     </div>
-    <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+    <div class="collapse navbar-collapse" id="navbarVerticalCollapse" <?php if ($_SESSION['rol']==200) { echo 'style="background-color:#0C787B;"';}?>><!---->
     <?php if($_SESSION['rol']==100 || $_SESSION['rol']==125){ ?>
         <div class="navbar-vertical-content scrollbar">
             <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
@@ -371,53 +371,67 @@
                 <!--SECCION MENU ADMINISTRACION-->
                 <li class="nav-item">
                     <a class="nav-link dropdown-indicator" href="#dashboard" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="dashboard">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-chart-pie"></span></span><span class="nav-link-text ps-1">Administración</span>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-home text-white"></span></span><span class="text-white ps-1">Administración</span>
                         </div>
                     </a>
                     <ul class="nav collapse show" id="dashboard">
                         <li class="nav-item">
-                            <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/administracion" 
-                                aria-expanded="false">
+                            <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/administracion" aria-expanded="false">
                                 <div class="d-flex align-items-center">
-                                    <span class="nav-link-text ps-1">Administración</span>
+                                    <span class="text-white ps-1">Inicio</span>
                                 </div>
                             </a>                            
                         </li>
-                        <!--
+                        
                         <li class="nav-item">
-                            <a class="nav-link active" href="<?php //echo constant('RUTA_URL'); ?>/notificaciones"
+                            <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/tomartarea"
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center">
-                                    <span class="nav-link-text ps-1">Notificaciones</span>
+                                    <span class="text-white ps-1">Tomar una Tarea</span>
                                 </div>
                             </a>                            
                         </li>
-                        -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/tareasasignadas"
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center">
+                                    <span class="text-white ps-1">Tareas asignadas</span>
+                                </div>
+                            </a>                            
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/tareasasignadas"
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center">
+                                    <span class="text-white ps-1">Tareas en curso</span>
+                                </div>
+                            </a>                            
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/tareasfinalizadas"
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center">
+                                    <span class="text-white ps-1">Tareas finalizadas</span>
+                                </div>
+                            </a>                            
+                        </li>
+                        
                     </ul>
                 </li>
                 <!--SECCION PERFIL AGENTE-->
                 <li class="nav-item">
-                    <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-                        <div class="col-auto navbar-vertical-label">Perfil</div>
-                        <div class="col ps-0">
-                            <hr class="mb-0 navbar-vertical-divider" />
-                        </div>
-                    </div>
-                
                     <a class="nav-link dropdown-indicator" href="#empresas" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
-                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user-check"></span></span><span class="nav-link-text ps-1">Perfil</span>
+                        <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-user-check text-white"></span></span><span class="text-white ps-1">Perfil</span>
                         </div>
                     </a>
                     <ul class="nav collapse false" id="empresas">
                         <li class="nav-item">
                             <a class="nav-link" 
-                                href="<?php echo constant('RUTA_URL'); ?>/lstagentes" 
-                                aria-expanded="false">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Mi Perfil</span></div>
+                                href="<?php echo constant('RUTA_URL'); ?>/lstagentes" aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="text-white ps-1">Mi Perfil</span></div>
                             </a> 
-                            <a class="nav-link" href="<?php echo constant('RUTA_URL'); ?>/cambiopass" 
-                                aria-expanded="false">
-                                <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Cambio Password</span></div>
+                            <a class="nav-link" href="<?php echo constant('RUTA_URL'); ?>/cambiopass" aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="text-white ps-1">Cambio Password</span></div>
                             </a>                                          
                         </li>
                     </ul>

@@ -7,7 +7,7 @@
 
         </main>
         
-        
+        <?php if ($_SESSION['rol']<>200) {?>
         <div class="offcanvas offcanvas-end settings-panel border-0" id="settings-offcanvas" tabindex="-1" aria-labelledby="settings-offcanvas">
             <div class="offcanvas-header settings-panel-header bg-shape">
                 <div class="z-index-1 py-1 light">
@@ -89,7 +89,7 @@
                 <small class="text-uppercase text-primary fw-bold bg-soft-primary py-2 pe-2 ps-1 rounded-end">CONF</small>
             </div>
         </a>
-
+        <?php } ?>
         <!--/* SE EJECUTA EN VISTA CLIENTES */-->
         <div class="modal fade" id="modalNotificacion" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">

@@ -13,10 +13,8 @@
     <?php require RUTA_APP . '/vistas/inc/menuSuperior.php'; ?>
     <div class="card mb-3">
         <div class="card-body">
-            <a class="btn btn-outline-primary btn-sm mr-1 mb-1" type="button" 
-            href="<?php echo constant('RUTA_URL'); ?>/inicio">
-                <span class="fas fa-arrow-alt-circle-left me-1" data-fa-transform="shrink-3"></span>
-                Inicio
+            <a class="btn btn-falcon-default btn-sm me-1 mb-1" href="<?=constant('RUTA_URL');?>/">
+                <span class="fas fa-arrow-left me-1" data-fa-transform="shrink-3"></span>Inicio
             </a>
         </div>
     </div>

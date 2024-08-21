@@ -88,15 +88,17 @@
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            
+            if (Array.isArray(data) && data.length > 0) {
             html='<div class="row">';
             
             $.each(data, function(i, item) {   
                
-                if(item.checklist==1){
-                    var checklist = '<p class="fs--1 mb-0">*<b> Requiere control de inventario</b></p>';
+                if(item.cerradaAdmin==1){
+                    var checklist = '<p class="fs--1 mb-0" style="color:#0C787B;"><span class="far fa-file fs-2" style="color: #0C787B;"></span><b> Aprobada por supervisión</b></p>';
+                }else if(item.cerradaAdmin==0){
+                    var checklist ='<p class="fs--1 mb-0" style="color:#C82A2A;"><span class="far fa-file fs-2" style="color: #C82A2A;"></span><b> No aprobada por supervisión</b></p>';
                 }else{
-                    var checklist ='';
+                    var checklist ='<p class="fs--1 mb-0">*<b> Pendiente de revisión</b></p>';
                 }
                
                 html+='<div class="card border h-100 custom-card-border mb-3"><div class="card-body"><div class="col-md-12 h-100">'+
@@ -117,6 +119,10 @@
             }); 
             html+='</div>';
             $('#_MisFinalizadas').html(html);
+            } else {
+                html='<div class="row"><p class="fs--1 mb-0"><b>Aún no haz finalizado ninguna tarea</b></p></div>';
+                $('#_MisFinalizadas').html(html);
+            }
         });
     }
 

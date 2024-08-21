@@ -125,32 +125,38 @@
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            html='<div class="row">';
-            $.each(data, function(i, item) {                
-                if(item.checklist==1){
-                    var checklist = '<p class="fs--1 mb-0">*<b> Requiere control de inventario</b></p>';
-                }else{
-                    var checklist ='';
-                }
-                html+='<div class="col-md-12 h-100">'+
-                    '   <div class="row">'+
-                    '      <div class="col-12">'+
-                    '          <div class="media-body position-relative pl-3">'+
-                    '              <h6 class="mt-3 mt-sm-0 poppins-medium">'+item.tarea+'</h6>'+
-                    '              <p class="fs--1 mb-0"><b>'+item.sucursal+'</b></p>'+                                            
-                    '              <p class="fs--1 mb-0">'+item.ubicacion+'</p>'+                    
-                    '              <p class="fs--1 mb-0">Limite desde  : <b>'+item.hora_inicio+'</b> hasta: <b>'+ item.hora_final +'</b></p>'+
-                    '              <p class="fs--1 mb-0">'+he.decode(item.nota)+'</p>'+
-                    '              '+checklist+''+ 
-                    '              <button class="btn btn-outline-info btn-sm me-1 mb-1" type="button" onclick="AceptarTareas('+item.id+');"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Aceptar</button>'+
-                    '              <hr class="border-dashed border-bottom-0">'+
-                    '          </div>'+
-                    '       </div>'+
-                    '   </div>'+
-                    '</div>';
-            }); 
-            html+='</div>';
+            if (Array.isArray(data) && data.length > 0) {
+                html='<div class="row">';
+                $.each(data, function(i, item) {                
+                    if(item.checklist==1){
+                        var checklist = '<p class="fs--1 mb-0">*<b> Requiere control de inventario</b></p>';
+                    }else{
+                        var checklist ='';
+                    }
+                    html+='<div class="col-md-12 h-100">'+
+                        '   <div class="row">'+
+                        '      <div class="col-12">'+
+                        '          <div class="media-body position-relative pl-3">'+
+                        '              <h6 class="mt-3 mt-sm-0 poppins-medium">'+item.tarea+'</h6>'+
+                        '              <p class="fs--1 mb-0"><b>'+item.sucursal+'</b></p>'+                                            
+                        '              <p class="fs--1 mb-0">'+item.ubicacion+'</p>'+                    
+                        '              <p class="fs--1 mb-0">Limite desde  : <b>'+item.hora_inicio+'</b> hasta: <b>'+ item.hora_final +'</b></p>'+
+                        '              <p class="fs--1 mb-0">'+he.decode(item.nota)+'</p>'+
+                        '              '+checklist+''+ 
+                        '              <button class="btn btn-outline-info btn-sm me-1 mb-1" type="button" onclick="AceptarTareas('+item.id+');"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Aceptar</button>'+
+                        '              <hr class="border-dashed border-bottom-0">'+
+                        '          </div>'+
+                        '       </div>'+
+                        '   </div>'+
+                        '</div>';
+                }); 
+                html+='</div>';
             $('#_MisEventos').html(html);
+            } else {
+                html='<div class="row"><p class="fs--1 mb-0"><b>En este momento no hay tareas disponibles</b></p></div>';
+                $('#_MisEventos').html(html);
+            }
+
            
         });
     }

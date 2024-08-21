@@ -375,6 +375,7 @@
                         </div>
                     </a>
                     <ul class="nav collapse show" id="dashboard">
+                        
                         <li class="nav-item">
                             <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/administracion" aria-expanded="false">
                                 <div class="d-flex align-items-center">
@@ -391,6 +392,7 @@
                                 </div>
                             </a>                            
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/tareasasignadas"
                                 aria-expanded="false">
@@ -399,6 +401,7 @@
                                 </div>
                             </a>                            
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/tareasencurso"
                                 aria-expanded="false">
@@ -407,6 +410,7 @@
                                 </div>
                             </a>                            
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/tareasfinalizadas"
                                 aria-expanded="false">

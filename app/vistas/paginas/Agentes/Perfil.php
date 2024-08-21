@@ -13,10 +13,8 @@
     <?php require RUTA_APP . '/vistas/inc/menuSuperior.php'; ?>
     <div class="card mb-3">
         <div class="card-body">
-            <a class="btn btn-outline-primary btn-sm mr-1 mb-1" type="button" 
-            href="<?php echo constant('RUTA_URL'); ?>/inicio">
-                <span class="fas fa-arrow-alt-circle-left me-1" data-fa-transform="shrink-3"></span>
-                Inicio
+            <a class="btn btn-falcon-default btn-sm me-1 mb-1" href="<?=constant('RUTA_URL');?>/">
+                <span class="fas fa-arrow-left me-1" data-fa-transform="shrink-3"></span>Inicio
             </a>
         </div>
     </div>
@@ -63,12 +61,12 @@
             <hr>
             <div class="form-group text-center">
                 <?php  if ($clienteID > 0){?> 
-                    <button class="btn btn-outline-primary btn-sm me-1 mb-1" type="button" onclick="Controlar_Requeridos();">
-                        <span class="fas fa-sd-card" data-fa-transform="shrink-3"></span> Actualizar
+                    <button class="btn btn-primary btn-sm me-1 mb-1" type="button" onclick="Controlar_Requeridos();" style="border-color: #0C787B; background-color:#0C787B;">
+                        <span class="fas fa-check" data-fa-transform="shrink-3"></span> Actualizar
                     </button>
                 <?php  }else{ $clienteID=0; ?>
-                    <button class="btn btn-outline-primary btn-sm me-1 mb-1" type="button" onclick="Controlar_Requeridos();">
-                        <span class="fas fa-sd-card" data-fa-transform="shrink-3"></span> Guardar
+                    <button class="btn btn-primary btn-sm me-1 mb-1" type="button" onclick="Controlar_Requeridos();" style="border-color: #0C787B; background-color:#0C787B;">
+                        <span class="fas fa-check" data-fa-transform="shrink-3"></span> Guardar
                     </button>
                 <?php  }?> 
             </div>

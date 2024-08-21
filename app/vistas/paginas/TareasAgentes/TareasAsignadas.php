@@ -132,45 +132,49 @@
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            
-            html='<div class="row">';
-            
-            $.each(data, function(i, item) {   
-                var dropZone = '<label for="fileInput_'+item.id+'" class="custom-file-upload"><i class="far fa-file-image"></i> * Tomar Foto</label><input type="file" name="fileInput" id="fileInput_'+item.id+'" accept="image/*" onchange="convertToBase64('+item.id+')" />'+
-                                   '<img id="previewImage_'+item.id+'" style="display: none; max-width: 300px; max-height: 300px;">'+
-                                   '<br>'+
-                                   '<input class="form-control form-control-sm" type="text" id="comentario_'+item.id+'" placeholder="Su comentario"/>';             
-                if(item.checklist==1){
-                    var checklist = '<p class="fs--1 mb-0">*<b> Requiere control de inventario</b></p>';
-                }else{
-                    var checklist ='';
-                }
-                if(item.foto_inicio==1){
-                    var fotoInicio =dropZone;
-                }else{
-                    var fotoInicio ='<input class="form-control form-control-sm" type="text" id="comentario" placeholder="Su comentario"/>';
-                }
-                html+='<div class="card border h-100 custom-card-border mb-3"><div class="card-body"><div class="col-md-12 h-100">'+
-                    '   <div class="row">'+
-                    '      <div class="col-12">'+
-                    '          <div class="media-body position-relative pl-3">'+
-                    '              <h6 class="mt-3 mt-sm-0 poppins-medium">'+item.tarea+'</h6>'+
-                    '              <p class="fs--1 mb-0"><b>'+item.sucursal+'</b></p>'+                                             
-                    '              <p class="fs--1 mb-0">'+item.ubicacion+'</p>'+                                     
-                    '              <p class="fs--1 mb-0">Fecha  : <b>'+InvertirFechaCorta(item.fecha_sol)+'</b></p>'+
-                    '              <p class="fs--1 mb-0">Limite desde  : <b>'+item.hora_inicio+'</b> hasta: <b>'+ item.hora_final +'</b></p>'+
-                    '              <p class="fs--1 mb-0">'+he.decode(item.nota)+'</p>'+
-                    '              '+checklist+''+ 
-                    '              <br>'+ 
-                    '              '+fotoInicio+''+ 
-                    '              <button class="btn btn-secondary btn-sm me-1 mb-1" type="button" onclick="ControRequeridos('+item.id+');" style="border-color: #0C787B; background-color:#0C787B;"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Iniciar Tarea</button>'+                    
-                    '          </div>'+
-                    '       </div>'+
-                    '   </div>'+
-                    '</div></div></div>';
-            }); 
-            html+='</div>';
-            $('#_MisPendientes').html(html);
+            if (Array.isArray(data) && data.length > 0) {
+                html='<div class="row">';
+                
+                $.each(data, function(i, item) {   
+                    var dropZone = '<label for="fileInput_'+item.id+'" class="custom-file-upload"><i class="far fa-file-image"></i> * Tomar Foto</label><input type="file" name="fileInput" id="fileInput_'+item.id+'" accept="image/*" onchange="convertToBase64('+item.id+')" />'+
+                                    '<img id="previewImage_'+item.id+'" style="display: none; max-width: 300px; max-height: 300px;">'+
+                                    '<br>'+
+                                    '<input class="form-control form-control-sm" type="text" id="comentario_'+item.id+'" placeholder="Su comentario"/>';             
+                    if(item.checklist==1){
+                        var checklist = '<p class="fs--1 mb-0">*<b> Requiere control de inventario</b></p>';
+                    }else{
+                        var checklist ='';
+                    }
+                    if(item.foto_inicio==1){
+                        var fotoInicio =dropZone;
+                    }else{
+                        var fotoInicio ='<input class="form-control form-control-sm" type="text" id="comentario" placeholder="Su comentario"/>';
+                    }
+                    html+='<div class="card border h-100 custom-card-border mb-3"><div class="card-body"><div class="col-md-12 h-100">'+
+                        '   <div class="row">'+
+                        '      <div class="col-12">'+
+                        '          <div class="media-body position-relative pl-3">'+
+                        '              <h6 class="mt-3 mt-sm-0 poppins-medium">'+item.tarea+'</h6>'+
+                        '              <p class="fs--1 mb-0"><b>'+item.sucursal+'</b></p>'+                                             
+                        '              <p class="fs--1 mb-0">'+item.ubicacion+'</p>'+                                     
+                        '              <p class="fs--1 mb-0">Fecha  : <b>'+InvertirFechaCorta(item.fecha_sol)+'</b></p>'+
+                        '              <p class="fs--1 mb-0">Limite desde  : <b>'+item.hora_inicio+'</b> hasta: <b>'+ item.hora_final +'</b></p>'+
+                        '              <p class="fs--1 mb-0">'+he.decode(item.nota)+'</p>'+
+                        '              '+checklist+''+ 
+                        '              <br>'+ 
+                        '              '+fotoInicio+''+ 
+                        '              <button class="btn btn-secondary btn-sm me-1 mb-1" type="button" onclick="ControRequeridos('+item.id+');" style="border-color: #0C787B; background-color:#0C787B;"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Iniciar Tarea</button>'+                    
+                        '          </div>'+
+                        '       </div>'+
+                        '   </div>'+
+                        '</div></div></div>';
+                }); 
+                html+='</div>';
+                $('#_MisPendientes').html(html);
+            } else {
+                html='<div class="row"><p class="fs--1 mb-0"><b>En este momento no hay tareas asignadas</b></p></div>';
+                $('#_MisPendientes').html(html);
+            }
         });
     }
 

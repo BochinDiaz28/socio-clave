@@ -24,7 +24,7 @@
                     <label class="form-label" for="confirmpassword">Confirmar Contraseña</label>
                     <input class="form-control" id="confirmpassword" type="password" autocomplete="off"/>
                 </div>
-                <button class="btn btn-primary d-block w-100" type="button" onclick="CambioPassword()">Cambiar Contraseña </button>
+                <button class="btn btn-primary d-block w-100" type="button" onclick="CambioPassword()" style="border-color: #0C787B; background-color:#0C787B;">Cambiar Contraseña </button>
                 
             </div>
         </div>   

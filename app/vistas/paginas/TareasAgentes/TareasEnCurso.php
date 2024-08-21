@@ -265,56 +265,61 @@
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                html = '<div class="row">';
-               
-                let promises = [];
+                if (Array.isArray(data) && data.length > 0) {
+                    html = '<div class="row">';
                 
-                $.each(data, function(i, item) {                                
-                    var dropZone = '<label for="fileInput_'+item.id+'" class="custom-file-upload"><i class="far fa-file-image"></i> * Tomar Foto</label><input type="file" name="fileInput" id="fileInput_'+item.id+'" accept="image/*" onchange="convertToBase64('+item.id+')" />'+
-                                   '<img id="previewImage_'+item.id+'" style="display: none; max-width: 300px; max-height: 300px;">'+
-                                   '<br>'+
-                                   '<input class="form-control form-control-sm" type="text" id="comentario_'+item.id+'" placeholder="Su comentario"/>';
-                    if (item.checklist == 1) {
-                        var checklist = '<button class="btn btn-outline-danger btn-sm me-1 mb-1" type="button" onclick="modalInventario(' + item.id + ',' + item.idcliente + ');"><span class="fas fa-list" data-fa-transform="shrink-3"></span> C. Inventario</button><button class="btn btn-outline-success btn-sm me-1 mb-1" type="button" onclick="modalQR(' + item.id + ',' + item.idcliente + ');">Escanear <span class="fas fa-qrcode" data-fa-transform="shrink-3"></span></button>';
-                        
-                    } else {
-                        var checklist = '';
-                    }
-                    if(item.foto_final==1){
-                        var fotoFinal =dropZone;
-                    }else{
-                        var fotoFinal ='<input class="form-control form-control-sm" type="text" id="comentario" placeholder="Su comentario"/>';
-                    }
-                    promises.push(
-                        ListaTemporal(item.id).then(rtaProductos => {
-                            html += '<div class="card border h-100 custom-card-border mb-3"><div class="card-body"><div class="col-md-12 h-100">' +
-                                '   <div class="row">' +
-                                '      <div class="col-12">' +
-                                '          <div class="media-body position-relative pl-3">' +
-                                '              <h6 class="mt-3 mt-sm-0">' + item.tarea + '</h6>' +
-                                '              <p class="fs--1 mb-0"><b>' + item.sucursal + '</b></p>' +                                             
-                                '              <p class="fs--1 mb-0">' + item.ubicacion + '</p>' +      
-                                '              <p class="fs--1 mb-0">Fecha  : <b>'+InvertirFechaCorta(item.fecha_sol)+'</b></p>'+               
-                                '              <p class="fs--1 mb-0">Limite desde  : <b>' + item.hora_inicio + '</b> hasta: <b>' + item.hora_final + '</b></p>' +
-                                '              <p class="fs--1 mb-0">' + he.decode(item.nota) + '</p>' +
-                                '              ' + checklist + '' +  
-                                '              <br>'+ 
-                                '              '+fotoFinal+''+                   
-                                '              <button class="btn btn-secondary btn-sm me-1 mb-1" type="button" onclick="ControRequeridos(' + item.id + ');" style="border-color: #0C787B; background-color:#0C787B;"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Finalizar Tarea</button>' +
-                                '              <hr class="border-dashed border-bottom-0">' +
-                                '              <div id="_tempProductos">' + rtaProductos + '</div>' +                                
-                                '          </div>' +                    
-                                '       </div>' +
-                                '   </div>' +
-                                '</div></div></div>';
-                        })
-                    );
-                });
+                    let promises = [];
+                    
+                    $.each(data, function(i, item) {                                
+                        var dropZone = '<label for="fileInput_'+item.id+'" class="custom-file-upload"><i class="far fa-file-image"></i> * Tomar Foto</label><input type="file" name="fileInput" id="fileInput_'+item.id+'" accept="image/*" onchange="convertToBase64('+item.id+')" />'+
+                                    '<img id="previewImage_'+item.id+'" style="display: none; max-width: 300px; max-height: 300px;">'+
+                                    '<br>'+
+                                    '<input class="form-control form-control-sm" type="text" id="comentario_'+item.id+'" placeholder="Su comentario"/>';
+                        if (item.checklist == 1) {
+                            var checklist = '<button class="btn btn-outline-danger btn-sm me-1 mb-1" type="button" onclick="modalInventario(' + item.id + ',' + item.idcliente + ');"><span class="fas fa-list" data-fa-transform="shrink-3"></span> C. Inventario</button><button class="btn btn-outline-success btn-sm me-1 mb-1" type="button" onclick="modalQR(' + item.id + ',' + item.idcliente + ');">Escanear <span class="fas fa-qrcode" data-fa-transform="shrink-3"></span></button>';
+                            
+                        } else {
+                            var checklist = '';
+                        }
+                        if(item.foto_final==1){
+                            var fotoFinal =dropZone;
+                        }else{
+                            var fotoFinal ='<input class="form-control form-control-sm" type="text" id="comentario" placeholder="Su comentario"/>';
+                        }
+                        promises.push(
+                            ListaTemporal(item.id).then(rtaProductos => {
+                                html += '<div class="card border h-100 custom-card-border mb-3"><div class="card-body"><div class="col-md-12 h-100">' +
+                                    '   <div class="row">' +
+                                    '      <div class="col-12">' +
+                                    '          <div class="media-body position-relative pl-3">' +
+                                    '              <h6 class="mt-3 mt-sm-0">' + item.tarea + '</h6>' +
+                                    '              <p class="fs--1 mb-0"><b>' + item.sucursal + '</b></p>' +                                             
+                                    '              <p class="fs--1 mb-0">' + item.ubicacion + '</p>' +      
+                                    '              <p class="fs--1 mb-0">Fecha  : <b>'+InvertirFechaCorta(item.fecha_sol)+'</b></p>'+               
+                                    '              <p class="fs--1 mb-0">Limite desde  : <b>' + item.hora_inicio + '</b> hasta: <b>' + item.hora_final + '</b></p>' +
+                                    '              <p class="fs--1 mb-0">' + he.decode(item.nota) + '</p>' +
+                                    '              ' + checklist + '' +  
+                                    '              <br>'+ 
+                                    '              '+fotoFinal+''+                   
+                                    '              <button class="btn btn-secondary btn-sm me-1 mb-1" type="button" onclick="ControRequeridos(' + item.id + ');" style="border-color: #0C787B; background-color:#0C787B;"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Finalizar Tarea</button>' +
+                                    '              <hr class="border-dashed border-bottom-0">' +
+                                    '              <div id="_tempProductos">' + rtaProductos + '</div>' +                                
+                                    '          </div>' +                    
+                                    '       </div>' +
+                                    '   </div>' +
+                                    '</div></div></div>';
+                            })
+                        );
+                    });
 
-                Promise.all(promises).then(() => {
-                    html += '</div>';
+                    Promise.all(promises).then(() => {
+                        html += '</div>';
+                        $('#_enCurso').html(html);
+                    });
+                } else {
+                    html='<div class="row"><p class="fs--1 mb-0"><b>En este momento no hay tareas en curso</b></p></div>';
                     $('#_enCurso').html(html);
-                });
+                }
             });
     }
     

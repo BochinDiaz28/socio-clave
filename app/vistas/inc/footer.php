@@ -320,7 +320,7 @@
         let urlPath = window.location.pathname;
         let lastSegment = urlPath.substring(urlPath.lastIndexOf('/') + 1);
         //console.log(lastSegment);
-        if(lastSegment==='tomartarea' || lastSegment==='tareasasignadas' || lastSegment==='tareasencurso' || lastSegment==='tareafinalizada'){
+        if(lastSegment==='tomartarea' || lastSegment==='tareasasignadas' || lastSegment==='tareasencurso' || lastSegment==='tareasfinalizadas'){
             const savedActiveMenu = localStorage.getItem('activeMenuAgente') || lastSegment;
             
 
@@ -333,7 +333,7 @@
             if(lastSegment==='tareasencurso'){               
                 setActiveMenu('linkCurso')
             }
-            if(lastSegment==='tareafinalizada'){               
+            if(lastSegment==='tareasfinalizadas'){               
                 setActiveMenu('linkFinalizada')
             }
             

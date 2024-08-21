@@ -1343,5 +1343,27 @@ class Paginas extends Controlador{
         }    
         
     }
+    public function tareasfinalizadas(){
+        if(isset($_SESSION['nombre'])){
+            if ($_SESSION['rol']==200) {
+                # Reponedores
+                $datos = [
+                    'titulo'    => 'Tareas finalizdas',
+                    'userID'    => $_SESSION['id'],
+                    'empresaID' => $_SESSION['empresaID'],
+                ];
+                $this->vista('paginas/TareasAgentes/TareasFinalizadas', $datos);
+            }else{
+
+            }
+        }else{
+            $datos = [
+                'titulo' => 'Ingresar'
+            ];
+            $this->vista('paginas/Login/ingresar', $datos);
+        }    
+        
+    }
+    
     
 }

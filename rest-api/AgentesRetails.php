@@ -37,6 +37,16 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200);
+    }else if(isset($_GET['dtagentesRetailFinalizadasGET'])){      #|->FILTRA TAREA POR AGENTE EN ESTADO 3
+        $agenteID = $_GET['dtagentesRetailFinalizadasGET'];
+        $query = "SELECT b.id, b.idcliente, b.tarea, b.sucursal, b.ubicacion, b.nota, b.lat, b.lon, b.fecha_sol, b.hora_inicio, b.hora_final, b.checklist, b.foto_inicio, b.foto_final 
+                  FROM tareas b
+                  WHERE b.idagente = $agenteID
+                  AND b.estado = 4";
+        $resp  = metodoGET($query);
+        header("Content-Type: application/json");
+        echo json_encode($resp);
+        http_response_code(200);
     }else if(isset($_GET['dtagentesRetailGET'])){           #|->FILTRA SUCURSALES ASOCIADAS A AGENTES
         $empresaID = $_GET['dtagentesRetailGET'];
         $agenteID  = $_GET['agenteID'];

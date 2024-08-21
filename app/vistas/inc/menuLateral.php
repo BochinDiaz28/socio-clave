@@ -400,7 +400,7 @@
                             </a>                            
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/tareasasignadas"
+                            <a class="nav-link active" href="<?php echo constant('RUTA_URL'); ?>/tareasencurso"
                                 aria-expanded="false">
                                 <div class="d-flex align-items-center">
                                     <span class="text-white ps-1 poppins-medium">Tareas en curso</span>

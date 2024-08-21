@@ -76,32 +76,7 @@
 <script>
     $(document).ready(function ()
     { 
-        var tareaID    = <?php echo $tareaID; ?>;
-        var empresaID  = <?php echo $empresaID; ?>;
-        var clienteID  = 0;
-        var sucursalID = 0;
-        if(tareaID>0){
-            var url ='<?php echo constant('RUTA_URL'); ?>/rest-api/Tareas?tareaID='+tareaID;
-            fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                $.each(data, function(i, item) {
-                    if(tareaID==item.id){
-                        clienteID  = item.idcliente;
-                        $('#sucID').val(item.idreail);
-                        $('#nombre').val(item.tarea); 
-                        $('#direccion').val(item.ubicacion);                       
-                        $('#fechaCheckin').val(item.fecha_sol);
-                        $('#horaIngreso').val(item.hora_inicio);
-                        $('#horaSalida').val(item.hora_final);
-                    } 
-                });
-            });
-           
-        }else{
-            ListaClientes();
-        }    
-        
+        ListaClientes(); 
     });
 
     function ListaClientes()
@@ -143,7 +118,7 @@
                         '              <p class="fs--1 mb-0">Limite desde  : <b>'+item.hora_inicio+'</b> hasta: <b>'+ item.hora_final +'</b></p>'+
                         '              <p class="fs--1 mb-0">'+he.decode(item.nota)+'</p>'+
                         '              '+checklist+''+ 
-                        '              <button class="btn btn-outline-info btn-sm me-1 mb-1" type="button" onclick="AceptarTareas('+item.id+');"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Aceptar</button>'+
+                        '              <button id="iniciarBtn_'+item.id+'" class="btn btn-outline-info btn-sm me-1 mb-1" type="button" onclick="AceptarTareas('+item.id+');"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Tomar tarea</button>'+
                         '              <hr class="border-dashed border-bottom-0">'+
                         '          </div>'+
                         '       </div>'+
@@ -160,9 +135,10 @@
            
         });
     }
-
-        
+ 
     function AceptarTareas(tareaID) {
+        /* RECUPERAMOS BOTON */
+        var btn = document.getElementById('iniciarBtn_' + tareaID);
         var userID    = <?php echo $userID; ?>;
         var empresaID = <?php echo $empresaID; ?>;
         var agenteID  = $('#clienteID').val(); 
@@ -184,6 +160,9 @@
             cancelButtonAriaLabel : 'Thumbs down'
         }).then((result) => {
             if (result.value) {
+                /* DESACTIVAMOS BOTON Y PONEMOS SPINER */
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Asignando tarea...';
                 var apiUrl='<?php echo constant('RUTA_URL'); ?>/rest-api/AgentesTareas'; 
                 var data = { 
                     usuarioID : userID,
@@ -220,6 +199,9 @@
                             showConfirmButton: false,
                             timer: 2000
                         })
+                        /* ACTIVAMOS BOTON Y PONEMOS ICONO Y TEXTO */
+                        btn.disabled = false;
+                        btn.innerHTML = '<span class="fas fa-check" data-fa-transform="shrink-3"></span> Tomar tarea';
                         setInterval(recarga, 2000); 
                     }
                 }) 

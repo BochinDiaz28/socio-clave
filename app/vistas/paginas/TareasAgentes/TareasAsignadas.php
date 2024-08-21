@@ -163,7 +163,8 @@
                         '              '+checklist+''+ 
                         '              <br>'+ 
                         '              '+fotoInicio+''+ 
-                        '              <button class="btn btn-secondary btn-sm me-1 mb-1" type="button" onclick="ControRequeridos('+item.id+');" style="border-color: #0C787B; background-color:#0C787B;"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Iniciar Tarea</button>'+                    
+                        '              <br>'+
+                        '              <button id="iniciarBtn_'+item.id+'" class="btn btn-secondary btn-sm me-1 mb-1" type="button" onclick="ControRequeridos('+item.id+');" style="border-color: #0C787B; background-color:#0C787B;"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Iniciar Tarea</button>'+
                         '          </div>'+
                         '       </div>'+
                         '   </div>'+
@@ -212,13 +213,15 @@
         });  
     }
     function IniciarTareas(tareaID,fotoFinal) {
+        /* RECUPERAMOS BOTON */
+        var btn = document.getElementById('iniciarBtn_' + tareaID);
+      
         var userID    = <?php echo $userID; ?>;
         var empresaID = <?php echo $empresaID; ?>;
         var agenteID  = $('#clienteID').val(); 
         var Accion    = 'Iniciar';  
         var rtaAccion = 'Iniciada!'; 
         var metodo    = 'PUT';
-
 
         if(fotoFinal==1){
             const inputElement = document.getElementById('fileInput_' + tareaID);
@@ -246,6 +249,10 @@
             cancelButtonAriaLabel : 'Thumbs down'
         }).then((result) => {
             if (result.value) {
+                /* DESACTIVAMOS BOTON Y PONEMOS SPINER */
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Iniciando tarea...';
+
                 var apiUrl='<?php echo constant('RUTA_URL'); ?>/rest-api/AgentesTareas'; 
                 var data = { 
                     usuarioID  : userID,
@@ -282,7 +289,9 @@
                             showConfirmButton: false,
                             timer: 2000
                         })
-                       
+                        /* ACTIVAMOS BOTON Y PONEMOS ICONO Y TEXTO */
+                        btn.disabled = false;
+                        btn.innerHTML = '<span class="fas fa-check" data-fa-transform="shrink-3"></span> Iniciar Tarea';
                         setInterval(recarga, 2000); 
                     }                 
                 }) 

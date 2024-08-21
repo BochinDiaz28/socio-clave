@@ -301,7 +301,8 @@
                                     '              ' + checklist + '' +  
                                     '              <br>'+ 
                                     '              '+fotoFinal+''+                   
-                                    '              <button class="btn btn-secondary btn-sm me-1 mb-1" type="button" onclick="ControRequeridos(' + item.id + ');" style="border-color: #0C787B; background-color:#0C787B;"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Finalizar Tarea</button>' +
+                                    '              <br>'+
+                                    '              <button id="iniciarBtn_'+item.id+'" class="btn btn-secondary btn-sm me-1 mb-1" type="button" onclick="ControRequeridos(' + item.id + ');" style="border-color: #0C787B; background-color:#0C787B;"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Finalizar Tarea</button>' +
                                     '              <hr class="border-dashed border-bottom-0">' +
                                     '              <div id="_tempProductos">' + rtaProductos + '</div>' +                                
                                     '          </div>' +                    
@@ -358,6 +359,8 @@
     }
 
     function FinalizarTareas(tareaID,fotoFinal) {
+        /* RECUPERAMOS BOTON */
+        var btn = document.getElementById('iniciarBtn_' + tareaID);
         if(fotoFinal==1){
             const inputElement = document.getElementById('fileInput_' + tareaID);
             const selectedF = inputElement.files[0];
@@ -392,7 +395,9 @@
         }).then((result) => {
             
             if (result.value) {
-                
+                /* DESACTIVAMOS BOTON Y PONEMOS SPINER */
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Finalizando tarea...';
                 var apiUrl='<?php echo constant('RUTA_URL'); ?>/rest-api/AgentesTareas.php'; 
                 var data = { 
                     usuarioID  : userID,
@@ -430,6 +435,9 @@
                             showConfirmButton: false,
                             timer: 2000
                         })
+                        /* ACTIVAMOS BOTON Y PONEMOS ICONO Y TEXTO */
+                        btn.disabled = false;
+                        btn.innerHTML = '<span class="fas fa-check" data-fa-transform="shrink-3"></span> Finalizar Tarea';
                         setInterval(recarga, 2000); 
                     }
                 }) 
@@ -693,6 +701,7 @@
 <script>
 
 function IniciaLector(tareaID, clienteID) {
+    captureFoto();
     const video = document.getElementById("camera");
     const canvasElement = document.getElementById("canvas");
     const canvas = canvasElement.getContext("2d");
@@ -811,5 +820,23 @@ function RecuperarProducto(tareaID, clienteID, codigo) {
             alert("Error al buscar producto: " + error.message);
         });
 }
+
+//FUNCION PARA CONTROLAR SI LA CAMARA ESTA PERMITADA...
+function captureFoto() {
+    // Solicitar acceso a la cámara
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+            // Acceso concedido
+            console.log('La cámara está activa.');
+            // Detener la cámara después de verificar que está activa
+            stream.getTracks().forEach(track => track.stop());
+        })
+        .catch(function(error) {
+            // Manejo de errores y permisos denegados
+            console.error('Error al acceder a la cámara: ', error);
+            alert('No se pudo acceder a la cámara. Por favor, permite el acceso a la cámara.');
+        });
+}
+
 
 </script>

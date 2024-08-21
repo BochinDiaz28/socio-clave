@@ -145,10 +145,10 @@
 
                             <div class="row">
                                 <div class="col-sm-12 col-md-12">
-                                    <a id="linkTomar" class="link-dark active" href="<?=constant('RUTA_URL');?>/tomartarea" onclick="setActiveMenu('linkTomar')">Tomar</a>
-                                    <a id="linkAsignada" class="link-dark" href="<?=constant('RUTA_URL');?>/tareasasignadas" onclick="setActiveMenu('linkAsignada')" >Asignadas</a>
+                                    <a id="linkTomar" class="link-dark active" href="<?=constant('RUTA_URL');?>/tomartarea" onclick="setActiveMenu('linkTomar')"><span class="text-dark poppins-bold">Tomar</span></a>
+                                    <a id="linkAsignada" class="link-dark" href="<?=constant('RUTA_URL');?>/tareasasignadas" onclick="setActiveMenu('linkAsignada')" ><span class="text-dark poppins-bold">Asignadas</span></a>
                                     <a id="linkCurso" class="link-dark" href="<?=constant('RUTA_URL');?>/tareasencurso" onclick="setActiveMenu('linkCurso')" >En curso</a>
-                                    <a id="linkFinalizada" class="link-dark" href="<?=constant('RUTA_URL');?>/tareasfinalizadas" onclick="setActiveMenu('linkFinalizada')" >Finalizadas</a>
+                                    <a id="linkFinalizada" class="link-dark" href="<?=constant('RUTA_URL');?>/tareasfinalizadas" onclick="setActiveMenu('linkFinalizada')" ><span class="text-dark poppins-bold">Finalizadas</span></a>
                                 </div>
                             </div>
                         </div>
@@ -271,7 +271,7 @@
                     let promises = [];
                     
                     $.each(data, function(i, item) {                                
-                        var dropZone = '<label for="fileInput_'+item.id+'" class="custom-file-upload"><i class="far fa-file-image"></i> * Tomar Foto</label><input type="file" name="fileInput" id="fileInput_'+item.id+'" accept="image/*" onchange="convertToBase64('+item.id+')" />'+
+                        var dropZone = '<label for="fileInput_'+item.id+'" class="custom-file-upload"><i class="far fa-file-image"></i> * Tomar Foto</label><input type="file" name="fileInput" id="fileInput_'+item.id+'" accept="image/*" onchange="convertToBase64('+item.id+')" capture="user"/>'+
                                     '<img id="previewImage_'+item.id+'" style="display: none; max-width: 300px; max-height: 300px;">'+
                                     '<br>'+
                                     '<input class="form-control form-control-sm" type="text" id="comentario_'+item.id+'" placeholder="Su comentario"/>';

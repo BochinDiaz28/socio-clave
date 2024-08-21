@@ -20,6 +20,14 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         header("Content-Type: application/json");
         echo json_encode($resp);
         http_response_code(200);
+    }else if(isset($_GET['clienteGET'])){
+        $empresaID = $_GET['clienteGET'];
+        $codigoGET = $_GET['codigoGET'];
+        $query     = "SELECT * FROM panol WHERE idcliente=$empresaID AND codigo LIKE '$codigoGET'";
+        $resp      = metodoGET($query);
+        header("Content-Type: application/json");
+        echo json_encode($resp);
+        http_response_code(200);
     }else if(isset($_GET['dtPanolGET'])){ #|->LISTA DE PAÑOLES FILTRADAS POR CLIENTES
         $empresaID = $_GET['dtPanolGET']; #| idcliente
         require_once 'clases/dt/dt.Panol.php'; 

@@ -37,7 +37,7 @@
                                             <div class="col-10">
                                                 <div class="media-body position-relative pl-3">
                                                     <h5 class="mb-0 poppins-medium">Toma una tarea</h5>
-                                                    <p class="fs--1 poppins-light">Haz click acá y selecciona una tarea que esté disponible.</p>
+                                                    <p class="fs--1 poppins-light"><span class="text-600">Haz click acá y selecciona una tarea que esté disponible.</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="alert alert-danger border-2 d-flex align-items-center" role="alert">
-                                <div class="bg-danger me-3 icon-item"><span class="fas fa-times-circle text-white fs-3"></span></div>
+                                <div class="bg-danger me-3 icon-item"><span class="fas fa-exclamation-circle text-white fs-3"></span></div>
                                 <p class="mb-0 flex-1 fs--2 poppins-light">Si fuiste asignado directamente a una tarea, podrás omitir este paso. Recuerda realizar tu tarea durante el tiempo que tengas asignado.</p>
                             </div>
 
@@ -64,7 +64,7 @@
                                             <div class="col-10">
                                                 <div class="media-body position-relative pl-3">
                                                     <h5 class="mb-0 poppins-medium">Tareas asignadas</h5>
-                                                    <p class="fs--1 poppins-light">Haz click acá y visualiza las tareas a las que fuiste asignado(a) directamente por tu jefatura.</p>
+                                                    <p class="fs--1 poppins-light"><span class="text-600">Haz click acá y visualiza las tareas a las que fuiste asignado(a) directamente por tu jefatura.</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -82,7 +82,7 @@
                                             <div class="col-10">
                                                 <div class="media-body position-relative pl-3">
                                                     <h5 class="mb-0 poppins-medium">Tareas en curso</h5>
-                                                    <p class="fs--1 poppins-light">Haz click acá y visualiza las tareas que están en curso (que debes ejecutar o estás ejecutando).</p>
+                                                    <p class="fs--1 poppins-light"><span class="text-600">Haz click acá y visualiza las tareas que están en curso (que debes ejecutar o estás ejecutando).</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,7 +100,7 @@
                                             <div class="col-10">
                                                 <div class="media-body position-relative pl-3">
                                                     <h5 class="mb-0 poppins-medium">Tareas finalizadas</h5>
-                                                    <p class="fs--1 poppins-light">Haz click acá y visualiza las tareas que se encuentran finalizadas, así como su estado (aprobadas o no).</p>
+                                                    <p class="fs--1 poppins-light"><span class="text-600">Haz click acá y visualiza las tareas que se encuentran finalizadas, así como su estado (aprobadas o no).</span></p>
                                                 </div>
                                             </div>
                                         </div>

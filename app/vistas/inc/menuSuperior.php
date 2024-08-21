@@ -65,13 +65,13 @@
             </a>
             <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="navbarDropdownUser">
             <div class="bg-white dark__bg-1000 rounded-2 py-2">
-                <a class="dropdown-item fw-bold text-warning" href="#!">
+                <a class="dropdown-item fw-bold " href="#!" style="color:#0C787B;">
                     <span class="fas fa-crown me-1"></span>
-                    <span><?php echo $_SESSION['nombre']; ?></span>
+                    <span ><?php echo $_SESSION['nombre']; ?></span>
                 </a>
                 <?php if($_SESSION['rol']==150){ ?>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="https://api.whatsapp.com/send?phone=+56933746099" 
+                <a class="dropdown-item" href="https://api.whatsapp.com/send?phone=+954355413129" 
                    target="_blank">Ayudas</a>
                 <div class="dropdown-divider"></div>
                 <?php }?>

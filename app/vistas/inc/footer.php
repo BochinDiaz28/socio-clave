@@ -300,6 +300,13 @@
 
     <?php if ($_SESSION['rol']==200) {?>
     <script>
+        //para cerrar session en maui
+        var logoutButton = document.getElementById('cerrarSession');
+        if (logoutButton) {{
+            logoutButton.addEventListener('click', function() {{                
+                window.external.notify('cerrarsession'); // Enviar un mensaje a la aplicación .NET MAUI
+            }});
+        }}
         // Función para aplicar las clases
         function updateActiveMenu(linkId) {
             // Primero, remover las clases 'active' y 'link-dark' de todos los enlaces          

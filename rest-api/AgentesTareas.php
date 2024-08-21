@@ -84,7 +84,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $queryT = "SELECT * FROM tareas WHERE id=$tareaID";
         $respT  = metodoGET($queryT);
         $Nombre = $respT[0]['tarea'];
-        //control de estados
+        #|-> CONTROL DE ESTADOS
         if($estadoT==2){
             $query    = "SELECT * FROM tareas 
                          WHERE idempresa='$empresaID' AND id='$tareaID'";

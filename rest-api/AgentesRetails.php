@@ -8,7 +8,7 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 if($_SERVER['REQUEST_METHOD'] == "GET"){
     if(isset($_GET['agenteRetailGET'])){                    #|->FILTRA TAREA Y CON SUCURSAL POR AGENTE EN ESTADO 1
         $agenteID = $_GET['agenteRetailGET'];
-        $query = "SELECT b.id,b.tarea,b.sucursal,b.ubicacion,b.nota,b.lat,b.lon,b.fecha_sol,b.hora_inicio,b.hora_final, b.checklist 
+        $query = "SELECT b.id,b.tarea,b.sucursal,b.ubicacion,b.nota,b.lat,b.lon,b.fecha_sol,b.hora_inicio,b.hora_final, b.checklist, b.foto_inicio, b.foto_final  
                   FROM agentes_retails a, tareas b
                   WHERE a.idretail=b.idreail
                   AND a.idagente=$agenteID
@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         http_response_code(200);
     }else if(isset($_GET['dtagentesRetailPendietesGET'])){  #|->FILTRA TAREA POR AGENTE EN ESTADO 2  
         $agenteID = $_GET['dtagentesRetailPendietesGET'];
-        $query = "SELECT b.id, b.tarea, b.sucursal, b.ubicacion, b.nota, b.lat, b.lon, b.fecha_sol, b.hora_inicio, b.hora_final, b.checklist
+        $query = "SELECT b.id, b.tarea, b.sucursal, b.ubicacion, b.nota, b.lat, b.lon, b.fecha_sol, b.hora_inicio, b.hora_final, b.checklist, b.foto_inicio, b.foto_final 
                   FROM tareas b
                   WHERE b.idagente = $agenteID
                   AND b.estado = 2";
@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         http_response_code(200);
     }else if(isset($_GET['dtagentesRetailCursoGET'])){      #|->FILTRA TAREA POR AGENTE EN ESTADO 3
         $agenteID = $_GET['dtagentesRetailCursoGET'];
-        $query = "SELECT b.id, b.idcliente, b.tarea, b.sucursal, b.ubicacion, b.nota, b.lat, b.lon, b.fecha_sol, b.hora_inicio, b.hora_final, b.checklist
+        $query = "SELECT b.id, b.idcliente, b.tarea, b.sucursal, b.ubicacion, b.nota, b.lat, b.lon, b.fecha_sol, b.hora_inicio, b.hora_final, b.checklist, b.foto_inicio, b.foto_final 
                   FROM tareas b
                   WHERE b.idagente = $agenteID
                   AND b.estado = 3";

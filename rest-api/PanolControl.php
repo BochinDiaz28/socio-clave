@@ -20,26 +20,28 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
     if(!isset($datos['productoID']) || !isset($datos['tareaID'])){
         $resp=$_respuestas->error_400();
     }else{
-        # FECHA FORMATO 
+        #|-> FECHA FORMATO 
         date_default_timezone_set('America/Santiago');
         $fecha      = date("Y-m-d H:i:s");
         $tareaID    = htmlspecialchars($datos['tareaID']);
         $productoID = htmlspecialchars($datos['productoID']);
         $Cantidad   = htmlspecialchars($datos['Cantidad']);
         $arqueo     = htmlspecialchars($datos['arqueo']);
-        //SELEC DE PRODUCTOS PARA SACAR LOS DATOS.
+        $detCtrl    = htmlspecialchars($datos['detalle']);
+        $lote       = htmlspecialchars($datos['lote']);
+        #|-> SELEC DE PRODUCTOS PARA SACAR LOS DATOS.
         $queryP  = "SELECT * FROM panol WHERE id=$productoID";
         $respP   = metodoGET($queryP);
         $barcode = $respP[0]['codigo'];
         $detalle = $respP[0]['producto'];
         $cantX   = $respP[0]['cantidad'];
-        //INSERTO MOVIMIENTO
+        #|-> INSERTO MOVIMIENTO
         $queryCtl  = "SELECT COUNT(*) AS Total FROM tarea_productos WHERE idtarea=$tareaID AND idproducto=$productoID";
         $respCtl   = metodoGET($queryCtl);
         $control   = $respCtl[0]['Total'];
         if($control==0){
-            $query = "INSERT INTO tarea_productos (`idtarea`, `idproducto`, `codigo`, `producto`, `cantidad`) 
-                             VALUES ('$tareaID','$productoID','$barcode','$detalle','$Cantidad')"; 
+            $query = "INSERT INTO tarea_productos (`idtarea`, `idproducto`, `codigo`, `producto`, `cantidad`, `dato1`, `dato2`) 
+                             VALUES ('$tareaID','$productoID','$barcode','$detalle','$Cantidad','$detCtrl','$lote')"; 
             $resp  = metodoPOST($query);
         }else{
             $resp[] = array("error" => "Ya controlo este producto");

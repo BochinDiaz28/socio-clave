@@ -58,8 +58,12 @@
                                 <input type="hidden" id="sucID"     value="0">
                                 <input type="hidden" id="clienteID" value="0">
                                 <input type="hidden" id="tareaIDx" value="0">
-                         
-                        
+                        </div>
+                        <div class="ms-2 me-2">
+                            <div class="alert alert-danger border-2 d-flex align-items-center" role="alert">
+                                <div class="bg-danger me-3 icon-item"><span class="fas fa-exclamation-circle text-white fs-3"></span></div>
+                                <p class="mb-0 flex-1 fs--2 poppins-light">Tenga presente que si usted toma una tarea tiene la responsabilidad de realizarla!.</p>
+                            </div>
                         </div>
                     </div>
                 </div>

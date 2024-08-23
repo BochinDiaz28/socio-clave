@@ -158,6 +158,7 @@
                             <input type="hidden" id="sucID"     value="0">
                             <input type="hidden" id="clienteID" value="0">
                             <input type="hidden" id="tareaIDx"  value="0">
+                            <input type="hidden" id="formulario" value="0">
                         </div>
                         <div class="ms-2 me-2">
                             <div class="alert alert-danger border-2 d-flex align-items-center" role="alert">
@@ -263,6 +264,7 @@
         var url = '<?php echo constant('RUTA_URL');?>/rest-api/AgentesRetails?dtagentesRetailCursoGET=' + agenteID;
         var html = '';
         var clienteID = 0;
+        var FormExtra = 0;
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -288,6 +290,8 @@
                             var fotoFinal ='<input class="form-control form-control-sm" type="text" id="comentario" placeholder="Su comentario"/>';
                         }
                         clienteID = item.idcliente;
+                        FormExtra = item.formulario;
+                        $('#formulario').val(FormExtra);
                         promises.push(
                             ListaTemporal(item.id).then(rtaProductos => {
                                 html += '<div class="card border h-100 custom-card-border mb-3"><div class="card-body"><div class="col-md-12 h-100">' +
@@ -319,7 +323,9 @@
                     Promise.all(promises).then(() => {
                         html += '</div>';
                         $('#_enCurso').html(html);
-                        documentacionAdjunta(clienteID)
+                        if(FormExtra==1){
+                            documentacionAdjunta(clienteID);
+                        }
                     });
                 } else {
                     html='<div class="row"><p class="fs--1 mb-0"><b>En este momento no hay tareas en curso</b></p></div>';
@@ -378,13 +384,13 @@
             var original    = '';
             var comentario = $('#comentario_'+tareaID).val();
         }
-        var formulario = 1; //estamos pasando el form sin controlar aun.
+        
+        var formulario = $('#formulario').val();
         var dataExtra = []; // Array para almacenar los datos
         if(formulario==1){ 
             $('#ListaTmp input, #ListaTmp select').each(function() {
                 var elementID = $(this).attr('id');  // ID del input o select
                 var elementValue = $(this).val();    // Valor ingresado o seleccionado
-
                 dataExtra.push({
                     campoID: elementID,
                     valor: elementValue
@@ -860,7 +866,6 @@ function captureFoto() {
 }
 
 function documentacionAdjunta(clienteID) {
-   console.log("ClienteID->"+clienteID);
     $('#ListaTmp thead th').each(function () {
         var title = $(this).text();
         $(this).html(title);

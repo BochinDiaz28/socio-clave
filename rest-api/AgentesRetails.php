@@ -29,9 +29,10 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         http_response_code(200);
     }else if(isset($_GET['dtagentesRetailCursoGET'])){      #|->FILTRA TAREA POR AGENTE EN ESTADO 3
         $agenteID = $_GET['dtagentesRetailCursoGET'];
-        $query = "SELECT b.id, b.idcliente, b.tarea, b.sucursal, b.ubicacion, b.nota, b.lat, b.lon, b.fecha_sol, b.hora_inicio, b.hora_final, b.checklist, b.foto_inicio, b.foto_final 
-                  FROM tareas b
+        $query = "SELECT b.id, b.idcliente, b.tarea, b.sucursal, b.ubicacion, b.nota, b.lat, b.lon, b.fecha_sol, b.hora_inicio, b.hora_final, b.checklist, b.foto_inicio, b.foto_final, c.formulario  
+                  FROM tareas b, clientes c
                   WHERE b.idagente = $agenteID
+                  AND b.idcliente=c.id
                   AND b.estado = 3";
         $resp  = metodoGET($query);
         header("Content-Type: application/json");

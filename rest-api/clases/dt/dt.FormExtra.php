@@ -18,7 +18,7 @@ $sql_details = array(
 // TABLA DE BASE DE DATOS
 $table = <<<EOT
 (
-   SELECT `id`, `idcliente`, `lbl`, `requerido` FROM `clientes_formulario_tarea` WHERE idcliente=$clienteID
+   SELECT `id`, `idcliente`, `lbl`, `requerido`, `tipodato` FROM `clientes_formulario_tarea` WHERE idcliente=$clienteID
 ) temp
 EOT;
 // TABLA primary key id>1 AND
@@ -29,7 +29,8 @@ $columns = array(
     array( 'db' => 'idcliente', 'dt' => 1 ),
     array( 'db' => 'lbl',       'dt' => 2 ),
     array( 'db' => 'requerido', 'dt' => 3 ),
-    array( 'db' => 'id',        'dt' => 4)
+    array( 'db' => 'tipodato',  'dt' => 4 ),
+    array( 'db' => 'id',        'dt' => 5)
 );
  
  

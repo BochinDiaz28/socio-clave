@@ -35,8 +35,9 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         $formID     = htmlspecialchars($datos['formID']);
         $etiqueta   = htmlspecialchars($datos['etiqueta']);
         $requerido  = htmlspecialchars($datos['requerido']);
-
-        $query = "UPDATE clientes_formulario_tarea SET lbl='$etiqueta', requerido='$requerido'
+        $tipodato  = htmlspecialchars($datos['tipodato']);
+        
+        $query = "UPDATE clientes_formulario_tarea SET lbl='$etiqueta', requerido='$requerido', tipodato='$tipodato'
                   WHERE id=$formID"; 
         $resp  = metodoPUT($query);
     } 

@@ -262,6 +262,7 @@
         var agenteID = $('#clienteID').val();       
         var url = '<?php echo constant('RUTA_URL');?>/rest-api/AgentesRetails?dtagentesRetailCursoGET=' + agenteID;
         var html = '';
+        var clienteID = 0;
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -286,6 +287,7 @@
                         }else{
                             var fotoFinal ='<input class="form-control form-control-sm" type="text" id="comentario" placeholder="Su comentario"/>';
                         }
+                        clienteID = item.idcliente;
                         promises.push(
                             ListaTemporal(item.id).then(rtaProductos => {
                                 html += '<div class="card border h-100 custom-card-border mb-3"><div class="card-body"><div class="col-md-12 h-100">' +
@@ -302,6 +304,7 @@
                                     '              <br>'+ 
                                     '              '+fotoFinal+''+                   
                                     '              <br>'+
+                                    '              <div class="row"><div class="col-12"><div class="table-responsive scrollbar"><table class="table table-sm fs--1 mb-0 overflow-hidden" id="ListaTmp"style="width:100%"><thead class="bg-200 text-900"></thead></table></div></div></div>'+ 
                                     '              <button id="iniciarBtn_'+item.id+'" class="btn btn-secondary btn-sm me-1 mb-1" type="button" onclick="ControRequeridos(' + item.id + ');" style="border-color: #0C787B; background-color:#0C787B;"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Finalizar Tarea</button>' +
                                     '              <hr class="border-dashed border-bottom-0">' +
                                     '              <div id="_tempProductos">' + rtaProductos + '</div>' +                                
@@ -316,6 +319,7 @@
                     Promise.all(promises).then(() => {
                         html += '</div>';
                         $('#_enCurso').html(html);
+                        documentacionAdjunta(clienteID)
                     });
                 } else {
                     html='<div class="row"><p class="fs--1 mb-0"><b>En este momento no hay tareas en curso</b></p></div>';
@@ -837,6 +841,94 @@ function captureFoto() {
             alert('No se pudo acceder a la cámara. Por favor, permite el acceso a la cámara.');
         });
 }
+
+function documentacionAdjunta(clienteID) {
+   console.log("ClienteID->"+clienteID);
+    $('#ListaTmp thead th').each(function () {
+        var title = $(this).text();
+        $(this).html(title);
+    });
+    
+    var table = $('#ListaTmp').DataTable({
+        "scrollX"   : true,
+        "destroy"   : true, 
+        "pagingType": "numbers",
+        "processing": true,
+        "serverSide": true,
+        "searching" : false, // Ocultar buscador
+        "paging"    : false, // Ocultar paginador
+        "ajax"      : "<?php echo constant('RUTA_URL');?>/rest-api/ClientesExtra.php?dtdatosGET="+clienteID,
+        columns: [
+            { "title": "ID"},
+            { "title": "Cliente"},
+            { "title": "Datos extras solicitados"},
+            { "title": "Requerido"},                    
+            { "title": "Acciones"},
+        ],
+        columnDefs: [
+            {
+                "targets"   : [ 0, 1, 3, 4 ],
+                "visible"   : false,
+                "searchable": false
+            },
+            
+            {
+                
+                targets   : [ 2 ],
+                searchable: true,
+                orderable : false,
+                render: function(data, type, full, meta){
+                    if(type === 'display'){
+                        if(full[3]==0){
+                            data = '<label for="'+full[4]+'" class="form-label">'+data+'</label><input class="form-control form-control-sm" type="text" id="'+full[4]+'" value=""/>'; 
+                        }else{
+                            data='';
+                       }
+                    }
+                    return data;
+                }
+            }, 
+            {
+                targets   : [ 3 ],
+                searchable: true,
+                orderable : false,
+                render: function(data, type, full, meta){
+                    if(type === 'display'){
+                        var options = data == 0 ? '<option value="0">No</option>' : '<option value="1" selected>Si</option>';
+                        data = '<select class="form-select form-select-sm" id="requer_'+full[4]+'" disabled>'+options+'</select>'; 
+                    }
+                    return data;
+                }
+            }
+        ],
+        language: {
+            "decimal"   : "",
+            "emptyTable": "No hay información",
+            "info"      : "Viendo _START_ a _END_ de _TOTAL_ extras",
+            "infoEmpty" : "Viendo 0 to 0 of 0 extras",
+            "infoFiltered": "(Filtrado de _MAX_ total extras)",
+            "infoPostFix" : "",
+            "thousands"   : ",",
+            "lengthMenu"  : "Ver _MENU_ extras",
+            "loadingRecords": "Cargando...",
+            "processing"    : "Procesando...",
+            "search"        : "",
+            "searchPlaceholder": "Buscar",
+            "zeroRecords"      : "Sin resultados encontrados",
+            "paginate" : {
+                "first": "Primero",
+                "last" : "Ultimo",
+                "next" : ">",
+                "previous": "<"
+            }
+        },
+        "lengthMenu": [ 100, 250, 500, 750, 1000 ],
+        ordering  : "false",
+        responsive: "true",
+    });
+}
+
+
 
 
 </script>

@@ -82,7 +82,8 @@
                     { "title": "ID"},
                     { "title": "Cliente"},
                     { "title": "Etiqueta"},
-                    { "title": "Req. en Tarea"},                    
+                    { "title": "Req. en Tarea"},
+                    { "title": "T. de Datos"},                    
                     { "title": "Acciones"},
                 ],
                 columnDefs: [
@@ -97,7 +98,7 @@
                         orderable : false,
                         render: function(data, type, full, meta){
                             if(type === 'display'){
-                                data = '<input class="form-control form-control-sm" type="text" id="nombre_'+full[4]+'" value="'+data+'"/>'; 
+                                data = '<input class="form-control form-control-sm" type="text" id="nombre_'+full[5]+'" value="'+data+'"/>'; 
                             }
                             return data;
                         }
@@ -113,7 +114,7 @@
                                 }else{
                                     var options = '<option value="0">No</option><option value="1" selected>Si</option>'
                                 }
-                                data = '<select class="form-select form-select-sm" id="requer_'+full[4]+'">'+options+'</select>'; 
+                                data = '<select class="form-select form-select-sm" id="requer_'+full[5]+'">'+options+'</select>'; 
                             }
                             return data;
                             
@@ -121,6 +122,27 @@
                     }, 
                     {
                         targets   : [ 4 ],
+                        searchable: true,
+                        orderable : false,
+                        render: function(data, type, full, meta){
+                            if(type === 'display'){
+                                if(data=='numero'){
+                                    var options2 = '<option value="si-no">Si/No</option><option value="texto">Texto</option><option value="numero" selected>Número</option>'
+                                }else if(data=='texto') {    
+                                    var options2 = '<option value="si-no">Si/No</option><option value="texto" selected>Texto</option><option value="numero">Número</option>'
+                                }else if(data=='si-no') {    
+                                    var options2 = '<option value="si-no" selected>Si/No</option><option value="texto" >Texto</option><option value="numero">Número</option>'
+                                }else{
+                                    var options2 = '<option value="si-no">Si/No</option><option value="texto" selected>Texto</option><option value="numero">Número</option>'
+                                }
+                                data = '<select class="form-select form-select-sm" id="tipodato_'+full[5]+'">'+options2+'</select>'; 
+                            }
+                            return data;
+                            
+                        }
+                    }, 
+                    {
+                        targets   : [ 5 ],
                         searchable: true,
                         orderable : false,
                         render: function(data, type, full, meta){
@@ -228,6 +250,7 @@
         function ActualizarDato(id) {
             var nombre = $("#nombre_"+id).val();
             var requer = $("#requer_"+id).val();
+            var tipoda = $("#tipodato_"+id).val();
             var Accion    = 'Actualizar';  
             var rtaAccion = 'Actualizada!'; 
             var metodo    = 'PUT'; 
@@ -235,7 +258,8 @@
             var data = { 
                 formID    : id,
                 etiqueta  : nombre,
-                requerido : requer      
+                requerido : requer,
+                tipodato  : tipoda      
             } 
             fetch(apiUrl,{ 
                 method : metodo,  

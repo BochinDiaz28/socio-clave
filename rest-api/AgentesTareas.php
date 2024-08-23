@@ -186,12 +186,33 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 
             }
         }elseif($estadoT==4){
-            $exito  = htmlspecialchars($datos['exito']);
+            $exito      = htmlspecialchars($datos['exito']);
+            $formulario = htmlspecialchars($datos['formulario']);
+
             $query2 = "UPDATE tareas SET estado='$estadoT', idagente='$agenteID', cerradaAgente='$exito' WHERE id=$tareaID"; 
             $resp2  = metodoPUT($query2);       
             #|-> MARCO CHECKOUT
             $queryCO = "UPDATE tareas SET checkout='$fecha' WHERE id=$tareaID"; 
             $respCO  = metodoPUT($queryCO);
+
+            #|->PROCESAR NUEVOS DATOS PARA FORMULARIO EXTRA SI ESTE ES QUE EXISTE...            
+            if($formulario==1){
+                $queryBC = "SELECT * FROM tareas WHERE idempresa='$empresaID' AND id='$tareaID'";
+                $respBC = metodoGET($queryBC);
+                $Cliente = $respBC[0]['idcliente'];
+                #|->ARRAY DE DATOS QUE DEBERIA VENIR
+                $dataExtra = $datos['dataExtra'];
+                if (is_array($dataExtra)) {
+                    foreach ($dataExtra as $entry) {
+                        $campoID = $entry['campoID'];   // ID del campo                  
+                        $valor   = $entry['valor'];     // Valor ingresado
+                        $queryU  = "UPDATE tareas_clientes_especiales SET dato_valor='$valor'
+                                    WHERE idcliente=$Cliente AND idtarea=$tareaID AND idform=$campoID"; 
+                        $respU   = metodoPUT($queryU);
+                    }
+                }
+            }
+
             #|-> Proceso imagen
             if (isBase64Image($base64Image)) {
                 $slug = str_replace(

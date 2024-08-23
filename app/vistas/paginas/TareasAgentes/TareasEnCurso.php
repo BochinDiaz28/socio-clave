@@ -378,7 +378,22 @@
             var original    = '';
             var comentario = $('#comentario_'+tareaID).val();
         }
-       
+        var formulario = 1; //estamos pasando el form sin controlar aun.
+        var dataExtra = []; // Array para almacenar los datos
+        if(formulario==1){ 
+            $('#ListaTmp input, #ListaTmp select').each(function() {
+                var elementID = $(this).attr('id');  // ID del input o select
+                var elementValue = $(this).val();    // Valor ingresado o seleccionado
+
+                dataExtra.push({
+                    campoID: elementID,
+                    valor: elementValue
+                });
+            });
+            console.log(dataExtra);
+        }else{
+                console.log("Cliente sin datos extra");
+        }
         var userID    = <?php echo $userID; ?>;
         var empresaID = <?php echo $empresaID; ?>;
         var agenteID  = $('#clienteID').val();
@@ -412,7 +427,9 @@
                     Archivo    : base64Image,
                     original   : original,
                     comentario : comentario,
-                    exito      : exito
+                    exito      : exito,
+                    formulario : formulario,
+                    dataExtra  : dataExtra
                 } 
                 fetch(apiUrl,{ 
                     method : metodo,  
@@ -862,12 +879,13 @@ function documentacionAdjunta(clienteID) {
             { "title": "ID"},
             { "title": "Cliente"},
             { "title": "Datos extras solicitados"},
-            { "title": "Requerido"},                    
+            { "title": "Requerido"},
+            { "title": "T. de Dato"},                    
             { "title": "Acciones"},
         ],
         columnDefs: [
             {
-                "targets"   : [ 0, 1, 3, 4 ],
+                "targets"   : [ 0, 1, 3, 4, 5 ],
                 "visible"   : false,
                 "searchable": false
             },
@@ -880,7 +898,10 @@ function documentacionAdjunta(clienteID) {
                 render: function(data, type, full, meta){
                     if(type === 'display'){
                         if(full[3]==0){
-                            data = '<label for="'+full[4]+'" class="form-label">'+data+'</label><input class="form-control form-control-sm" type="text" id="'+full[4]+'" value=""/>'; 
+                            if(full[4]=='texto'){ var entrada = '<input class="form-control form-control-sm" type="text" id="'+full[5]+'" value=""/>'}
+                            if(full[4]=='numero'){ var entrada = '<input class="form-control form-control-sm" type="number" id="'+full[5]+'" value=""/>'}
+                            if(full[4]=='si-no'){ var entrada = '<select class="form-select form-select-sm" id="'+full[5]+'"><option value="0" selected>No</option><option value="1">Si</option></select>'}
+                            data = '<label for="'+full[5]+'" class="form-label">'+data+'</label>'+entrada; 
                         }else{
                             data='';
                        }
@@ -895,7 +916,7 @@ function documentacionAdjunta(clienteID) {
                 render: function(data, type, full, meta){
                     if(type === 'display'){
                         var options = data == 0 ? '<option value="0">No</option>' : '<option value="1" selected>Si</option>';
-                        data = '<select class="form-select form-select-sm" id="requer_'+full[4]+'" disabled>'+options+'</select>'; 
+                        data = '<select class="form-select form-select-sm" id="requer_'+full[5]+'" disabled>'+options+'</select>'; 
                     }
                     return data;
                 }

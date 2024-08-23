@@ -387,7 +387,7 @@
 
         var dataExtra = []; // Array para almacenar los datos
         if(formulario==1){            
-            $('#Lista input').each(function() {
+            $('#ListaTmp input, #ListaTmp select').each(function() {
                 var inputID = $(this).attr('id'); // ID del input (correspondiente al campo)
                 var inputValue = $(this).val(); // Valor ingresado por el cliente                
                 dataExtra.push({
@@ -521,28 +521,32 @@
                 { "title": "ID"},
                 { "title": "Cliente"},
                 { "title": "Datos extras solicitados"},
-                { "title": "Requerido"},                    
+                { "title": "Requerido"}, 
+                { "title": "Tipo de Dato"},                    
                 { "title": "Acciones"},
             ],
             columnDefs: [
                 {
-                    "targets"   : [ 0, 1, 3, 4 ],
+                    "targets"   : [ 0, 1, 3, 4, 5 ],
                     "visible"   : false,
                     "searchable": false
                 },
                 
                 {
-                    
+                
                     targets   : [ 2 ],
                     searchable: true,
                     orderable : false,
                     render: function(data, type, full, meta){
                         if(type === 'display'){
                             if(full[3]==1){
-                                data = '<label for="'+full[4]+'" class="form-label">'+data+'</label><input class="form-control form-control-sm" type="text" id="'+full[4]+'" value=""/>'; 
+                                if(full[4]=='texto'){ var entrada = '<input class="form-control form-control-sm" type="text" id="'+full[5]+'" value=""/>'}
+                                if(full[4]=='numero'){ var entrada = '<input class="form-control form-control-sm" type="number" id="'+full[5]+'" value=""/>'}
+                                if(full[4]=='si-no'){ var entrada = '<select class="form-select form-select-sm" id="'+full[5]+'"><option value="0" selected>No</option><option value="1">Si</option></select>'}
+                                data = '<label for="'+full[5]+'" class="form-label">'+data+'</label>'+entrada; 
                             }else{
                                 data='';
-                            }
+                        }
                         }
                         return data;
                     }
@@ -554,7 +558,7 @@
                     render: function(data, type, full, meta){
                         if(type === 'display'){
                             var options = data == 0 ? '<option value="0">No</option>' : '<option value="1" selected>Si</option>';
-                            data = '<select class="form-select form-select-sm" id="requer_'+full[4]+'" disabled>'+options+'</select>'; 
+                            data = '<select class="form-select form-select-sm" id="requer_'+full[5]+'" disabled>'+options+'</select>'; 
                         }
                         return data;
                     }
@@ -586,10 +590,7 @@
             responsive: "true",
         });
     }
-    function Guardar() {
-       
-        
-    }
+
 
 
     //ESTABLECER FECHAS MINIMAS PARA LOS INPUT

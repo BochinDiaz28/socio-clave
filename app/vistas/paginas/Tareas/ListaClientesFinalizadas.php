@@ -101,7 +101,7 @@
                     orderable: false,
                     render: function(data, type, full, meta){
                         if(type === 'display'){
-                            data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Ver Informe" type="button" onClick="FormFinalX(' + data + ')"><span class="sr-only">Ver Informe</span><i class="fa fa-eye"></i></button>';
+                            data = '<button class="btn btn-outline-primary btn-sm me-1 mb-1" title="Ver Informe" type="button" onClick="FormFinalX(' + data + ')"><span class="sr-only">Ver Informe</span><i class="fa fa-eye"></i></button><button class="btn btn-outline-info btn-sm me-1 mb-1" title="Ver Informe" type="button" onClick="FormFinalPesonalizado(' + data + ')"><span class="sr-only">Ver Informe</span><i class="fa fa-eye"></i></button>';
                         }
                         return data;
                     }
@@ -153,4 +153,10 @@
     function FormFinalX(tareaID){
         window.open("<?php echo constant('RUTA_URL');?>/finalcliente?token=" + tareaID, '_blank');
     }
+
+    function FormFinalPesonalizado(tareaID){
+        window.open("<?php echo constant('RUTA_URL');?>/infcliente?token=" + tareaID, '_blank');
+    }
+
+    
 </script>

@@ -535,7 +535,7 @@ class Paginas extends Controlador{
             $this->vista('paginas/Login/ingresar', $datos);
         }    
     }
-    
+
     #|->FIN TAREAS 
 
     #|->AGENTES 
@@ -775,7 +775,16 @@ class Paginas extends Controlador{
         ];
         $this->vista('paginas/rtaClienteFin', $datos);
     }
-    #|--->FORMULARIO EXTRA CLIETNES PARA TAREAS
+
+    public function infcliente(){
+        #|-> MUESTRA CON VISTA DE CLIENTE
+        $datos = [
+            'titulo' => 'Personalizado'
+        ];
+        $this->vista('paginas/informePersonalizado', $datos);
+    }
+
+    #|--->FORMULARIO EXTRA CLIENTES PARA TAREAS
     public function extratareas($id){
         if(isset($_SESSION['nombre'])){
             if($_SESSION['rol']==100){
@@ -1278,7 +1287,6 @@ class Paginas extends Controlador{
         
     }
 
-
     #|->SUBMODULO AGENTES SEGUN APP.
     public function tomartarea(){
         if(isset($_SESSION['nombre'])){
@@ -1364,6 +1372,6 @@ class Paginas extends Controlador{
         }    
         
     }
-    
+    #|->FIN SUBMODULO AGENTES SEGUN APP.
     
 }

@@ -728,7 +728,7 @@
 <script>
 
 function IniciaLector(tareaID, clienteID) {
-    captureFoto();
+    //captureFoto();
     const video = document.getElementById("camera");
     const canvasElement = document.getElementById("canvas");
     const canvas = canvasElement.getContext("2d");

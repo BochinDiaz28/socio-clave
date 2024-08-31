@@ -55,7 +55,7 @@
                 <div class="col-sm-9">
                     <input class="form-control form-control-sm" type="text" id="email" placeholder="Correo Electronico" aria-label="" value="" />
                 </div>
-            </div>
+            </div>           
             <hr>
             <div class="form-group text-center">
                 <?php  if ($agenteID > 0){?> 

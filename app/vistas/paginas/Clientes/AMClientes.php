@@ -94,6 +94,7 @@
                 </div>
             </div>
             <hr>
+           
             <div class="form-group text-center">
                 <?php  if ($clienteID > 0){?> 
                     <button class="btn btn-outline-primary btn-sm me-1 mb-1" type="button" onclick="Controlar_Requeridos();">

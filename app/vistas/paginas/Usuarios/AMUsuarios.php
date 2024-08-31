@@ -52,7 +52,7 @@
                         <label class="form-check-label" for="estado">Usuario activo?</label>
                     </div>
                 </div>
-            </div>
+            </div>            
             <hr>
             <div class="form-group text-center">
                 <?php  if ($usuarioID > 0){?> 
@@ -92,7 +92,7 @@
                             $select.append("<option value='100'>Super Admin</option>");
                             $select.append("<option selected selected value='125'>Supervisor</option>");
                         }else if(item.rol==150){                           
-                            $select.append("<option selected selected value='150'>Profesor</option>");
+                            $select.append("<option selected selected value='150'>Cliente</option>");
                         }else if(item.rol==200){                           
                             $select.append("<option selected selected value='200'>Agente</option>");
                         }
@@ -103,10 +103,7 @@
                             checkbox.checked = true; 
                         }else{
                             checkbox.checked = false; 
-                        }
-                       
-                        
-                        
+                        } 
 
                     } 
                 });   
@@ -144,6 +141,8 @@
         var clienteID = <?php echo $usuarioID; ?>;
         var empresaID = <?php echo $empresaID; ?>;
         if(document.getElementById("estado").checked==true){ var activo=1; }else{ var activo=0;}
+        if(document.getElementById("webview").checked==true){ var webview=1; }else{ var webview=0;}
+        
         if(clienteID==0)
         { 
             var Accion    = 'Crear';

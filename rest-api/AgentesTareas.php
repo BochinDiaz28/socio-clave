@@ -131,8 +131,10 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 $resp2 []= array("error" => "La tarea ya no esta disponible!");
             }
         }elseif($estadoT==3){
-            
-            $query2 = "UPDATE tareas SET estado='$estadoT', idagente='$agenteID' WHERE id=$tareaID"; 
+            $lat = htmlspecialchars($datos['lat']);
+            $lon = htmlspecialchars($datos['lon']);
+
+            $query2 = "UPDATE tareas SET estado='$estadoT', idagente='$agenteID', lat_ini='$lat', lon_ini='$lon' WHERE id=$tareaID"; 
             $resp2  = metodoPUT($query2);
 
             #|-> MARCO CHECKIN
@@ -185,11 +187,12 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
                 }
                 
             }
-        }elseif($estadoT==4){
+        }elseif($estadoT==4){            
             $exito      = htmlspecialchars($datos['exito']);
             $formulario = htmlspecialchars($datos['formulario']);
-
-            $query2 = "UPDATE tareas SET estado='$estadoT', idagente='$agenteID', cerradaAgente='$exito' WHERE id=$tareaID"; 
+            $lat = htmlspecialchars($datos['lat']);
+            $lon = htmlspecialchars($datos['lon']);
+            $query2 = "UPDATE tareas SET estado='$estadoT', idagente='$agenteID', cerradaAgente='$exito', lat_fin='$lat', lon_fin='$lon' WHERE id=$tareaID"; 
             $resp2  = metodoPUT($query2);       
             #|-> MARCO CHECKOUT
             $queryCO = "UPDATE tareas SET checkout='$fecha' WHERE id=$tareaID"; 

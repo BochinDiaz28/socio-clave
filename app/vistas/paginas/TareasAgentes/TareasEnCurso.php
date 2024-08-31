@@ -159,6 +159,9 @@
                             <input type="hidden" id="clienteID" value="0">
                             <input type="hidden" id="tareaIDx"  value="0">
                             <input type="hidden" id="formulario" value="0">
+                            <!--GEO POS NAVEGADOR-->
+                            <input type="hidden" id="latitude" value="0">
+                            <input type="hidden" id="longitude" value="0">
                         </div>
                         <div class="ms-2 me-2">
                             <div class="alert alert-danger border-2 d-flex align-items-center" role="alert">
@@ -335,6 +338,7 @@
     }
     
     function ControRequeridos(tareaID) {
+        CheckGeo();
         var fotoFinal = 0;
         var checkList = 0;
         var url       = '<?=constant('RUTA_URL');?>/rest-api/Tareas.php?tareaID='+tareaID;
@@ -382,7 +386,7 @@
         }else{
             var base64Image = '';
             var original    = '';
-            var comentario = $('#comentario_'+tareaID).val();
+            var comentario  = '';
         }
         
         var formulario = $('#formulario').val();
@@ -400,6 +404,10 @@
         }else{
                 console.log("Cliente sin datos extra");
         }
+        //RECUPERAR GEO
+        var lat = $('#latitude').val();
+        var lon = $('#longitude').val();
+
         var userID    = <?php echo $userID; ?>;
         var empresaID = <?php echo $empresaID; ?>;
         var agenteID  = $('#clienteID').val();
@@ -435,7 +443,9 @@
                     comentario : comentario,
                     exito      : exito,
                     formulario : formulario,
-                    dataExtra  : dataExtra
+                    dataExtra  : dataExtra,
+                    lat        : lat,
+                    lon        : lon 
                 } 
                 fetch(apiUrl,{ 
                     method : metodo,  
@@ -954,7 +964,35 @@ function documentacionAdjunta(clienteID) {
     });
 }
 
+/*GEO POS NAVEGADOR*/
+function CheckGeo() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        alert ("La geolocalización no es soportada por este navegador.");
+    }
+}
 
+function showPosition(position) {
+    $('#latitude').val(position.coords.latitude);
+    $('#longitude').val(position.coords.longitude);
+    console.log("Latitud:", position.coords.latitude, "Longitud:", position.coords.longitude);
+}
 
-
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            alert ("El usuario denegó la solicitud de geolocalización.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            alert ("La información de la ubicación no está disponible.");
+            break;
+        case error.TIMEOUT:
+            alert ("La solicitud para obtener la ubicación ha expirado.");
+            break;
+        case error.UNKNOWN_ERROR:
+            alert ("Se ha producido un error desconocido.");
+            break;
+    }
+}
 </script>

@@ -88,6 +88,10 @@
                             <input type="hidden" id="sucID"     value="0">
                             <input type="hidden" id="clienteID" value="0">
                             <input type="hidden" id="tareaIDx" value="0">
+                            <!--GEO POS NAVEGADOR-->
+                            <input type="hidden" id="latitude" value="0">
+                            <input type="hidden" id="longitude" value="0">
+                           
                         </div>
                         <div class="ms-2 me-2">
                             <div class="alert alert-danger border-2 d-flex align-items-center" role="alert">
@@ -180,6 +184,7 @@
     }
 
     function ControRequeridos(tareaID) {
+        CheckGeo();
         var fotoFinal = 0;
         var checkList = 0;
         var url       = '<?=constant('RUTA_URL');?>/rest-api/Tareas.php?tareaID='+tareaID;
@@ -214,8 +219,8 @@
     }
     function IniciarTareas(tareaID,fotoFinal) {
         /* RECUPERAMOS BOTON */
+        
         var btn = document.getElementById('iniciarBtn_' + tareaID);
-      
         var userID    = <?php echo $userID; ?>;
         var empresaID = <?php echo $empresaID; ?>;
         var agenteID  = $('#clienteID').val(); 
@@ -234,9 +239,12 @@
         }else{
             var base64Image = '';
             var original    = '';
-            var comentario = $('#comentario_'+tareaID).val();
+            var comentario  = '';
         }
 
+        //RECUPERAR GEO
+        var lat = $('#latitude').val();
+        var lon = $('#longitude').val();
         Swal.fire({
             title: '<strong>Confirma '+Accion+'?</strong>',
             icon : 'info',
@@ -262,7 +270,9 @@
                     estado     : 3,
                     Archivo    : base64Image,
                     original   : original,
-                    comentario : comentario
+                    comentario : comentario,
+                    lat        : lat,
+                    lon        : lon 
                 } 
                 fetch(apiUrl,{ 
                     method : metodo,  
@@ -317,6 +327,38 @@
         };
         if (selectedFile) {
             reader.readAsDataURL(selectedFile);
+        }
+    }
+
+    /*GEO POS NAVEGADOR*/
+    function CheckGeo() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            alert ("La geolocalización no es soportada por este navegador.");
+        }
+    }
+
+    function showPosition(position) {
+        $('#latitude').val(position.coords.latitude);
+        $('#longitude').val(position.coords.longitude);
+        console.log("Latitud:", position.coords.latitude, "Longitud:", position.coords.longitude);
+    }
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert ("El usuario denegó la solicitud de geolocalización.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert ("La información de la ubicación no está disponible.");
+                break;
+            case error.TIMEOUT:
+                alert ("La solicitud para obtener la ubicación ha expirado.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert ("Se ha producido un error desconocido.");
+                break;
         }
     }
 </script>

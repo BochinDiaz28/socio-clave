@@ -158,6 +158,8 @@
         var html      = ''; //ESTE ES PARA PRODUCTOS
         var token = <?php echo  $token; ?>;
         var id=0;
+        var posIni = 0;
+        var posFin = 0;
         var url ='<?php echo constant('RUTA_URL');?>/rest-api/Tareas?tareInformeFinalGET='+token;
         fetch(url)
         .then(response => response.json())
@@ -172,11 +174,14 @@
                 //TABLA DE PERMANENCIA
                 let checkin  = item.checkin;
                 let checkout = item.checkout;
+                //POSICIONES DEL AGENTE AL INICIAR Y FINALIZAR TAREAS
+                posIni = item.lat_ini+','+ item.lon_ini;
+                posFin = item.lat_fin+','+item.lon_fin;
                 let tiempoEnElLugar = calculateTimeDifference(checkin, checkout);
                 html+='<tr>'+
                             '<td class="cs-width_3">'+item.Agente+'</td>'+
-                            '<td class="cs-width_3">'+InvertirFecha(item.checkin)+'</td>'+
-                            '<td class="cs-width_3">'+InvertirFecha(item.checkout)+'</td>'+
+                            '<td class="cs-width_3">'+InvertirFecha(item.checkin)+'<br>'+posIni+'</td>'+
+                            '<td class="cs-width_3">'+InvertirFecha(item.checkout)+'<br>'+posFin+'</td>'+
                             '<td class="cs-width_3 cs-text_right">'+tiempoEnElLugar+'</td>'+                            
                         '</tr>';
                 $('#_Cliente').html(item.Cliente);
@@ -199,7 +204,7 @@
                     }
                     $('#_MuestraTerminos').html(mje +': '+item.notaCliente);
                 }
-                //
+           
             });    
             $('#_lstItems').html(html);
             

@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         http_response_code(200);  
     }else if(isset($_GET['tareInformeFinalGET'])){ #|->LLAMA DESDE INFORMES
         $id    = $_GET['tareInformeFinalGET'];
-        $query = "SELECT a.id, a.tarea, a.ubicacion, a.nota, a.fecha_sol, a.checkin, a.checkout, (b.nombre) AS Agente, (c.nombre) AS Cliente, c.cuit, a.checklist, a.cerradaCliente, a.notaCliente
+        $query = "SELECT a.id, a.tarea, a.ubicacion, a.nota, a.fecha_sol, a.checkin, a.checkout, (b.nombre) AS Agente, (c.nombre) AS Cliente, c.cuit, a.checklist, a.cerradaCliente, a.notaCliente, a.lat_ini, a.lon_ini, a.lat_fin, a.lon_fin
                   FROM tareas a, agentes b, clientes c 
                   WHERE a.idagente=b.id AND a.idcliente=c.id AND a.id=$id";
         $resp  = metodoGET($query);

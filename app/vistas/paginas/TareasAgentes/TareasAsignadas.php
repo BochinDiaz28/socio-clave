@@ -152,7 +152,7 @@
                     if(item.foto_inicio==1){
                         var fotoInicio =dropZone;
                     }else{
-                        var fotoInicio ='<input class="form-control form-control-sm" type="text" id="comentario" placeholder="Su comentario"/>';
+                        var fotoInicio ='';
                     }
                     html+='<div class="card border h-100 custom-card-border mb-3"><div class="card-body"><div class="col-md-12 h-100">'+
                         '   <div class="row">'+

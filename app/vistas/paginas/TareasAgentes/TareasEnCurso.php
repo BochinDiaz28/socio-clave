@@ -290,7 +290,7 @@
                         if(item.foto_final==1){
                             var fotoFinal =dropZone;
                         }else{
-                            var fotoFinal ='<input class="form-control form-control-sm" type="text" id="comentario" placeholder="Su comentario"/>';
+                            var fotoFinal ='';
                         }
                         clienteID = item.idcliente;
                         FormExtra = item.formulario;
@@ -312,6 +312,9 @@
                                     '              '+fotoFinal+''+                   
                                     '              <br>'+
                                     '              <div class="row"><div class="col-12"><div class="table-responsive scrollbar"><table class="table table-sm fs--1 mb-0 overflow-hidden" id="ListaTmp"style="width:100%"><thead class="bg-200 text-900"></thead></table></div></div></div>'+ 
+                                    '              <br>'+
+                                    '              <div class="row"><div class="col-12"><select class="form-select form-select-sm " id="exito"><option value="1" selected>Si -> Realizada</option><option value="0">No -> Cancelada</option></select></div></div>'+ 
+                                    '              <br>'+
                                     '              <button id="iniciarBtn_'+item.id+'" class="btn btn-secondary btn-sm me-1 mb-1" type="button" onclick="ControRequeridos(' + item.id + ');" style="border-color: #0C787B; background-color:#0C787B;"><span class="fas fa-check" data-fa-transform="shrink-3"></span> Finalizar Tarea</button>' +
                                     '              <hr class="border-dashed border-bottom-0">' +
                                     '              <div id="_tempProductos">' + rtaProductos + '</div>' +                                
@@ -411,7 +414,7 @@
         var userID    = <?php echo $userID; ?>;
         var empresaID = <?php echo $empresaID; ?>;
         var agenteID  = $('#clienteID').val();
-        var exito     = 1; 
+        var exito     = $('#exito').val(); //1; 
         var Accion    = 'Finalizar';  
         var rtaAccion = 'Finalizada!'; 
         var metodo    = 'PUT';

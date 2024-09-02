@@ -216,8 +216,6 @@
         ListaTemporal(token);
     }
 
-
-
     function ListaTemporal(tareaID) {
         var url = '<?php echo constant('RUTA_URL');?>/rest-api/PanolControl.php?panolControlGET='+ tareaID;
         var html = '';
@@ -229,10 +227,9 @@
                     html+='<tr>'+
                                 '<td class="cs-width_2">'+item.cantidad+'</td>'+             
                                 '<td class="cs-width_3">'+item.codigo+'</td>'+
-                                '<td class="cs-width_4">'+item.producto+'</td>'+
-                                '<td class="cs-width_2">'+item.dato2+'</td>'+
-                                                    
-                        '</tr>';
+                                '<td class="cs-width_4">'+item.producto+'<br><smll>'+item.dato1+'</small></td>'+
+                                '<td class="cs-width_2">'+item.dato2+'</td>'+                   
+                          '</tr>';
                 }); 
                 $('#_lstItems2').html(html);
                 $('#_consumoSi').html('[  ]');
@@ -263,7 +260,7 @@
                   if(item.id==15){
                     $('#_Medico').html(item.dato_valor);
                   }
-                  if(item.id==15){
+                  if(item.id==16){
                     $('#_Paciente').html(item.dato_valor);
                   }
                   if(item.id==19){
@@ -278,46 +275,46 @@
                   if(item.id==22){
                     if(item.dato_valor==1){
                         $("#_consignaSi").html('[X]'); 
-                        $("#_consignaSi").html('[  ]');
+                        //$("#_consignaSi").html('[  ]');
                     }else{
                         $("#_consignaSi").html('[  ]'); 
-                        $("#_consignaSi").html('[X]');
+                        //$("#_consignaSi").html('[X]');
                     }                   
                   }
                   if(item.id==23){
                     if(item.dato_valor==1){
                         $("#_transitoSi").html('[X]'); 
-                        $("#_transitoSi").html('[  ]');
+                        //$("#_transitoSi").html('[  ]');
                     }else{
                         $("#_transitoSi").html('[  ]'); 
-                        $("#_transitoSi").html('[X]');
+                        //$("#_transitoSi").html('[X]');
                     }                       
                   }
                   if(item.id==24){                   
                     if(item.dato_valor==1){
                         $("#_mixtaSi").html('[X]'); 
-                        $("#_mixtaSi").html('[  ]');
+                        //$("#_mixtaSi").html('[  ]');
                     }else{
                         $("#_mixtaSi").html('[  ]'); 
-                        $("#_mixtaSi").html('[X]');
+                        //$("#_mixtaSi").html('[X]');
                     }      
                   }
                   if(item.id==25){                   
                     if(item.dato_valor==1){
                         $("#_reclamoSi").html('[X]'); 
-                        $("#_reclamoSi").html('[  ]');
+                        //$("#_reclamoSi").html('[  ]');
                     }else{
                         $("#_reclamoSi").html('[  ]'); 
-                        $("#_reclamoSi").html('[X]');
+                        //$("#_reclamoSi").html('[X]');
                     }      
                   }
                   if(item.id==26){                   
                     if(item.dato_valor==1){
                         $("#_abiertoSi").html('[X]'); 
-                        $("#_abiertoSi").html('[  ]');
+                        //$("#_abiertoSi").html('[  ]');
                     }else{
                         $("#_abiertoSi").html('[  ]'); 
-                        $("#_abiertoSi").html('[X]');
+                        //$("#_abiertoSi").html('[X]');
                     }      
                   }
                   

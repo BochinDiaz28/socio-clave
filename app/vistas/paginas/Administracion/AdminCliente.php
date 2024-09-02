@@ -243,7 +243,6 @@
                         $('#sucID').val(item.idreail);
                         $('#nombre').val(item.tarea); 
                         $('#direccion').val(item.ubicacion);
-      
                         $('#fechaCheckin').val(item.fecha_sol);
                         $('#horaIngreso').val(item.hora_inicio);
                         $('#horaSalida').val(item.hora_final);
@@ -387,7 +386,7 @@
 
         var dataExtra = []; // Array para almacenar los datos
         if(formulario==1){            
-            $('#ListaTmp input, #ListaTmp select').each(function() {
+            $('#Lista input, #Lista select').each(function() {
                 var inputID = $(this).attr('id'); // ID del input (correspondiente al campo)
                 var inputValue = $(this).val(); // Valor ingresado por el cliente                
                 dataExtra.push({
